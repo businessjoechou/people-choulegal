@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 初判 — 周全</title>
+<meta name="description" content="把你遇到的事說一次，AI 幫你查相關法條與裁判，告訴你大概的方向、要保留的證據、要注意的時效。AI 初判，僅供參考，正式案件請諮詢律師。">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://people.choulegal.com/ai-triage.html">
+<meta property="og:title" content="AI 初判 — 周全">
+<meta property="og:description" content="說一次你的狀況，AI 幫你找方向。不含刑事。">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_TW">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600&family=Noto+Sans+TC:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #06070B;
+    color: rgba(255,255,255,0.92);
+    font-family: 'Noto Sans TC', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  *:focus-visible { outline: 2px solid rgba(255,255,255,0.5); outline-offset: 3px; border-radius: 4px; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; }
+
+  /* ── Background mesh ── */
+  .bg-mesh { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+  .blob { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.5; will-change: transform; }
+  .blob-1 { top: -25vh; left: -10vw; width: 70vw; height: 70vw;
+    background: radial-gradient(circle, rgba(251,146,60,0.5), rgba(251,146,60,0) 60%);
+    animation: drift1 28s ease-in-out infinite; }
+  .blob-2 { top: 30vh; right: -15vw; width: 65vw; height: 65vw;
+    background: radial-gradient(circle, rgba(244,114,182,0.4), rgba(244,114,182,0) 60%);
+    animation: drift2 32s ease-in-out infinite; }
+  .blob-3 { bottom: -20vh; left: 25vw; width: 55vw; height: 55vw;
+    background: radial-gradient(circle, rgba(217,119,6,0.45), rgba(217,119,6,0) 60%);
+    animation: drift3 36s ease-in-out infinite; }
+  @keyframes drift1 {0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(80px,-40px) scale(1.1)}}
+  @keyframes drift2 {0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-60px,60px) scale(1.05)}}
+  @keyframes drift3 {0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-50px) scale(0.95)}}
+  .bg-grid { position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background-image: linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 80px 80px; opacity: 0.3;
+    mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.85), transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.85), transparent 80%); }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── Nav ── */
+  .nav { padding: 26px 0; display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-family: 'Noto Serif TC', serif; font-size: 17px; font-weight: 500; letter-spacing: 0.04em; }
+  .nav-logo span { margin-left: 10px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.26em; color: #fde68a; text-transform: uppercase; }
+  .nav-back { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; color: rgba(255,255,255,0.5); text-transform: uppercase; }
+  .nav-back:hover { color: rgba(255,255,255,0.92); }
+
+  /* ── Hero ── */
+  .hero { padding: 56px 0 32px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 6px 14px;
+    border: 1px solid rgba(253,230,138,0.3);
+    background: rgba(253,230,138,0.06);
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; letter-spacing: 0.22em;
+    color: #fde68a; text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #fde68a; animation: pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse {0%,100%{opacity:0.4}50%{opacity:1}}
+  .h1 { font-family: 'Noto Serif TC', serif; font-weight: 400; font-size: clamp(36px, 5.5vw, 64px); line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 16px; }
+  .h1 em { font-style: italic; font-weight: 300; background: linear-gradient(110deg, #fde68a, #fb923c, #f9a8d4); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lead { font-size: clamp(15px, 1.4vw, 17px); color: rgba(255,255,255,0.65); line-height: 1.85; max-width: 620px; }
+
+  /* ── Disclaimer banner (上方紅框) ── */
+  .disclaimer {
+    margin: 28px 0 36px;
+    padding: 18px 22px;
+    border: 1px solid rgba(248,113,113,0.35);
+    background: rgba(248,113,113,0.06);
+    border-radius: 14px;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .disclaimer-icon { font-size: 18px; line-height: 1.4; flex-shrink: 0; }
+  .disclaimer-body { font-size: 13.5px; color: rgba(255,255,255,0.85); line-height: 1.75; }
+  .disclaimer-body strong { color: #fca5a5; font-weight: 500; }
+
+  /* ── Form section ── */
+  .card {
+    padding: 32px 30px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.025);
+    backdrop-filter: blur(8px);
+    border-radius: 18px;
+    margin-bottom: 24px;
+  }
+  .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.22em;
+    color: rgba(255,255,255,0.5); text-transform: uppercase;
+    margin-bottom: 14px; display: block;
+  }
+  .label-hint { font-family: 'Noto Sans TC', sans-serif; font-size: 12.5px; color: rgba(255,255,255,0.45); letter-spacing: 0; text-transform: none; margin-left: 10px; }
+
+  /* ── Domain chips ── */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+  .chip {
+    padding: 8px 16px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.02);
+    border-radius: 999px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .chip:hover { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.95); }
+  .chip.is-active {
+    border-color: #fde68a;
+    background: rgba(253,230,138,0.12);
+    color: #fef3c7;
+  }
+  .chip-disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    text-decoration: line-through;
+  }
+  .chip-disabled:hover { border-color: rgba(255,255,255,0.15); color: rgba(255,255,255,0.5); }
+
+  /* ── Textarea ── */
+  textarea.input {
+    width: 100%;
+    min-height: 200px;
+    padding: 18px 20px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(0,0,0,0.25);
+    border-radius: 12px;
+    color: rgba(255,255,255,0.95);
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    resize: vertical;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  textarea.input:focus {
+    outline: none;
+    border-color: rgba(253,230,138,0.5);
+    background: rgba(0,0,0,0.35);
+  }
+  textarea.input::placeholder { color: rgba(255,255,255,0.32); }
+
+  .helpers {
+    margin-top: 10px;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; letter-spacing: 0.16em;
+    color: rgba(255,255,255,0.4); text-transform: uppercase;
+  }
+
+  /* ── Submit button ── */
+  .submit-row { margin-top: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,0.96);
+    color: #06070B;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 13px 26px;
+    border: none;
+    border-radius: 999px;
+    transition: transform 0.3s, background 0.2s;
+  }
+  .btn-primary:hover:not(:disabled) { background: #fde68a; transform: translateY(-2px); }
+  .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+  .submit-note { font-size: 12.5px; color: rgba(255,255,255,0.5); }
+
+  /* ── Results ── */
+  .results { margin-top: 40px; display: none; }
+  .results.is-visible { display: block; }
+
+  .result-status {
+    margin-bottom: 24px;
+    padding: 18px 22px;
+    border-radius: 14px;
+    border: 1px solid rgba(56,189,248,0.3);
+    background: rgba(56,189,248,0.06);
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.75;
+  }
+  .result-status strong { color: #7dd3fc; font-weight: 500; }
+
+  /* ── Section blocks ── */
+  .block {
+    margin-bottom: 18px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.02);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .block-head {
+    width: 100%;
+    padding: 18px 22px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: transparent;
+    border: none;
+    color: inherit;
+    text-align: left;
+  }
+  .block-head:hover { background: rgba(255,255,255,0.025); }
+  .block-title {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 500;
+    font-size: 17px;
+    color: rgba(255,255,255,0.95);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .block-title-icon { font-size: 18px; }
+  .block-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px; letter-spacing: 0.22em;
+    padding: 3px 9px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    margin-left: 8px;
+  }
+  .tag-ai { background: rgba(167,139,250,0.15); color: #c4b5fd; border: 1px solid rgba(167,139,250,0.3); }
+  .tag-source { background: rgba(52,211,153,0.12); color: #6ee7b7; border: 1px solid rgba(52,211,153,0.3); }
+  .tag-compute { background: rgba(125,211,252,0.13); color: #7dd3fc; border: 1px solid rgba(125,211,252,0.35); }
+  .tag-priority { background: rgba(248,113,113,0.15); color: #fca5a5; border: 1px solid rgba(248,113,113,0.35); }
+
+  .chevron { color: rgba(255,255,255,0.4); transition: transform 0.3s; font-size: 14px; }
+  .block.is-open .chevron { transform: rotate(180deg); }
+  .block-body {
+    padding: 0 22px 20px;
+    display: none;
+    color: rgba(255,255,255,0.78);
+    line-height: 1.85;
+    font-size: 14px;
+  }
+  .block.is-open .block-body { display: block; }
+  .block-body p + p { margin-top: 10px; }
+  .block-body ul { padding-left: 20px; margin: 8px 0; }
+  .block-body li { margin-bottom: 6px; }
+  .block-body .placeholder {
+    color: rgba(255,255,255,0.4);
+    font-style: italic;
+    padding: 12px 16px;
+    border-left: 2px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.02);
+    border-radius: 0 8px 8px 0;
+  }
+
+  /* Force-open important sections */
+  .block.priority-open { border-color: rgba(248,113,113,0.35); background: rgba(248,113,113,0.04); }
+
+  /* ── Footer note ── */
+  .foot {
+    margin: 60px 0 50px;
+    padding: 24px 0;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.85;
+  }
+  .foot strong { color: rgba(255,255,255,0.7); font-weight: 500; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .blob { animation: none !important; }
+  }
+
+  /* AI-2 thumbs feedback */
+  .feedback {
+    margin-top: 32px;
+    padding: 22px 26px;
+    background: rgba(15, 23, 32, 0.55);
+    border: 1px solid rgba(253, 230, 138, 0.18);
+    border-radius: 14px;
+    color: rgba(255,255,255,0.82);
+  }
+  .feedback-prompt {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 14px;
+    color: rgba(253, 230, 138, 0.92);
+    letter-spacing: 0.02em;
+  }
+  .feedback-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .feedback-btn {
+    appearance: none;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.85);
+    padding: 10px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font: inherit;
+    transition: background 120ms, border-color 120ms;
+  }
+  .feedback-btn:hover { background: rgba(255,255,255,0.06); }
+  .feedback-btn.is-selected {
+    background: rgba(253, 230, 138, 0.12);
+    border-color: rgba(253, 230, 138, 0.55);
+    color: rgba(253, 230, 138, 0.95);
+  }
+  .feedback-detail { margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .feedback-label { font-size: 13px; color: rgba(255,255,255,0.55); }
+  .feedback-select, .feedback-comment {
+    width: 100%; box-sizing: border-box;
+    background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.92);
+    padding: 10px 12px; border-radius: 8px; font: inherit;
+  }
+  .feedback-comment { min-height: 80px; resize: vertical; }
+  .feedback-submit {
+    align-self: flex-start;
+    appearance: none;
+    background: rgba(253, 230, 138, 0.18);
+    border: 1px solid rgba(253, 230, 138, 0.55);
+    color: rgba(253, 230, 138, 0.95);
+    padding: 10px 22px; border-radius: 10px; cursor: pointer; font: inherit;
+  }
+  .feedback-submit:hover { background: rgba(253, 230, 138, 0.28); }
+  .feedback-thanks {
+    margin-top: 8px;
+    color: rgba(253, 230, 138, 0.92);
+    font-size: 14px;
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-mesh" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+<div class="bg-grid" aria-hidden="true"></div>
+
+<div class="container">
+
+  <header class="nav">
+    <a href="/" class="nav-logo">周全</a>
+    <a href="/" class="nav-back">← 回首頁</a>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">AI 初判 · BETA</div>
+    <h1 class="h1">說一次你遇到的事，<em>我們幫你找方向。</em></h1>
+    <p class="lead">
+      把狀況用自己的話寫下來。AI 會去翻相關法條和法院判決，
+      告訴你大概站在哪一邊、要保留什麼證據、有哪些時效不能錯過、可以找誰幫忙。
+    </p>
+  </section>
+
+  <div class="disclaimer">
+    <div class="disclaimer-icon">⚠️</div>
+    <div class="disclaimer-body">
+      <strong>這是 AI 初判，不是法律意見。</strong>
+      AI 給你的是「方向」，不是「答案」。我們不會幫你下「對方一定犯罪」這種結論——
+      正式的案件判讀，請找律師。也<strong>不處理刑事案件</strong>（誰可能犯罪、是否成立詐欺/傷害等），
+      牽涉刑事請直接諮詢律師或撥打 165、110。
+    </div>
+  </div>
+
+  <section class="card">
+    <label class="label">Step 01 · 選擇案件領域 <span class="label-hint">可複選；不確定就直接寫，AI 會自己判斷</span></label>
+    <div class="chips" id="chips" role="group" aria-label="案件領域">
+      <button class="chip" data-domain="civil" type="button">民事糾紛</button>
+      <button class="chip" data-domain="labor" type="button">勞動／勞基法</button>
+      <button class="chip" data-domain="consumer" type="button">消費者保護</button>
+      <button class="chip" data-domain="admin" type="button">行政／公務</button>
+      <button class="chip" data-domain="tax" type="button">稅務</button>
+      <button class="chip" data-domain="family" type="button">家事繼承</button>
+      <button class="chip" data-domain="traffic" type="button">車禍交通</button>
+      <button class="chip" data-domain="medical" type="button">醫療糾紛</button>
+      <button class="chip chip-disabled" type="button" disabled aria-disabled="true" title="刑事不在 AI 初判範圍">刑事案件（不支援）</button>
+    </div>
+
+    <label class="label" for="story">Step 02 · 描述你的狀況 <span class="label-hint">越具體越好；時間、地點、人、發生什麼事、現在卡在哪</span></label>
+    <textarea
+      id="story"
+      class="input"
+      placeholder="例：我去年 11 月在 OO 公司上班，今年 3 月被資遣，公司只給我 2 個月薪水當資遣費，沒給特休沒休完的工資。我做了 3 年又 4 個月，平均工資 5 萬。請問這樣對嗎？我可以怎麼處理？"
+      maxlength="3000"
+    ></textarea>
+    <div class="helpers">
+      <span id="charCount">0 / 3000</span>
+      <span>不會儲存・不會外傳・送出後即時銷毀</span>
+    </div>
+
+    <div class="submit-row">
+      <button id="submitBtn" class="btn-primary" type="button" disabled>
+        送出給 AI 初判 <span aria-hidden="true">→</span>
+      </button>
+      <span class="submit-note" id="submitNote">至少寫 30 字才能送出</span>
+    </div>
+  </section>
+
+  <section class="results" id="results" aria-live="polite">
+
+    <div class="result-status" id="resultStatus" hidden></div>
+
+    <div class="block priority-open is-open" id="block-limitations">
+      <button class="block-head" type="button" aria-expanded="true">
+        <span class="block-title">
+          <span class="block-title-icon">📌</span>
+          關鍵時效警告
+          <span class="block-tag tag-priority">最優先</span>
+        </span>
+        <span class="chevron">▾</span>
+      </button>
+      <div class="block-body" data-slot="body">
+        <p class="placeholder">AI 會列出本案最可能涉及的時效，按剩下天數排序。</p>
+      </div>
+    </div>
+
+    <div class="block compute-open is-open" id="block-computations" hidden>
+      <button class="block-head" type="button" aria-expanded="true">
+        <span class="block-title">
+          <span class="block-title-icon">🧮</span>
+          算到位的數字
+          <span class="block-tag tag-compute">引擎計算 ‧ 非 AI 估算</span>
+        </span>
+        <span class="chevron">▾</span>
+      </button>
+      <div class="block-body" data-slot="body">
+        <p class="placeholder">本案沒有可被計算引擎處理的具體數字。</p>
+      </div>
+    </div>
+
+    <div class="block is-open" id="block-summary">
+      <button class="block-head" type="button" aria-expanded="true">
+        <span class="block-title">
+          <span class="block-title-icon">🪞</span>
+          你的狀況白話總結
+          <span class="block-tag tag-ai">AI 初判</span>
+        </span>
+        <span class="chevron">▾</span>
+      </button>
+      <div class="block-body" data-slot="body">
+        <p class="placeholder">AI 用自己的話把你寫的內容覆述一次。</p>
+      </div>
+    </div>
+
+    <div class="block is-open" id="block-side">
+      <button class="block-head" type="button" aria-expanded="true">
+        <span class="block-title">
+          <span class="block-title-icon">⚖️</span>
+          你大概站在哪邊
+          <span class="block-tag tag-ai">AI 初判</span>
+        </span>
+        <span class="chevron">▾</span>
+      </button>
+      <div class="block-body" data-slot="body">
+        <p class="placeholder">不下定性、不講罪名，只給方向。</p>
+      </div>
+    </div>
+
+    <div class="block" id="block-actions">
+      <button class="block-head" type="button" aria-expanded="false">
+        <span class="block-title">
+          <span class="block-title-icon">🛠️</span>
+          你可以做什麼
+          <span class="block-tag tag-ai">AI 初判</span>
+        </span>
+        <span class="chevron">▾</span>
+      </button>
+      <div class="block-body" data-slot="body">
+        <p class="placeholder">步驟化建議。</p>
+      </div>
+    </div>
+
+    <div class="block" id="block-evidence">
+      <button class="block-head" type="button" aria-expanded="false">
+        <span class="block-title">
+          <span class="block-title-icon">📂</span>
+          你要保留什麼證據
+          <span class="block-tag tag-ai">AI 初判</span>
+        </span>
+        <span class="chevron">▾</span>
+      </button>
+      <div class="block-body" data-slot="body">
+        <p class="placeholder">checklist 形式。</p>
+      </div>
+    </div>
+
+    <div class="block" id="block-agencies">
+      <button class="block-head" type="button" aria-expanded="false">
+        <span class="block-title">
+          <span class="block-title-icon">🏛️</span>
+          找誰幫忙
+          <span class="block-tag tag-ai">AI 初判</span>
+        </span>
+        <span class="chevron">▾</span>
+      </button>
+      <div class="block-body" data-slot="body">
+        <p class="placeholder">公部門資源 + 律師專長領域。</p>
+      </div>
+    </div>
+
+    <div class="block" id="block-laws">
+      <button class="block-head" type="button" aria-expanded="false">
+        <span class="block-title">
+          <span class="block-title-icon">📜</span>
+          法條依據
+          <span class="block-tag tag-source">官方原文</span>
+        </span>
+        <span class="chevron">▾</span>
+      </button>
+      <div class="block-body" data-slot="body">
+        <p class="placeholder">原文照搬，附法源連結。</p>
+      </div>
+    </div>
+
+    <div class="block" id="block-cases">
+      <button class="block-head" type="button" aria-expanded="false">
+        <span class="block-title">
+          <span class="block-title-icon">🏛️</span>
+          相關裁判
+          <span class="block-tag tag-source">司法院字號</span>
+        </span>
+        <span class="chevron">▾</span>
+      </button>
+      <div class="block-body" data-slot="body">
+        <p class="placeholder">司法院裁判書系統的字號 + 連結。</p>
+      </div>
+    </div>
+
+    <div class="block" id="block-templates">
+      <button class="block-head" type="button" aria-expanded="false">
+        <span class="block-title">
+          <span class="block-title-icon">📄</span>
+          範本下載
+          <span class="block-tag tag-ai">AI 初判</span>
+        </span>
+        <span class="chevron">▾</span>
+      </button>
+      <div class="block-body" data-slot="body">
+        <p class="placeholder">存證信函、申訴書、調解聲請書等。</p>
+      </div>
+    </div>
+
+    <div class="feedback" id="block-feedback" hidden>
+      <div class="feedback-prompt">這份初判對你有幫助嗎？</div>
+      <div class="feedback-actions">
+        <button type="button" class="feedback-btn" data-rating="up" aria-label="有幫助">
+          <span aria-hidden="true">👍</span> 有幫助
+        </button>
+        <button type="button" class="feedback-btn" data-rating="down" aria-label="不準確">
+          <span aria-hidden="true">👎</span> 不準確
+        </button>
+      </div>
+      <div class="feedback-detail" hidden>
+        <label class="feedback-label" for="feedback-reason">主因（可選）</label>
+        <select id="feedback-reason" class="feedback-select">
+          <option value="">不指定</option>
+          <option value="inaccurate">引用法條不對</option>
+          <option value="irrelevant">沒答到我的問題</option>
+          <option value="too_vague">太籠統不能用</option>
+          <option value="other">其他</option>
+        </select>
+        <label class="feedback-label" for="feedback-comment">補充（500 字內，選填）</label>
+        <textarea id="feedback-comment" class="feedback-comment" maxlength="500"
+          placeholder="可寫具體哪裡有問題，例如『民法 §183 應該是 §184』。"></textarea>
+        <button type="button" class="feedback-submit" id="feedback-submit">送出回饋</button>
+      </div>
+      <div class="feedback-thanks" hidden>感謝回饋！</div>
+    </div>
+
+  </section>
+
+  <footer class="foot">
+    <strong>關於 AI 初判：</strong>
+    AI 只負責「找資料 + 對位 + 解釋」，所有引用的法條都是直接從全國法規資料庫撈的原文，
+    所有引用的判決字號都會經過司法院裁判書系統驗證。如果你看到 AI 回傳找不到的字號或寫錯的條文，
+    請截圖回報，這對我們是 P0 等級的錯誤。
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    // ==== Config ============================================================
+    // 後端在 fly.io（apps/workers/ai-triage）。本地開發可在網址加 ?api=http://localhost:8080
+    const DEFAULT_API = 'https://choulegal-worker-ai-triage.fly.dev';
+    const params = new URLSearchParams(location.search);
+    const API = (params.get('api') || DEFAULT_API).replace(/\/+$/, '');
+    const POLL_TIMEOUT_MS = 90_000;
+
+    // ==== DOM ===============================================================
+    const chipEls = document.querySelectorAll('.chip:not(.chip-disabled)');
+    const story = document.getElementById('story');
+    const charCount = document.getElementById('charCount');
+    const submitBtn = document.getElementById('submitBtn');
+    const submitNote = document.getElementById('submitNote');
+    const results = document.getElementById('results');
+    const status = document.getElementById('resultStatus');
+
+    // ==== Chip & input ======================================================
+    chipEls.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        if (submitBtn.dataset.busy === '1') return;
+        chip.classList.toggle('is-active');
+      });
+    });
+
+    function refreshSubmitState() {
+      const len = story.value.trim().length;
+      charCount.textContent = len + ' / 3000';
+      const ok = len >= 30 && submitBtn.dataset.busy !== '1';
+      submitBtn.disabled = !ok;
+      if (submitBtn.dataset.busy !== '1') {
+        submitNote.textContent = len >= 30 ? '送出後 AI 會處理 20~60 秒' : '至少寫 30 字才能送出';
+      }
+    }
+    story.addEventListener('input', refreshSubmitState);
+    refreshSubmitState();
+
+    // ==== Block toggling ====================================================
+    document.querySelectorAll('.block-head').forEach(function (head) {
+      head.addEventListener('click', function () {
+        const block = head.parentElement;
+        const isOpen = block.classList.toggle('is-open');
+        head.setAttribute('aria-expanded', String(isOpen));
+      });
+    });
+
+    // ==== Helpers ===========================================================
+    function el(tag, opts) {
+      const e = document.createElement(tag);
+      if (opts) {
+        if (opts.cls) e.className = opts.cls;
+        if (opts.text != null) e.textContent = opts.text;
+        if (opts.html != null) e.innerHTML = opts.html;
+        if (opts.href) e.href = opts.href;
+        if (opts.target) e.target = opts.target;
+        if (opts.rel) e.rel = opts.rel;
+        if (opts.attrs) Object.keys(opts.attrs).forEach(function (k) { e.setAttribute(k, opts.attrs[k]); });
+      }
+      return e;
+    }
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+    function sanitizeUrl(u) {
+      try {
+        const url = new URL(u);
+        if (url.protocol !== 'https:' && url.protocol !== 'http:') return null;
+        return url.toString();
+      } catch (e) { return null; }
+    }
+    function getSlot(id) {
+      const block = document.getElementById(id);
+      return block ? block.querySelector('[data-slot=body]') : null;
+    }
+
+    // ── 算到位的數字 ─ 周全 AI 核心差異化 UI ─────────────────────────
+    function fmtTwd(n) {
+      if (typeof n !== 'number' || !isFinite(n)) return '—';
+      return 'NT$ ' + Math.round(n).toLocaleString('zh-TW');
+    }
+    function renderComputation(c) {
+      const card = el('div', { cls: 'compute-card compute-' + c.kind });
+      const head = el('div', { cls: 'compute-head' });
+      const titleMap = {
+        intestate_share: '法定繼承分配',
+        severance: '資遣費 ＋ 預告期間',
+        limitation: '時效倒數'
+      };
+      head.appendChild(el('div', { cls: 'compute-kind', text: titleMap[c.kind] || c.kind }));
+      card.appendChild(head);
+
+      const body = el('div', { cls: 'compute-body' });
+      if (c.kind === 'intestate_share') renderIntestateShare(body, c.result);
+      else if (c.kind === 'severance') renderSeverance(body, c.result);
+      else if (c.kind === 'limitation') renderLimitation(body, c.result);
+      else body.appendChild(el('pre', { cls: 'compute-raw', text: JSON.stringify(c.result, null, 2) }));
+      card.appendChild(body);
+
+      // 法源 chips
+      const refs = Array.isArray(c.lawRefs) ? c.lawRefs : [];
+      if (refs.length) {
+        const foot = el('div', { cls: 'compute-laws' });
+        foot.appendChild(el('span', { cls: 'compute-laws-label', text: '計算依據：' }));
+        refs.forEach(function (lr) {
+          const url = sanitizeUrl(lr.sourceUrl);
+          const label = (lr.lawName || '') + ' §' + (lr.articleNo || '');
+          if (url) {
+            const a = el('a', { href: url, target: '_blank', rel: 'noopener noreferrer', text: label });
+            a.className = 'compute-law-chip';
+            foot.appendChild(a);
+          } else {
+            foot.appendChild(el('span', { cls: 'compute-law-chip', text: label }));
+          }
+        });
+        card.appendChild(foot);
+      }
+      return card;
+    }
+    function renderIntestateShare(body, result) {
+      if (result && result.warning) {
+        body.appendChild(el('div', { cls: 'compute-warning', text: '⚠ ' + result.warning + (result.law ? '（' + result.law + '）' : '') }));
+        return;
+      }
+      const heirs = (result && Array.isArray(result.heirs)) ? result.heirs : [];
+      if (heirs.length === 0) {
+        body.appendChild(el('div', { cls: 'compute-skipped', text: '無繼承人。' }));
+        return;
+      }
+      const grid = el('div', { cls: 'compute-grid compute-grid-heirs' });
+      heirs.forEach(function (h) {
+        const cell = el('div', { cls: 'compute-cell' });
+        cell.appendChild(el('div', { cls: 'compute-cell-label', text: h.label || h.role || '繼承人' }));
+        cell.appendChild(el('div', { cls: 'compute-big', text: fmtTwd(h.amount) }));
+        if (h.fraction) cell.appendChild(el('div', { cls: 'compute-cell-sub', text: '應繼分 ' + h.fraction }));
+        if (h.forcedShare != null) cell.appendChild(el('div', { cls: 'compute-cell-sub', text: '特留分 ' + fmtTwd(h.forcedShare) }));
+        grid.appendChild(cell);
+      });
+      body.appendChild(grid);
+    }
+    function renderSeverance(body, result) {
+      const grid = el('div', { cls: 'compute-grid compute-grid-pair' });
+      const sevCell = el('div', { cls: 'compute-cell compute-cell-primary' });
+      sevCell.appendChild(el('div', { cls: 'compute-cell-label', text: '資遣費（' + (result.regime === 'new' ? '勞退新制' : '舊制') + '）' }));
+      sevCell.appendChild(el('div', { cls: 'compute-big', text: fmtTwd(result.severanceTwd) }));
+      grid.appendChild(sevCell);
+
+      const noticeCell = el('div', { cls: 'compute-cell' });
+      noticeCell.appendChild(el('div', { cls: 'compute-cell-label', text: '預告期間' }));
+      noticeCell.appendChild(el('div', { cls: 'compute-big', text: (result.notice && result.notice.days != null) ? result.notice.days + ' 天' : '—' }));
+      if (result.notice && result.notice.amount != null) {
+        noticeCell.appendChild(el('div', { cls: 'compute-cell-sub', text: '工資折算 ' + fmtTwd(result.notice.amount) }));
+      }
+      if (result.notice && result.notice.label) {
+        noticeCell.appendChild(el('div', { cls: 'compute-cell-sub', text: result.notice.label }));
+      }
+      grid.appendChild(noticeCell);
+      body.appendChild(grid);
+    }
+    function renderLimitation(body, result) {
+      const cell = el('div', { cls: 'compute-cell compute-cell-primary' });
+      if (result.deadlineIso == null) {
+        cell.appendChild(el('div', { cls: 'compute-cell-label', text: '時效類型' }));
+        cell.appendChild(el('div', { cls: 'compute-medium', text: '需提供事件起算日才能算具體天數' }));
+      } else if (result.expired) {
+        cell.appendChild(el('div', { cls: 'compute-cell-label compute-danger', text: '已過時效' }));
+        cell.appendChild(el('div', { cls: 'compute-big compute-danger', text: '逾期 ' + Math.abs(result.daysLeft) + ' 天' }));
+        cell.appendChild(el('div', { cls: 'compute-cell-sub', text: '截止日 ' + result.deadlineIso }));
+      } else {
+        cell.appendChild(el('div', { cls: 'compute-cell-label', text: '剩餘天數' }));
+        cell.appendChild(el('div', { cls: 'compute-big', text: result.daysLeft + ' 天' }));
+        cell.appendChild(el('div', { cls: 'compute-cell-sub', text: '截止日 ' + result.deadlineIso }));
+      }
+      body.appendChild(cell);
+    }
+    function setStatus(kind, html) {
+      if (!status) return;
+      status.hidden = false;
+      status.className = 'result-status status-' + kind;
+      status.innerHTML = html;
+    }
+
+    function setBusy(busy) {
+      submitBtn.dataset.busy = busy ? '1' : '0';
+      submitBtn.disabled = busy || story.value.trim().length < 30;
+      chipEls.forEach(function (chip) {
+        if (busy) chip.setAttribute('aria-disabled', 'true');
+        else chip.removeAttribute('aria-disabled');
+      });
+      story.readOnly = busy;
+      if (busy) submitNote.textContent = '處理中…可能需要 20~60 秒';
+      else refreshSubmitState();
+    }
+
+    // ==== Render ============================================================
+    const SIDE_LABEL = {
+      user_favored: '你比較有理',
+      opponent_favored: '對方比較有理',
+      shared_responsibility: '雙方都有責任',
+      unclear: '尚不明朗',
+    };
+    const DOMAIN_LABEL = {
+      civil: '民事', labor: '勞動', consumer: '消保', admin: '行政',
+      tax: '稅務', family: '家事繼承', traffic: '車禍交通', medical: '醫療糾紛',
+    };
+    const SEVERITY_LABEL = { critical: '⚠️ 最優先', warning: '注意', info: '備註' };
+
+    function renderRejected(payload) {
+      results.classList.add('is-visible');
+      hideAllBlocks();
+      const reason = payload.reason || 'unsupported';
+      const message = payload.message || '此問題無法以 AI 初判處理。';
+      let extra = '';
+      if (reason === 'criminal_only') {
+        extra = '<div style="margin-top:10px;font-size:12.5px;opacity:0.7;">建議直接諮詢律師、撥打 110 / 165，或法律扶助基金會 (412-8518)。</div>';
+      }
+      setStatus('rejected',
+        '<strong>AI 不處理這個問題。</strong> ' + escapeHtml(message) + extra);
+      results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function hideAllBlocks() {
+      ['block-limitations','block-computations','block-summary','block-side','block-actions',
+       'block-evidence','block-agencies','block-laws','block-cases','block-templates']
+        .forEach(function (id) { const b = document.getElementById(id); if (b) b.hidden = true; });
+    }
+    function showBlock(id) {
+      const b = document.getElementById(id);
+      if (b) b.hidden = false;
+    }
+
+    function renderResult(r, meta) {
+      results.classList.add('is-visible');
+      hideAllBlocks();
+
+      // Status bar
+      let statusHtml = '<strong>AI 初判完成。</strong> 模型 ' + escapeHtml(meta.model || '') +
+        '・耗時 ' + Math.round((meta.ms_total || 0) / 100) / 10 + 's';
+      if (meta.verify_meta) {
+        const v = meta.verify_meta;
+        const blocked = (v.law_refs_rejected || 0) + (v.case_refs_rejected || 0);
+        if (blocked > 0) {
+          statusHtml += '・🛡️ 驗證系統擋下 ' + blocked + ' 筆 AI 試圖引用但無法驗證的條文／字號';
+        }
+      }
+      setStatus('done', statusHtml);
+
+      // 1. limitations
+      const lims = Array.isArray(r.limitations) ? r.limitations : [];
+      const limSlot = getSlot('block-limitations');
+      if (limSlot) {
+        if (lims.length === 0) {
+          limSlot.innerHTML = '<p class="placeholder">本案 AI 未識別出明顯時效風險。仍建議諮詢律師確認。</p>';
+        } else {
+          limSlot.innerHTML = '';
+          lims.forEach(function (lim) {
+            const card = el('div', { cls: 'lim-card lim-' + (lim.severity || 'info') });
+            card.appendChild(el('div', { cls: 'lim-name', text: lim.name || '' }));
+            if (lim.severity) card.appendChild(el('div', { cls: 'lim-sev', text: SEVERITY_LABEL[lim.severity] || lim.severity }));
+            if (lim.description) card.appendChild(el('div', { cls: 'lim-desc', text: lim.description }));
+            if (lim.deadline_iso != null && lim.days_left != null) {
+              const txt = (lim.days_left < 0 ? '已過期：' : '剩 ' + lim.days_left + ' 天，') + '截止日 ' + lim.deadline_iso;
+              card.appendChild(el('div', { cls: 'lim-deadline', text: txt }));
+            } else {
+              card.appendChild(el('div', { cls: 'lim-deadline', text: '具體天數需起算日；可諮詢律師核算。' }));
+            }
+            limSlot.appendChild(card);
+          });
+        }
+        showBlock('block-limitations');
+      }
+
+      // 1.5 computations — 周全 AI 的核心差異化：算到位的數字
+      const comps = Array.isArray(r.computations) ? r.computations : [];
+      const compSlot = getSlot('block-computations');
+      if (compSlot) {
+        const okComps = comps.filter(function (c) { return c && c.ok && c.result; });
+        const failedCount = comps.filter(function (c) { return c && c.ok === false; }).length;
+        if (okComps.length === 0 && failedCount === 0) {
+          // 完全沒 computations → 整個 block 隱藏（沒有就不要佔版面）
+          // hideAllBlocks 已預設隱藏，這裡不 showBlock 即可
+        } else {
+          compSlot.innerHTML = '';
+          okComps.forEach(function (c) {
+            compSlot.appendChild(renderComputation(c));
+          });
+          if (failedCount > 0) {
+            compSlot.appendChild(el('div', {
+              cls: 'compute-skipped',
+              text: '⚠ 另有 ' + failedCount + ' 項計算因資訊不足跳過（如金額／日期未提供）。'
+            }));
+          }
+          compSlot.appendChild(el('div', {
+            cls: 'compute-footer',
+            text: '✨ 周全的差異化：一般法律 AI 給文字答案，我們同時給「算到位的數字」並標明計算法源。'
+          }));
+          showBlock('block-computations');
+        }
+      }
+
+      // 2. summary
+      const sumSlot = getSlot('block-summary');
+      if (sumSlot && r.summary) {
+        sumSlot.innerHTML = '';
+        sumSlot.appendChild(el('p', { text: r.summary }));
+        const dd = Array.isArray(r.detected_domains) ? r.detected_domains : [];
+        if (dd.length) {
+          const tags = el('div', { cls: 'tag-row' });
+          dd.forEach(function (d) {
+            tags.appendChild(el('span', { cls: 'tiny-chip', text: DOMAIN_LABEL[d] || d }));
+          });
+          sumSlot.appendChild(tags);
+        }
+        showBlock('block-summary');
+      }
+
+      // 3. side
+      const sideSlot = getSlot('block-side');
+      if (sideSlot) {
+        sideSlot.innerHTML = '';
+        const sideLabel = SIDE_LABEL[r.side] || r.side || '尚不明朗';
+        const conf = typeof r.side_confidence === 'number' ? Math.round(r.side_confidence * 100) : null;
+        const head = el('div', { cls: 'side-head' });
+        head.appendChild(el('span', { cls: 'side-pill side-' + (r.side || 'unclear'), text: sideLabel }));
+        if (conf != null) head.appendChild(el('span', { cls: 'side-conf', text: 'AI 信心度 ' + conf + '%' }));
+        sideSlot.appendChild(head);
+        if (r.side_explanation) sideSlot.appendChild(el('p', { text: r.side_explanation }));
+        showBlock('block-side');
+      }
+
+      // 4. actions
+      const acts = Array.isArray(r.actions) ? r.actions : [];
+      const actSlot = getSlot('block-actions');
+      if (actSlot && acts.length) {
+        actSlot.innerHTML = '';
+        const ol = el('ol', { cls: 'action-list' });
+        acts.forEach(function (a) {
+          const li = el('li');
+          li.appendChild(el('div', { cls: 'action-title', text: a.title || ('步驟 ' + a.step) }));
+          if (a.description) li.appendChild(el('div', { cls: 'action-desc', text: a.description }));
+          const meta = [];
+          if (a.estimated_days_min != null) {
+            meta.push('時間 ' + a.estimated_days_min + (a.estimated_days_max != null && a.estimated_days_max !== a.estimated_days_min ? '–' + a.estimated_days_max : '') + ' 天');
+          }
+          if (a.estimated_cost_min != null) {
+            meta.push('費用 NT$ ' + a.estimated_cost_min + (a.estimated_cost_max != null && a.estimated_cost_max !== a.estimated_cost_min ? '–' + a.estimated_cost_max : ''));
+          }
+          if (a.success_rate_min != null) {
+            const lo = Math.round(a.success_rate_min * 100);
+            const hi = a.success_rate_max != null ? Math.round(a.success_rate_max * 100) : lo;
+            meta.push('成功率 ' + lo + (hi !== lo ? '–' + hi : '') + '%');
+          }
+          if (meta.length) li.appendChild(el('div', { cls: 'action-meta', text: meta.join(' · ') }));
+          ol.appendChild(li);
+        });
+        actSlot.appendChild(ol);
+        showBlock('block-actions');
+      }
+
+      // 5. evidence
+      const evs = Array.isArray(r.evidence) ? r.evidence : [];
+      const evSlot = getSlot('block-evidence');
+      if (evSlot && evs.length) {
+        evSlot.innerHTML = '';
+        const ul = el('ul', { cls: 'evidence-list' });
+        evs.forEach(function (e) { ul.appendChild(el('li', { text: e })); });
+        evSlot.appendChild(ul);
+        showBlock('block-evidence');
+      }
+
+      // 6. agencies + lawyer specialties
+      const ags = Array.isArray(r.agencies) ? r.agencies : [];
+      const specs = Array.isArray(r.lawyer_specialties) ? r.lawyer_specialties : [];
+      const agSlot = getSlot('block-agencies');
+      if (agSlot && (ags.length || specs.length)) {
+        agSlot.innerHTML = '';
+        if (ags.length) {
+          const ul = el('ul', { cls: 'agency-list' });
+          ags.forEach(function (a) {
+            const li = el('li');
+            const name = el('div', { cls: 'agency-name', text: a.name || '' });
+            const url = sanitizeUrl(a.url);
+            if (url) {
+              const link = el('a', { href: url, target: '_blank', rel: 'noopener noreferrer', text: '前往 →' });
+              link.className = 'agency-link';
+              name.appendChild(link);
+            }
+            li.appendChild(name);
+            if (a.description) li.appendChild(el('div', { cls: 'agency-desc', text: a.description }));
+            ul.appendChild(li);
+          });
+          agSlot.appendChild(ul);
+        }
+        if (specs.length) {
+          const tags = el('div', { cls: 'tag-row' });
+          tags.appendChild(el('span', { cls: 'tag-row-label', text: '建議律師專長：' }));
+          specs.forEach(function (s) { tags.appendChild(el('span', { cls: 'tiny-chip', text: s })); });
+          agSlot.appendChild(tags);
+        }
+        showBlock('block-agencies');
+      }
+
+      // 7. law_refs
+      const laws = Array.isArray(r.law_refs) ? r.law_refs : [];
+      const lawSlot = getSlot('block-laws');
+      if (lawSlot && laws.length) {
+        lawSlot.innerHTML = '';
+        laws.forEach(function (l) {
+          const card = el('div', { cls: 'law-card' });
+          card.appendChild(el('div', { cls: 'law-head', text: (l.law_name || '') + ' 第 ' + (l.article_no || '') + ' 條' }));
+          if (l.version_date) card.appendChild(el('div', { cls: 'law-version', text: '版本：' + l.version_date }));
+          card.appendChild(el('blockquote', { cls: 'law-snippet', text: l.snippet || '' }));
+          const url = sanitizeUrl(l.source_url);
+          if (url) {
+            const link = el('a', { href: url, target: '_blank', rel: 'noopener noreferrer', text: '查看法規庫原文 →' });
+            link.className = 'law-link';
+            card.appendChild(link);
+          }
+          lawSlot.appendChild(card);
+        });
+        showBlock('block-laws');
+      }
+
+      // 8. case_refs
+      const cases = Array.isArray(r.case_refs) ? r.case_refs : [];
+      const caseSlot = getSlot('block-cases');
+      if (caseSlot && cases.length) {
+        caseSlot.innerHTML = '';
+        cases.forEach(function (c) {
+          const card = el('div', { cls: 'case-card' });
+          card.appendChild(el('div', { cls: 'case-head', text: (c.court || '') + '　' + (c.case_no_full || '') }));
+          if (c.summary) card.appendChild(el('div', { cls: 'case-summary', text: c.summary }));
+          const url = sanitizeUrl(c.full_text_url);
+          if (url) {
+            const link = el('a', { href: url, target: '_blank', rel: 'noopener noreferrer', text: '查看裁判書全文 →' });
+            link.className = 'case-link';
+            card.appendChild(link);
+          }
+          caseSlot.appendChild(card);
+        });
+        showBlock('block-cases');
+      }
+
+      // 9. templates
+      const tmpls = Array.isArray(r.templates) ? r.templates : [];
+      const tSlot = getSlot('block-templates');
+      if (tSlot && tmpls.length) {
+        tSlot.innerHTML = '';
+        const ul = el('ul', { cls: 'tmpl-list' });
+        tmpls.forEach(function (t) {
+          const li = el('li');
+          li.appendChild(el('div', { cls: 'tmpl-name', text: t.name || '' }));
+          if (t.description) li.appendChild(el('div', { cls: 'tmpl-desc', text: t.description }));
+          const url = sanitizeUrl(t.download_url);
+          if (url) {
+            const link = el('a', { href: url, target: '_blank', rel: 'noopener noreferrer', text: '下載 →' });
+            link.className = 'tmpl-link';
+            li.appendChild(link);
+          }
+          ul.appendChild(li);
+        });
+        tSlot.appendChild(ul);
+        showBlock('block-templates');
+      }
+
+      // 10. feedback (thumbs up/down + telemetry)
+      mountFeedback(meta && meta.triage_run_id);
+
+      results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function mountFeedback(triageRunId) {
+      const fb = document.getElementById('block-feedback');
+      if (!fb) return;
+      // 沒 triage_run_id 就別開（meta 沒帶 / 後端沒寫到）
+      if (!triageRunId) { fb.hidden = true; return; }
+      fb.hidden = false;
+      // reset state（同一頁多次送 AI 可重新開放）
+      const detail = fb.querySelector('.feedback-detail');
+      const thanks = fb.querySelector('.feedback-thanks');
+      const actions = fb.querySelector('.feedback-actions');
+      if (detail) detail.hidden = true;
+      if (thanks) thanks.hidden = true;
+      if (actions) actions.hidden = false;
+      fb.dataset.triageRunId = triageRunId;
+      fb.dataset.rating = '';
+      fb.querySelectorAll('.feedback-btn').forEach(function (b) { b.classList.remove('is-selected'); });
+      const reason = document.getElementById('feedback-reason');
+      const comment = document.getElementById('feedback-comment');
+      if (reason) reason.value = '';
+      if (comment) comment.value = '';
+    }
+
+    document.addEventListener('click', function (ev) {
+      const btn = ev.target.closest && ev.target.closest('.feedback-btn');
+      if (!btn) return;
+      const fb = document.getElementById('block-feedback');
+      if (!fb || fb.hidden) return;
+      const rating = btn.dataset.rating;
+      if (rating !== 'up' && rating !== 'down') return;
+      fb.dataset.rating = rating;
+      fb.querySelectorAll('.feedback-btn').forEach(function (b) { b.classList.toggle('is-selected', b === btn); });
+      // up：直接送（不問細節）；down：展開細節讓 user 補
+      if (rating === 'up') {
+        sendFeedback(fb, 'up', null, null);
+      } else {
+        const detail = fb.querySelector('.feedback-detail');
+        if (detail) detail.hidden = false;
+      }
+    });
+
+    document.addEventListener('click', function (ev) {
+      if (ev.target && ev.target.id === 'feedback-submit') {
+        const fb = document.getElementById('block-feedback');
+        if (!fb) return;
+        const reason = (document.getElementById('feedback-reason') || {}).value || null;
+        const comment = ((document.getElementById('feedback-comment') || {}).value || '').trim();
+        sendFeedback(fb, fb.dataset.rating || 'down', reason, comment || null);
+      }
+    });
+
+    async function sendFeedback(fb, rating, reason, comment) {
+      const triageRunId = fb.dataset.triageRunId;
+      if (!triageRunId) return;
+      try {
+        const r = await fetch(API + '/triage/feedback', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ triage_run_id: triageRunId, rating: rating, reason: reason, comment: comment }),
+        });
+        // 不論成敗都顯示感謝，避免使用者重複點（後端 telemetry 失敗只 log）
+        if (!r.ok) console.warn('[feedback] http', r.status);
+      } catch (e) { console.warn('[feedback] failed', e); }
+      const detail = fb.querySelector('.feedback-detail');
+      const thanks = fb.querySelector('.feedback-thanks');
+      const actions = fb.querySelector('.feedback-actions');
+      if (detail) detail.hidden = true;
+      if (actions) actions.hidden = true;
+      if (thanks) thanks.hidden = false;
+    }
+
+    // ==== Submit + poll =====================================================
+    async function submit() {
+      const text = story.value.trim();
+      if (text.length < 30) return;
+      const domains = Array.from(document.querySelectorAll('.chip.is-active'))
+        .map(function (c) { return c.dataset.domain; })
+        .filter(Boolean);
+
+      setBusy(true);
+      results.classList.add('is-visible');
+      hideAllBlocks();
+      setStatus('progress', '<strong>送出中…</strong>');
+
+      let res;
+      try {
+        res = await fetch(API + '/triage', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ story: text, domains: domains }),
+        });
+      } catch (e) {
+        setBusy(false);
+        setStatus('error', '<strong>連線失敗。</strong>請檢查網路或稍後再試。');
+        return;
+      }
+
+      if (res.status === 429) {
+        const j = await res.json().catch(function () { return {}; });
+        setBusy(false);
+        setStatus('error', '<strong>今日次數已用完。</strong>' + escapeHtml(j.message || '請明天再試。'));
+        return;
+      }
+      if (!res.ok) {
+        const j = await res.json().catch(function () { return {}; });
+        setBusy(false);
+        setStatus('error', '<strong>送出失敗。</strong>' + escapeHtml(j.message || j.error || ('HTTP ' + res.status)));
+        return;
+      }
+      const enq = await res.json();
+      const jobId = enq.job_id;
+      const interval = enq.poll_interval_ms || 1500;
+
+      setStatus('progress', '<strong>AI 處理中…</strong> 撈取相關法條與裁判，並對每筆字號做事實查核。');
+      results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      const startedAt = Date.now();
+      while (Date.now() - startedAt < POLL_TIMEOUT_MS) {
+        await new Promise(function (r) { setTimeout(r, interval); });
+        let pr;
+        try {
+          pr = await fetch(API + '/triage/' + encodeURIComponent(jobId));
+        } catch (e) { continue; }
+        if (!pr.ok) continue;
+        const j = await pr.json();
+        if (j.status === 'done') {
+          setBusy(false);
+          const r = j.result || {};
+          if (r.rejected) { renderRejected(r); return; }
+          renderResult(r, {
+            model: r._model,
+            ms_total: r._ms_total,
+            verify_meta: r._verify_meta,
+            triage_run_id: r._triage_run_id,
+          });
+          return;
+        }
+        if (j.status === 'failed') {
+          setBusy(false);
+          setStatus('error', '<strong>AI 處理失敗。</strong>' + escapeHtml(j.error_message || '請稍後再試。'));
+          return;
+        }
+        // queued / running → 繼續 poll
+      }
+      setBusy(false);
+      setStatus('error', '<strong>等太久了。</strong>請稍後再試或重整頁面。');
+    }
+
+    submitBtn.addEventListener('click', submit);
+  })();
+</script>
+
+<style>
+  /* ── Result status colors ── */
+  .result-status.status-progress { border-color: rgba(56,189,248,0.3); background: rgba(56,189,248,0.06); }
+  .result-status.status-progress strong { color: #7dd3fc; }
+  .result-status.status-done { border-color: rgba(52,211,153,0.3); background: rgba(52,211,153,0.06); }
+  .result-status.status-done strong { color: #6ee7b7; }
+  .result-status.status-error { border-color: rgba(248,113,113,0.35); background: rgba(248,113,113,0.06); }
+  .result-status.status-error strong { color: #fca5a5; }
+  .result-status.status-rejected { border-color: rgba(251,191,36,0.35); background: rgba(251,191,36,0.06); }
+  .result-status.status-rejected strong { color: #fcd34d; }
+
+  /* ── Computation cards（周全 AI 核心差異化：算到位的數字）── */
+  .block.compute-open { border-color: rgba(125,211,252,0.35); background: rgba(125,211,252,0.04); }
+  .compute-card {
+    padding: 16px 18px;
+    border: 1px solid rgba(125,211,252,0.28);
+    background: linear-gradient(180deg, rgba(125,211,252,0.06) 0%, rgba(0,0,0,0.18) 100%);
+    border-radius: 12px;
+    margin-bottom: 14px;
+  }
+  .compute-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding-bottom: 10px; margin-bottom: 12px;
+    border-bottom: 1px dashed rgba(125,211,252,0.22);
+  }
+  .compute-kind {
+    font-family: 'Noto Serif TC', serif; font-weight: 500; font-size: 15px;
+    color: #bae6fd; letter-spacing: 0.04em;
+  }
+  .compute-body { padding: 4px 0 8px; }
+  .compute-grid {
+    display: grid; gap: 12px;
+  }
+  .compute-grid-heirs { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+  .compute-grid-pair  { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .compute-cell {
+    padding: 14px 16px;
+    background: rgba(0,0,0,0.28);
+    border: 1px solid rgba(125,211,252,0.18);
+    border-radius: 10px;
+  }
+  .compute-cell-primary {
+    background: rgba(253,230,138,0.06);
+    border-color: rgba(253,230,138,0.32);
+  }
+  .compute-cell-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 8px;
+  }
+  .compute-big {
+    font-family: 'Noto Serif TC', serif; font-weight: 500;
+    font-size: 28px; line-height: 1.15;
+    color: #fde68a;
+    letter-spacing: 0.02em;
+    word-break: break-word;
+  }
+  .compute-medium {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 15px; color: rgba(255,255,255,0.85);
+    line-height: 1.5;
+  }
+  .compute-cell-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px; color: rgba(255,255,255,0.55);
+    margin-top: 6px;
+  }
+  .compute-danger { color: #fca5a5 !important; }
+  .compute-cell-primary.compute-cell-primary .compute-danger { color: #fca5a5; }
+  .compute-warning {
+    padding: 10px 12px; border-radius: 8px;
+    background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.3);
+    color: #fcd34d; font-size: 13.5px;
+  }
+  .compute-skipped {
+    margin-top: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
+    color: rgba(255,255,255,0.5);
+  }
+  .compute-laws {
+    display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+    margin-top: 12px; padding-top: 10px;
+    border-top: 1px dashed rgba(125,211,252,0.22);
+  }
+  .compute-laws-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-right: 4px;
+  }
+  .compute-law-chip {
+    padding: 3px 10px; border-radius: 999px;
+    border: 1px solid rgba(125,211,252,0.3);
+    background: rgba(125,211,252,0.05);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 12px; color: #bae6fd; text-decoration: none;
+  }
+  a.compute-law-chip:hover { background: rgba(125,211,252,0.12); color: #e0f2fe; }
+  .compute-footer {
+    margin-top: 14px;
+    padding: 10px 14px;
+    background: rgba(125,211,252,0.05);
+    border-left: 3px solid rgba(125,211,252,0.5);
+    border-radius: 4px;
+    font-size: 12.5px; color: rgba(186,230,253,0.85);
+    line-height: 1.6;
+  }
+  .compute-raw {
+    background: rgba(0,0,0,0.4); padding: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    overflow-x: auto;
+  }
+
+  /* ── Limitation cards ── */
+  .lim-card {
+    padding: 14px 16px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  .lim-card.lim-critical { border-color: rgba(248,113,113,0.4); background: rgba(248,113,113,0.06); }
+  .lim-card.lim-warning  { border-color: rgba(251,191,36,0.35); background: rgba(251,191,36,0.05); }
+  .lim-name { font-family: 'Noto Serif TC', serif; font-weight: 500; font-size: 15px; color: rgba(255,255,255,0.95); }
+  .lim-sev { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.18em; color: rgba(255,255,255,0.5); margin-top: 4px; }
+  .lim-desc { font-size: 13.5px; color: rgba(255,255,255,0.75); margin-top: 6px; }
+  .lim-deadline { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #fde68a; margin-top: 8px; }
+
+  /* ── Side pill ── */
+  .side-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 12px; }
+  .side-pill {
+    padding: 6px 14px; border-radius: 999px;
+    font-family: 'Noto Serif TC', serif; font-weight: 500; font-size: 14px;
+  }
+  .side-user_favored        { background: rgba(52,211,153,0.15); color: #6ee7b7; border: 1px solid rgba(52,211,153,0.4); }
+  .side-opponent_favored    { background: rgba(248,113,113,0.15); color: #fca5a5; border: 1px solid rgba(248,113,113,0.4); }
+  .side-shared_responsibility { background: rgba(251,191,36,0.15); color: #fcd34d; border: 1px solid rgba(251,191,36,0.4); }
+  .side-unclear             { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.2); }
+  .side-conf { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; color: rgba(255,255,255,0.55); }
+
+  /* ── Tag row & chips ── */
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; align-items: center; }
+  .tag-row-label { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.18em; color: rgba(255,255,255,0.45); text-transform: uppercase; margin-right: 4px; }
+  .tiny-chip { padding: 3px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.03); font-size: 11.5px; color: rgba(255,255,255,0.75); }
+
+  /* ── Action list ── */
+  .action-list { padding-left: 0; list-style: none; counter-reset: act; }
+  .action-list li { counter-increment: act; padding: 14px 16px 14px 50px; position: relative; border-bottom: 1px dashed rgba(255,255,255,0.08); }
+  .action-list li:last-child { border-bottom: none; }
+  .action-list li::before {
+    content: counter(act);
+    position: absolute; left: 14px; top: 14px;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: rgba(253,230,138,0.15); border: 1px solid rgba(253,230,138,0.4);
+    color: #fde68a; font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .action-title { font-family: 'Noto Serif TC', serif; font-weight: 500; font-size: 15px; color: rgba(255,255,255,0.95); margin-bottom: 4px; }
+  .action-desc { font-size: 13.5px; color: rgba(255,255,255,0.7); line-height: 1.7; }
+  .action-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: rgba(255,255,255,0.5); margin-top: 6px; }
+
+  /* ── Evidence / Templates ── */
+  .evidence-list, .agency-list, .tmpl-list { list-style: none; padding-left: 0; }
+  .evidence-list li { padding: 8px 0 8px 22px; position: relative; border-bottom: 1px dashed rgba(255,255,255,0.06); font-size: 14px; }
+  .evidence-list li:last-child { border-bottom: none; }
+  .evidence-list li::before { content: '☐'; position: absolute; left: 0; color: rgba(253,230,138,0.6); }
+  .agency-list li, .tmpl-list li { padding: 12px 0; border-bottom: 1px dashed rgba(255,255,255,0.06); }
+  .agency-list li:last-child, .tmpl-list li:last-child { border-bottom: none; }
+  .agency-name, .tmpl-name { font-family: 'Noto Serif TC', serif; font-weight: 500; font-size: 14.5px; color: rgba(255,255,255,0.95); display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .agency-desc, .tmpl-desc { font-size: 13px; color: rgba(255,255,255,0.65); margin-top: 4px; }
+  .agency-link, .tmpl-link, .law-link, .case-link {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em;
+    color: #7dd3fc; text-transform: uppercase;
+  }
+  .agency-link:hover, .tmpl-link:hover, .law-link:hover, .case-link:hover { color: #bae6fd; text-decoration: underline; }
+
+  /* ── Law / Case cards ── */
+  .law-card, .case-card {
+    padding: 14px 16px;
+    border: 1px solid rgba(52,211,153,0.2);
+    background: rgba(52,211,153,0.04);
+    border-radius: 10px;
+    margin-bottom: 12px;
+  }
+  .law-head, .case-head { font-family: 'Noto Serif TC', serif; font-weight: 500; font-size: 15px; color: #bbf7d0; margin-bottom: 4px; }
+  .law-version { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.18em; color: rgba(255,255,255,0.45); margin-bottom: 8px; }
+  .law-snippet {
+    margin: 8px 0;
+    padding: 12px 14px;
+    border-left: 3px solid rgba(52,211,153,0.5);
+    background: rgba(0,0,0,0.25);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 14.5px;
+    line-height: 1.85;
+    color: rgba(255,255,255,0.92);
+    white-space: pre-wrap;
+  }
+  .case-summary { font-size: 13.5px; color: rgba(255,255,255,0.75); margin: 6px 0 8px; line-height: 1.75; }
+
+  [hidden] { display: none !important; }
+</style>
+
+</body>
+</html>

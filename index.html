@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>周全 民眾版 — 自己的法律，自己算</title>
-<meta name="description" content="周全民眾版。民法財產權、勞基法、稅務 — 30+ 個免費權益計算工具。不需註冊、不需登入。所有計算在你的瀏覽器完成。">
+<title>周全 — 中華民國法律免費計算工具</title>
+<meta name="description" content="周全。民法財產權、勞基法、稅務 — 每一筆計算都附上法源依據，全部免費。不需註冊、不需登入。所有計算在你的瀏覽器完成。">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://people.choulegal.com/">
-<meta property="og:title" content="周全 民眾版 — 自己的法律，自己算">
-<meta property="og:description" content="30+ 個免費權益計算工具。不需註冊。">
+<meta property="og:title" content="周全 — 中華民國法律免費計算工具">
+<meta property="og:description" content="每一筆計算都附上法源依據。完全免費。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://people.choulegal.com/">
 <meta property="og:locale" content="zh_TW">
@@ -155,6 +155,7 @@
     margin: 0 auto 36px;
   }
 
+  .hero-cta-row { display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
   .hero-cta {
     display: inline-flex; align-items: center; gap: 8px;
     background: rgba(255,255,255,0.96);
@@ -163,9 +164,15 @@
     font-size: 14px;
     padding: 12px 22px;
     border-radius: 999px;
-    transition: transform 0.3s, background 0.2s;
+    transition: transform 0.3s, background 0.2s, border-color 0.2s;
   }
   .hero-cta:hover { background: #fde68a; transform: translateY(-2px); }
+  .hero-cta-ghost {
+    background: transparent;
+    color: rgba(255,255,255,0.92);
+    border: 1px solid rgba(255,255,255,0.22);
+  }
+  .hero-cta-ghost:hover { background: rgba(255,255,255,0.04); border-color: #fde68a; color: #fde68a; transform: translateY(-2px); }
 
   .hero-meta {
     margin-top: 28px;
@@ -450,39 +457,34 @@
 <div class="container">
 
   <header class="nav">
-    <a href="/" class="nav-logo">周全<span>For Everyone</span></a>
+    <a href="/" class="nav-logo">周全</a>
     <nav class="nav-meta" aria-label="主選單">
-      <a href="#tools">工具</a>
-      <a href="#how">如何使用</a>
+      <a href="#tools">產品</a>
+      <a href="#how">運作方式</a>
       <a href="https://choulegal.com/guide.html">指南</a>
       <a href="https://choulegal.com/manifesto.html">理念</a>
-      <a href="https://choulegal.com">關於周全</a>
+      <a href="https://choulegal.com">關於</a>
     </nav>
   </header>
 
   <section class="hero">
-    <div class="hero-eyebrow">周全 民眾版 · 完全免費</div>
-    <h1 class="hero-title">
-      自己的法律,
-      <em>自己算。</em>
-    </h1>
+    <h1 class="hero-title">周全</h1>
     <p class="hero-sub">
-      民法財產權、勞基法、稅務 ── 30+ 個專業權益計算工具。<br>
-      不需註冊、不需登入。所有計算在你的瀏覽器完成。
+      免費計算工具：勞動、繼承、民法財產、公職薪資。<br>
+      瀏覽器即算，<em>不需註冊、不收個資</em>。
     </p>
-    <a href="#tools" class="hero-cta">看所有工具 <span aria-hidden="true">→</span></a>
     <div class="hero-meta">
-      <span>NT$ 0 · 永久免費</span>
+      <span>瀏覽器即算</span>
       <span>不收集個資</span>
       <span>法源 v2026.1</span>
     </div>
   </section>
 
   <section class="sec" id="tools">
-    <div class="sec-eyebrow">Tools · 工具</div>
-    <h2 class="sec-title">每一個權益，<em>都有一個工具。</em></h2>
+    <div class="sec-eyebrow">Products · 產品</div>
+    <h2 class="sec-title">每一個權益，<em>都有一個產品。</em></h2>
     <p class="sec-sub">
-      點進去就能算。每筆計算附上法條依據、舊新版本對照、PDF 報告下載。
+      點進去就能算。每筆計算附上法條依據、新舊版本對照、PDF 報告下載。
     </p>
 
     <div class="tools">
@@ -596,10 +598,10 @@
   </section>
 
   <footer class="foot">
-    <div class="foot-mark">周全 民眾版<span>© <span id="year">2026</span> · ChouLegal</span></div>
+    <div class="foot-mark">周全<span>© <span id="year">2026</span> · ChouLegal</span></div>
     <nav class="foot-links" aria-label="頁尾">
-      <a href="#tools">工具</a>
-      <a href="#how">如何使用</a>
+      <a href="#tools">產品</a>
+      <a href="#how">運作方式</a>
       <a href="https://choulegal.com/guide.html">指南</a>
       <a href="https://choulegal.com/manifesto.html">理念</a>
       <a href="https://choulegal.com">關於周全</a>
