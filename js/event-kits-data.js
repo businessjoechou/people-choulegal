@@ -1,7 +1,7 @@
 window.CHOULEGAL_EVENT_KITS = [
   {
     id: "inheritance-after-death",
-    status: "優先整合",
+    status: "引導式",
     category: "家庭與繼承",
     title: "親人過世後的繼承處理",
     summary: "整理死亡登記、拋棄或限定繼承、遺產稅、繼承分配、不動產與保險等事項。",
@@ -21,7 +21,7 @@ window.CHOULEGAL_EVENT_KITS = [
     experts: ["律師", "代書", "會計師", "地政士"],
     nextSteps: ["先確認期限", "整理財產與債務資料", "判斷是否需要拋棄或限定繼承", "再處理稅務與過戶"],
     guidedFlow: {
-      intro: "從死亡日期、債務狀況、遺產種類與家族爭議逐步整理，避免先辦錯事項而影響後續選擇。",
+      intro: "先從期限和債務判斷。系統會把繼承初期最容易漏掉的事，收成一份短清單。",
       steps: [
         {
           id: "date",
@@ -188,7 +188,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "divorce-property-and-children",
-    status: "下一批",
+    status: "引導式",
     category: "婚姻與親子",
     title: "離婚、財產與子女安排",
     summary: "整合剩餘財產分配、子女扶養費、贍養費、離婚協議與損害賠償。",
@@ -206,7 +206,7 @@ window.CHOULEGAL_EVENT_KITS = [
     experts: ["家事律師", "社工或諮商資源"],
     nextSteps: ["列財產與子女需求", "先檢核協議內容", "再評估是否談判或進入法院程序"],
     guidedFlow: {
-      intro: "先判斷是否已談成離婚，再分流財產、子女與安全風險，避免協議漏掉日後最容易爭執的事項。",
+      intro: "先看離婚談到哪一步，再整理財產、子女與安全風險。目標是讓協議少留後患。",
       steps: [
         {
           id: "status",
@@ -354,7 +354,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "dismissal-or-severance",
-    status: "下一批",
+    status: "引導式",
     category: "勞動與職場",
     title: "被資遣或遭解雇",
     summary: "協助使用者判斷解雇理由、年資、資遣費、預告工資、調解路徑與應保存文件。",
@@ -371,7 +371,7 @@ window.CHOULEGAL_EVENT_KITS = [
     experts: ["勞動法律師", "勞工局", "工會"],
     nextSteps: ["保留書面證據", "試算資遣與預告金額", "確認解雇理由", "準備調解資料"],
     guidedFlow: {
-      intro: "先分辨資遣、懲戒解雇或逼迫離職，再整理金額與調解資料。",
+      intro: "先確認公司用什麼理由讓你離職，再整理金額、文件與可走的調解路徑。",
       steps: [
         {
           id: "notice",
@@ -555,7 +555,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "traffic-accident-compensation",
-    status: "下一批",
+    status: "引導式",
     category: "車禍與損害賠償",
     title: "車禍後的賠償協商",
     summary: "把醫療費、薪資損失、看護費、慰撫金、和解區間與證據整理放入同一條流程。",
@@ -571,7 +571,7 @@ window.CHOULEGAL_EVENT_KITS = [
     experts: ["律師", "保險理賠人員"],
     nextSteps: ["先整理事故與醫療證據", "估算損害項目", "避免過早簽和解", "再判斷談判策略"],
     guidedFlow: {
-      intro: "依事故階段逐步分流。完成後會得到目前要做的事、要準備的文件，以及適合搭配的試算工具。",
+      intro: "先看事故走到哪個階段。系統會整理現在該做的事、要留的證據與可用的試算工具。",
       steps: [
         {
           id: "stage",
@@ -721,7 +721,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "online-shopping-refund",
-    status: "候選",
+    status: "引導式",
     category: "消費與契約",
     title: "網購退貨、退費與七日鑑賞期",
     summary: "整理七日鑑賞期、例外商品、退貨費用、退款延遲與申訴流程。",
@@ -735,7 +735,7 @@ window.CHOULEGAL_EVENT_KITS = [
     experts: ["消保團體", "消費者服務中心"],
     nextSteps: ["先確認是否在期限內", "保存商品與對話證據", "書面通知退貨", "必要時申訴或信用卡爭議款"],
     guidedFlow: {
-      intro: "從收貨日期、商品類型、通知狀態與付款方式分流，讓使用者先知道可退、怎麼退、退不了時怎麼申訴。",
+      intro: "先確認期限、商品類型與商家回應。能退就走退貨路線，退不了就整理申訴資料。",
       steps: [
         {
           id: "date",
@@ -867,7 +867,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "fitness-travel-tuition-refund",
-    status: "候選",
+    status: "引導式",
     category: "消費與契約",
     title: "健身房、旅遊與補習退費",
     summary: "處理長期服務契約終止、退費比例、手續費與業者拒退爭議。",
@@ -913,7 +913,7 @@ window.CHOULEGAL_EVENT_KITS = [
     experts: ["租賃專業律師", "地方政府租賃爭議資源"],
     nextSteps: ["保存房況與通知紀錄", "要求扣款明細", "確認租約約定", "必要時申請調解"],
     guidedFlow: {
-      intro: "先分辨是押金、修繕、退租或房東行為問題，再整理通知、房況證據與調解資料。",
+      intro: "先分辨是押金、修繕還是退租爭議。系統會幫你抓出要通知、要拍照、要保存的資料。",
       steps: [
         {
           id: "issue",

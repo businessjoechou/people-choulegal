@@ -147,7 +147,7 @@
     margin-top: 18px;
   }
   .flow-result h3 { font-size: 18px; margin-bottom: 10px; }
-  .flow-result-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
+  .flow-result-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.82fr); gap: 12px; margin-top: 14px; }
   .flow-section {
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 8px;
@@ -164,6 +164,14 @@
   }
   .flow-section .list { gap: 8px; }
   .flow-section .list li { font-size: 13px; line-height: 1.65; }
+  .flow-note {
+    border-left: 2px solid rgba(245,198,109,0.5);
+    color: rgba(255,255,255,0.78);
+    margin-top: 12px;
+    padding-left: 12px;
+    font-size: 13px;
+    line-height: 1.75;
+  }
   .flow-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
   .flow-tags span {
     border: 1px solid rgba(255,255,255,0.16);
@@ -281,7 +289,7 @@
     return [
       '<article class="panel guided-panel">',
       '<h2>引導式流程</h2>',
-      '<p class="guided-intro">' + escapeHtml(kit.guidedFlow.intro) + '</p>',
+      '<p class="guided-intro">' + escapeHtml(kit.guidedFlow.intro || '依序回答目前狀況，系統會把下一步、文件與可用工具整理成短清單。') + '</p>',
       '<div class="flow-progress" id="flowProgress">Step 01 / ' + String(kit.guidedFlow.steps.length).padStart(2, '0') + '</div>',
       kit.guidedFlow.steps.map(function (step, stepIndex) {
         return [
@@ -302,8 +310,8 @@
         ].join('');
       }).join(''),
       '<div class="flow-result" id="flowResult">',
-      '<h3>解決路線</h3>',
-      '<p class="summary">從第一題開始選。完成每一步後，這裡會整理下一步行動、需要準備的資料與可搭配的工具。</p>',
+      '<h3>下一步怎麼做</h3>',
+      '<p class="summary">從第一題開始選。每一步只留下最需要先處理的事。</p>',
       '</div>',
       '</article>'
     ].join('');
@@ -332,9 +340,9 @@
       '<article class="panel"><h2>常見文件</h2>' + renderList(kit.documents) + '</article>',
       '</div>',
       '<aside>',
-      '<div class="aside-card"><div class="aside-title">Related Tools</div>' + renderTools(kit.tools) + '</div>',
-      '<div class="aside-card"><div class="aside-title">Next Steps</div>' + renderList(kit.nextSteps) + '</div>',
-      '<div class="aside-card"><div class="aside-title">Directory</div><a class="next-link" href="/event-kits.html">回事件工具包</a></div>',
+      '<div class="aside-card"><div class="aside-title">相關工具</div>' + renderTools(kit.tools) + '</div>',
+      '<div class="aside-card"><div class="aside-title">處理順序</div>' + renderList(kit.nextSteps) + '</div>',
+      '<div class="aside-card"><div class="aside-title">事件列表</div><a class="next-link" href="/event-kits.html">回事件工具包</a></div>',
       '</aside>',
       '</section>'
     ].join('');
@@ -425,28 +433,41 @@
     });
     var answeredCount = selectedOptions.length;
     var totalCount = kit.guidedFlow.steps.length;
-    var routeSummary = kit.guidedFlow.steps
-      .map(function (step) {
-        var optionIndex = selections[step.id];
-        return typeof optionIndex === 'number' ? step.options[optionIndex].label : null;
-      })
-      .filter(Boolean)
-      .join('，');
+    var currentOption = selectedOptions[selectedOptions.length - 1];
+    function firstItems(items, limit) {
+      return items.slice(0, limit);
+    }
+    function prioritizedItems(field, fallbackItems) {
+      var items = [];
+      function add(item) {
+        if (!items.includes(item)) items.push(item);
+      }
+      (currentOption[field] || []).forEach(add);
+      selectedOptions.slice(0, -1).forEach(function (option) {
+        (option[field] || []).forEach(add);
+      });
+      (fallbackItems || []).forEach(add);
+      return items;
+    }
     var nextPrompt = answeredCount < totalCount
-      ? '下一步，請回答「' + kit.guidedFlow.steps[answeredCount].title + '」。'
-      : '已完成初步分流。可依下列順序整理資料，再使用工具估算或準備諮詢。';
+      ? '接著回答「' + kit.guidedFlow.steps[answeredCount].title + '」。'
+      : '初步分流完成。先把資料整理好，再使用工具估算或準備諮詢。';
+    var visibleActions = firstItems(prioritizedItems('actions', selectedOptions.map(function (option) { return option.note; })), 3);
+    var visibleDocuments = firstItems(prioritizedItems('documents', kit.documents), 4);
+    var visibleFlags = firstItems(flags, 4);
+    var visibleTools = firstItems(recommendedTools.length ? recommendedTools : kit.tools, 3);
     result.innerHTML = [
-      '<h3>解決路線</h3>',
-      '<p class="summary">目前狀態：' + escapeHtml(routeSummary) + '。' + escapeHtml(nextPrompt) + '</p>',
-      flags.length ? '<div class="flow-tags">' + flags.map(function (flag) { return '<span>' + escapeHtml(flag) + '</span>'; }).join('') + '</div>' : '',
+      '<h3>下一步怎麼做</h3>',
+      '<p class="summary">' + escapeHtml(currentOption.note) + escapeHtml(nextPrompt) + '</p>',
+      visibleFlags.length ? '<div class="flow-tags">' + visibleFlags.map(function (flag) { return '<span>' + escapeHtml(flag) + '</span>'; }).join('') + '</div>' : '',
       '<div class="flow-result-grid">',
-      '<section class="flow-section"><h4>現在先做</h4>' + renderList(actions.length ? actions : selectedOptions.map(function (option) { return option.note; })) + '</section>',
-      '<section class="flow-section"><h4>同時準備</h4>' + renderList(documents.length ? documents : kit.documents.slice(0, 4)) + '</section>',
-      '<section class="flow-section"><h4>不要忽略</h4>' + renderList(selectedOptions.map(function (option) { return option.note; })) + '</section>',
+      '<section class="flow-section"><h4>先做這三件事</h4>' + renderList(visibleActions) + '</section>',
+      '<section class="flow-section"><h4>準備這些資料</h4>' + renderList(visibleDocuments) + '</section>',
       '</div>',
+      '<p class="flow-note">如果對方催促簽署、期限快到，或金額明顯不合理，先不要只用口頭協議處理。</p>',
       '<div style="margin-top:16px">',
-      '<div class="aside-title">Suggested Tools</div>',
-      renderTools(recommendedTools.length ? recommendedTools : kit.tools),
+      '<div class="aside-title">建議工具</div>',
+      renderTools(visibleTools),
       '</div>'
     ].join('');
   }
