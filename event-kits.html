@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"__CF_TOKEN_PEOPLE__"}'></script>
+<script src="js/ga.js" defer></script>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>事件工具包｜周全民眾版</title>
+<meta name="description" content="周全民眾版事件工具包，依親人過世、遭資遣、車禍、離婚財產、消費爭議與租屋糾紛等事件，整理可用工具、待辦事項、文件清單與下一步。">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://people.choulegal.com/event-kits.html">
+<meta property="og:title" content="事件工具包｜周全民眾版">
+<meta property="og:description" content="依具體法律事件整理工具、待辦事項、文件清單與下一步。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://people.choulegal.com/event-kits.html">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://people.choulegal.com/icon-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600&family=Noto+Sans+TC:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #08090d;
+    --panel: rgba(255,255,255,0.035);
+    --panel-strong: rgba(255,255,255,0.07);
+    --line: rgba(255,255,255,0.12);
+    --line-soft: rgba(255,255,255,0.075);
+    --text: rgba(255,255,255,0.94);
+    --muted: rgba(255,255,255,0.58);
+    --faint: rgba(255,255,255,0.38);
+    --accent: #f5c66d;
+    --accent-2: #93c5fd;
+    --danger: #fca5a5;
+    --ok: #86efac;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at top left, rgba(245,158,11,0.16), transparent 32rem),
+      radial-gradient(circle at bottom right, rgba(59,130,246,0.14), transparent 34rem),
+      var(--bg);
+    color: var(--text);
+    font-family: "Noto Sans TC", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.72;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.72), transparent 74%);
+  }
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible, button:focus-visible { outline: 2px solid rgba(245,198,109,0.75); outline-offset: 3px; border-radius: 8px; }
+  .container { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+  .nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 0; }
+  .brand { font-family: "Noto Serif TC", serif; font-size: 17px; font-weight: 500; letter-spacing: 0.03em; }
+  .nav-links { display: flex; align-items: center; gap: 22px; color: var(--muted); font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .nav-links a:hover { color: var(--text); }
+  .hero { padding: 72px 0 56px; max-width: 780px; }
+  .eyebrow { color: var(--accent); font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 20px; }
+  h1, h2, h3 { font-family: "Noto Serif TC", serif; font-weight: 500; line-height: 1.2; text-wrap: balance; }
+  h1 { font-size: clamp(38px, 6vw, 72px); margin-bottom: 22px; }
+  .hero p { max-width: 660px; color: var(--muted); font-size: 16px; line-height: 1.95; text-wrap: pretty; }
+  .switcher {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 34px;
+    max-width: 760px;
+  }
+  .switch-card {
+    border: 1px solid var(--line);
+    background: var(--panel);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .switch-card.active { border-color: rgba(245,198,109,0.55); background: rgba(245,198,109,0.085); }
+  .switch-kicker { color: var(--faint); font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 8px; }
+  .switch-title { font-family: "Noto Serif TC", serif; font-size: 18px; margin-bottom: 6px; }
+  .switch-text { color: var(--muted); font-size: 13px; line-height: 1.7; }
+  .section { padding: 58px 0; border-top: 1px solid var(--line-soft); }
+  .section-head { display: flex; justify-content: space-between; gap: 24px; align-items: end; margin-bottom: 28px; }
+  .section h2 { font-size: clamp(28px, 4vw, 44px); margin-top: 8px; }
+  .section-desc { color: var(--muted); max-width: 560px; text-wrap: pretty; }
+  .kit-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .kit {
+    min-height: 360px;
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(255,255,255,0.052), rgba(255,255,255,0.018));
+    border-radius: 10px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+  }
+  .kit.primary { grid-column: span 2; }
+  .kit-status { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 22px; color: var(--faint); font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; }
+  .kit-status strong { color: var(--accent); font-weight: 500; }
+  .kit h3 { font-size: 25px; margin-bottom: 10px; }
+  .kit-summary { color: var(--muted); margin-bottom: 22px; text-wrap: pretty; }
+  .kit-meta { display: grid; gap: 10px; margin-bottom: 22px; }
+  .meta-row { display: grid; grid-template-columns: 76px 1fr; gap: 10px; color: var(--muted); font-size: 13px; }
+  .meta-label { color: var(--faint); font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; padding-top: 2px; }
+  .tool-list { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 18px; border-top: 1px solid var(--line-soft); }
+  .tool-list a, .tool-list span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    border: 1px solid rgba(255,255,255,0.13);
+    border-radius: 999px;
+    padding: 5px 10px;
+    color: rgba(255,255,255,0.78);
+    font-size: 12px;
+  }
+  .tool-list a:hover { border-color: rgba(245,198,109,0.55); color: var(--text); }
+  .steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+  .step {
+    border: 1px solid var(--line-soft);
+    background: rgba(255,255,255,0.026);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .step-num { color: var(--accent); font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 14px; }
+  .step h3 { font-size: 18px; margin-bottom: 8px; }
+  .step p { color: var(--muted); font-size: 13px; line-height: 1.78; text-wrap: pretty; }
+  .note {
+    border: 1px solid rgba(147,197,253,0.3);
+    background: rgba(147,197,253,0.075);
+    border-radius: 10px;
+    padding: 20px 22px;
+    color: rgba(255,255,255,0.76);
+    text-wrap: pretty;
+  }
+  .all-kit-grid { display: grid; gap: 34px; }
+  .category-band { display: grid; gap: 14px; }
+  .category-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .category-title h3 { font-size: 22px; }
+  .category-title span {
+    color: var(--faint);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .compact-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .compact-kit {
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,0.028);
+    border-radius: 10px;
+    padding: 20px;
+    min-height: 248px;
+    display: flex;
+    flex-direction: column;
+  }
+  .compact-kit:hover { border-color: rgba(245,198,109,0.45); }
+  .compact-kit h4 {
+    font-family: "Noto Serif TC", serif;
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 1.35;
+    margin-bottom: 8px;
+  }
+  .compact-kit p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.72;
+    text-wrap: pretty;
+  }
+  .compact-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+  }
+  .compact-meta span {
+    border: 1px solid rgba(255,255,255,0.13);
+    border-radius: 999px;
+    padding: 3px 8px;
+    color: rgba(255,255,255,0.68);
+    font-size: 11px;
+  }
+  .compact-action {
+    margin-top: auto;
+    padding-top: 18px;
+    color: var(--accent);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .foot { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; padding: 42px 0 56px; border-top: 1px solid var(--line-soft); color: var(--faint); font-size: 12px; }
+  .foot a:hover { color: var(--text); }
+  @media (max-width: 880px) {
+    .kit-grid, .steps, .compact-grid { grid-template-columns: 1fr; }
+    .kit.primary { grid-column: auto; }
+    .section-head { display: block; }
+    .switcher { grid-template-columns: 1fr; }
+    .nav { align-items: flex-start; flex-direction: column; }
+    .nav-links { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="nav">
+    <a class="brand" href="/">周全｜民眾版</a>
+    <nav class="nav-links" aria-label="主選單">
+      <a href="/event-kits.html">事件工具包</a>
+      <a href="/tools.html">單一工具</a>
+      <a href="https://choulegal.com/privacy.html" target="_blank" rel="noopener">隱私權</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow">Event Kits</div>
+      <h1>從具體事件開始，而不是從工具名稱開始。</h1>
+      <p>事件工具包會依使用者遇到的情境，整理可用工具、關鍵期限、常見文件與下一步。既有計算器仍保留，但在這裡會被放進完整流程中使用。</p>
+      <div class="switcher" aria-label="使用方式選擇">
+        <a class="switch-card active" href="/event-kits.html">
+          <div class="switch-kicker">Mode 01</div>
+          <div class="switch-title">事件工具包</div>
+          <div class="switch-text">適合不知道該用哪個工具，只知道自己遇到某件法律事件的人。</div>
+        </a>
+        <a class="switch-card" href="/tools.html">
+          <div class="switch-kicker">Mode 02</div>
+          <div class="switch-title">單一工具列表</div>
+          <div class="switch-text">適合已經知道要試算什麼，想直接打開特定工具的人。</div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="kits">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Current Kits</div>
+          <h2>先整合高壓、低頻、文件繁複的事件。</h2>
+        </div>
+        <p class="section-desc">第一階段不重做所有工具，而是把既有工具接到事件流程中。這能保留原本 SEO 與工具頁，同時讓民眾版有更完整的使用路徑。</p>
+      </div>
+
+      <div class="kit-grid">
+        <article class="kit primary">
+          <div class="kit-status"><span>Inheritance</span><strong>優先整合</strong></div>
+          <h3>親人過世後的繼承處理</h3>
+          <p class="kit-summary">整理死亡登記、拋棄或限定繼承、遺產稅、繼承分配、不動產與保險等事項。這是最適合先做成完整流程的事件，因為期限、文件與專業協作需求都很明確。</p>
+          <div class="kit-meta">
+            <div class="meta-row"><div class="meta-label">Output</div><div>期限表、文件清單、風險摘要、相關試算與可攜式 PDF 報告。</div></div>
+            <div class="meta-row"><div class="meta-label">Experts</div><div>律師、代書、會計師、地政士。</div></div>
+            <div class="meta-row"><div class="meta-label">Signals</div><div>是否逾期、是否有債務、不動產、保險、遺囑、特留分或家族爭議。</div></div>
+          </div>
+          <div class="tool-list" aria-label="繼承相關工具">
+            <a href="https://inheritance.choulegal.com/inheritance-timeline.html">繼承流程時間軸</a>
+            <a href="https://inheritance.choulegal.com/calculator.html">遺產繼承計算器</a>
+            <a href="https://inheritance.choulegal.com/limited-inheritance.html">限定與拋棄繼承</a>
+            <a href="https://inheritance.choulegal.com/forced-share.html">特留分扣減</a>
+            <a href="https://inheritance.choulegal.com/estate-tax-detail.html">遺產稅試算</a>
+            <a href="https://inheritance.choulegal.com/real-estate.html">不動產繼承</a>
+            <a href="https://inheritance.choulegal.com/insurance-policyholder-death.html">要保人身故</a>
+          </div>
+        </article>
+
+        <article class="kit">
+          <div class="kit-status"><span>Labor</span><strong>下一批</strong></div>
+          <h3>被資遣或遭解雇</h3>
+          <p class="kit-summary">協助使用者判斷解雇理由、年資、資遣費、預告工資、調解路徑與應保存文件。</p>
+          <div class="kit-meta">
+            <div class="meta-row"><div class="meta-label">Output</div><div>請求金額、證據清單、調解前準備。</div></div>
+            <div class="meta-row"><div class="meta-label">Experts</div><div>勞動法律師、勞工局、工會。</div></div>
+          </div>
+          <div class="tool-list">
+            <a href="https://labor.choulegal.com/wrongful-dismissal.html">不當解雇分析</a>
+            <a href="https://labor.choulegal.com/severance.html">資遣費試算</a>
+            <a href="https://labor.choulegal.com/notice-calc.html">預告工資</a>
+            <a href="https://labor.choulegal.com/dispute-guide.html">勞資爭議流程</a>
+          </div>
+        </article>
+
+        <article class="kit">
+          <div class="kit-status"><span>Traffic</span><strong>下一批</strong></div>
+          <h3>車禍後的賠償協商</h3>
+          <p class="kit-summary">把醫療費、薪資損失、看護費、慰撫金、和解區間與證據整理放入同一條流程。</p>
+          <div class="kit-meta">
+            <div class="meta-row"><div class="meta-label">Output</div><div>求償項目表、和解底線、文件清單。</div></div>
+            <div class="meta-row"><div class="meta-label">Experts</div><div>律師、保險理賠人員。</div></div>
+          </div>
+          <div class="tool-list">
+            <a href="https://inheritance.choulegal.com/accident.html">車禍賠償試算</a>
+            <a href="https://inheritance.choulegal.com/caregiver.html">看護費試算</a>
+            <a href="https://inheritance.choulegal.com/settlement-calc.html">和解金試算</a>
+          </div>
+        </article>
+
+        <article class="kit">
+          <div class="kit-status"><span>Family</span><strong>候選</strong></div>
+          <h3>離婚與家庭財產</h3>
+          <p class="kit-summary">整合剩餘財產分配、子女扶養費、贍養費、離婚協議檢核與損害賠償。</p>
+          <div class="tool-list">
+            <a href="https://inheritance.choulegal.com/property-split.html">剩餘財產分配</a>
+            <a href="https://inheritance.choulegal.com/child-support.html">子女扶養費</a>
+            <a href="https://inheritance.choulegal.com/alimony.html">贍養費試算</a>
+            <a href="https://inheritance.choulegal.com/divorce-agreement.html">離婚協議檢核</a>
+          </div>
+        </article>
+
+        <article class="kit">
+          <div class="kit-status"><span>Consumer</span><strong>候選</strong></div>
+          <h3>消費爭議與退費</h3>
+          <p class="kit-summary">適合與消保團體合作，將七日鑑賞期、退費、存證信函與申訴流程串成完整自助流程。</p>
+          <div class="tool-list">
+            <a href="https://consumer.choulegal.com">消費爭議工具</a>
+            <span>存證信函</span>
+            <span>申訴流程</span>
+          </div>
+        </article>
+
+        <article class="kit">
+          <div class="kit-status"><span>Rental</span><strong>候選</strong></div>
+          <h3>租屋糾紛</h3>
+          <p class="kit-summary">整理押金、修繕、提前解約、房東收回房屋與申訴路徑。適合做成房客角度的自助包。</p>
+          <div class="tool-list">
+            <a href="https://rental.choulegal.com">租屋權益工具</a>
+            <span>押金返還</span>
+            <span>修繕求償</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">All Event Kits</div>
+          <h2>完整事件地圖</h2>
+        </div>
+        <p class="section-desc">這一區由資料檔自動產生。後續新增事件包時，只需要補資料，不需要改整頁版面。</p>
+      </div>
+      <div id="allKitGrid" class="all-kit-grid" aria-live="polite"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Kit Structure</div>
+          <h2>每個事件工具包維持同一種骨架。</h2>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>情境分流</h3>
+          <p>先問少量必要問題，判斷使用者屬於哪一種事件狀態。</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>風險與期限</h3>
+          <p>標出逾期風險、關鍵期限、應優先處理的事項。</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>工具模組</h3>
+          <p>在適當節點接入既有試算工具，避免使用者自行猜測。</p>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <h3>下一步輸出</h3>
+          <p>產生摘要、文件清單、可列印報告與專業協助判斷。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="note">本頁為第一階段整合入口，不取代既有工具頁。原本的單一工具仍可直接使用，後續再逐步把高價值事件做成完整互動流程。</div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div>周全｜民眾版 © <span id="year">2026</span></div>
+    <div><a href="/">首頁</a> · <a href="/tools.html">單一工具列表</a> · <a href="mailto:businessjoechou@gmail.com">聯絡</a></div>
+  </footer>
+</div>
+<script src="/js/event-kits-data.js"></script>
+<script>
+  var year = document.getElementById('year');
+  if (year) year.textContent = new Date().getFullYear();
+
+  function escapeHtml(value) {
+    return String(value || '').replace(/[&<>"']/g, function (char) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[char];
+    });
+  }
+
+  function groupKitsByCategory(kits) {
+    return kits.reduce(function (groups, kit) {
+      if (!groups[kit.category]) groups[kit.category] = [];
+      groups[kit.category].push(kit);
+      return groups;
+    }, {});
+  }
+
+  function renderCompactKit(kit) {
+    var expertTags = (kit.experts || []).slice(0, 3).map(function (expert) {
+      return '<span>' + escapeHtml(expert) + '</span>';
+    }).join('');
+    return [
+      '<a class="compact-kit" href="/event-kit.html?id=' + encodeURIComponent(kit.id) + '">',
+      '<div class="kit-status"><span>' + escapeHtml(kit.status) + '</span><strong>' + escapeHtml(kit.category) + '</strong></div>',
+      '<h4>' + escapeHtml(kit.title) + '</h4>',
+      '<p>' + escapeHtml(kit.summary) + '</p>',
+      '<div class="compact-meta">' + expertTags + '</div>',
+      '<div class="compact-action">Open kit</div>',
+      '</a>'
+    ].join('');
+  }
+
+  function renderAllKits() {
+    var mount = document.getElementById('allKitGrid');
+    var kits = window.CHOULEGAL_EVENT_KITS || [];
+    if (!mount || !kits.length) return;
+    var groups = groupKitsByCategory(kits);
+    mount.innerHTML = Object.keys(groups).map(function (category) {
+      return [
+        '<section class="category-band">',
+        '<div class="category-title"><h3>' + escapeHtml(category) + '</h3><span>' + groups[category].length + ' kits</span></div>',
+        '<div class="compact-grid">',
+        groups[category].map(renderCompactKit).join(''),
+        '</div>',
+        '</section>'
+      ].join('');
+    }).join('');
+  }
+
+  renderAllKits();
+</script>
+</body>
+</html>

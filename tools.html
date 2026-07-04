@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"__CF_TOKEN_PEOPLE__"}'></script>
+<script src="js/ga.js" defer></script>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>單一工具列表｜周全民眾版</title>
+<meta name="description" content="周全民眾版單一工具列表，直接前往繼承、勞動、消費、租屋等法律計算工具。適合已經知道自己要使用哪一項工具的人。">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://people.choulegal.com/tools.html">
+<meta property="og:title" content="單一工具列表｜周全民眾版">
+<meta property="og:description" content="直接前往繼承、勞動、消費、租屋等法律計算工具。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://people.choulegal.com/tools.html">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://people.choulegal.com/icon-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600&family=Noto+Sans+TC:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #08090d;
+    --panel: rgba(255,255,255,0.035);
+    --panel-strong: rgba(255,255,255,0.07);
+    --line: rgba(255,255,255,0.12);
+    --line-soft: rgba(255,255,255,0.075);
+    --text: rgba(255,255,255,0.94);
+    --muted: rgba(255,255,255,0.58);
+    --faint: rgba(255,255,255,0.38);
+    --accent: #f5c66d;
+    --civil: #fbbf24;
+    --labor: #86efac;
+    --consumer: #f9a8d4;
+    --rental: #93c5fd;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at top left, rgba(245,158,11,0.15), transparent 32rem),
+      radial-gradient(circle at bottom right, rgba(56,189,248,0.12), transparent 34rem),
+      var(--bg);
+    color: var(--text);
+    font-family: "Noto Sans TC", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.72;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.72), transparent 74%);
+  }
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible { outline: 2px solid rgba(245,198,109,0.75); outline-offset: 3px; border-radius: 8px; }
+  .container { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+  .nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 0; }
+  .brand { font-family: "Noto Serif TC", serif; font-size: 17px; font-weight: 500; letter-spacing: 0.03em; }
+  .nav-links { display: flex; align-items: center; gap: 22px; color: var(--muted); font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .nav-links a:hover { color: var(--text); }
+  .hero { padding: 72px 0 46px; max-width: 780px; }
+  .eyebrow { color: var(--accent); font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 20px; }
+  h1, h2, h3 { font-family: "Noto Serif TC", serif; font-weight: 500; line-height: 1.2; text-wrap: balance; }
+  h1 { font-size: clamp(38px, 6vw, 70px); margin-bottom: 22px; }
+  h2 { font-size: clamp(25px, 3.4vw, 38px); }
+  .hero p { max-width: 660px; color: var(--muted); font-size: 16px; line-height: 1.95; text-wrap: pretty; }
+  .switcher {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 34px;
+    max-width: 760px;
+  }
+  .switch-card {
+    border: 1px solid var(--line);
+    background: var(--panel);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .switch-card.active { border-color: rgba(245,198,109,0.55); background: rgba(245,198,109,0.085); }
+  .switch-kicker { color: var(--faint); font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 8px; }
+  .switch-title { font-family: "Noto Serif TC", serif; font-size: 18px; margin-bottom: 6px; }
+  .switch-text { color: var(--muted); font-size: 13px; line-height: 1.7; }
+  .section { padding: 44px 0 58px; border-top: 1px solid var(--line-soft); }
+  .section-head { display: flex; justify-content: space-between; gap: 24px; align-items: end; margin-bottom: 24px; }
+  .section-desc { color: var(--muted); max-width: 520px; text-wrap: pretty; }
+  .category-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .category {
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(255,255,255,0.052), rgba(255,255,255,0.018));
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .category-top { display: flex; justify-content: space-between; gap: 14px; align-items: start; margin-bottom: 18px; }
+  .category h2 { margin-bottom: 8px; }
+  .category p { color: var(--muted); text-wrap: pretty; }
+  .badge { border: 1px solid rgba(255,255,255,0.15); border-radius: 999px; padding: 4px 9px; color: var(--faint); font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; }
+  .civil .badge { color: var(--civil); border-color: rgba(251,191,36,0.38); }
+  .labor .badge { color: var(--labor); border-color: rgba(134,239,172,0.34); }
+  .consumer .badge { color: var(--consumer); border-color: rgba(249,168,212,0.32); }
+  .rental .badge { color: var(--rental); border-color: rgba(147,197,253,0.34); }
+  .tool-groups { display: grid; gap: 18px; margin-top: 22px; }
+  .tool-group-title { color: var(--faint); font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 9px; }
+  .tool-list { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+  .tool-list a, .tool-list span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 31px;
+    border: 1px solid rgba(255,255,255,0.13);
+    border-radius: 999px;
+    padding: 5px 11px;
+    color: rgba(255,255,255,0.78);
+    font-size: 12px;
+  }
+  .tool-list a:hover { border-color: rgba(245,198,109,0.55); color: var(--text); }
+  .directory-links { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .directory-link {
+    min-height: 120px;
+    border: 1px solid var(--line-soft);
+    background: rgba(255,255,255,0.028);
+    border-radius: 10px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .directory-link strong { font-family: "Noto Serif TC", serif; font-size: 18px; font-weight: 500; }
+  .directory-link span { color: var(--muted); font-size: 12px; }
+  .foot { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; padding: 42px 0 56px; border-top: 1px solid var(--line-soft); color: var(--faint); font-size: 12px; }
+  .foot a:hover { color: var(--text); }
+  @media (max-width: 900px) {
+    .category-grid, .directory-links, .switcher { grid-template-columns: 1fr; }
+    .section-head { display: block; }
+    .nav { align-items: flex-start; flex-direction: column; }
+    .nav-links { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="nav">
+    <a class="brand" href="/">周全｜民眾版</a>
+    <nav class="nav-links" aria-label="主選單">
+      <a href="/event-kits.html">事件工具包</a>
+      <a href="/tools.html">單一工具</a>
+      <a href="https://choulegal.com/privacy.html" target="_blank" rel="noopener">隱私權</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow">Single Tools</div>
+      <h1>已經知道要算什麼時，直接進工具。</h1>
+      <p>這個列表保留原本工具式使用方式。適合使用者已經知道自己要算資遣費、應繼分、遺產稅、加班費或其他特定項目，不需要先經過事件分流。</p>
+      <div class="switcher" aria-label="使用方式選擇">
+        <a class="switch-card" href="/event-kits.html">
+          <div class="switch-kicker">Mode 01</div>
+          <div class="switch-title">事件工具包</div>
+          <div class="switch-text">適合從親人過世、遭解雇、車禍、離婚等事件開始。</div>
+        </a>
+        <a class="switch-card active" href="/tools.html">
+          <div class="switch-kicker">Mode 02</div>
+          <div class="switch-title">單一工具列表</div>
+          <div class="switch-text">適合直接打開單一試算或檢核工具。</div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Directories</div>
+          <h2>工具主站</h2>
+        </div>
+        <p class="section-desc">各主站仍保留完整工具目錄與原本頁面，不影響既有連結、搜尋索引與使用習慣。</p>
+      </div>
+      <div class="directory-links">
+        <a class="directory-link" href="https://inheritance.choulegal.com">
+          <strong>民法財產權</strong>
+          <span>繼承、離婚、損害賠償、保險與不動產</span>
+        </a>
+        <a class="directory-link" href="https://labor.choulegal.com">
+          <strong>勞動</strong>
+          <span>資遣、加班、職災、勞退與合規</span>
+        </a>
+        <a class="directory-link" href="https://consumer.choulegal.com">
+          <strong>消費爭議</strong>
+          <span>退費、契約、申訴與存證信函</span>
+        </a>
+        <a class="directory-link" href="https://rental.choulegal.com">
+          <strong>租屋權益</strong>
+          <span>押金、修繕、提前解約與房客自救</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="category-grid">
+        <article class="category civil">
+          <div class="category-top">
+            <div>
+              <h2>民法財產權</h2>
+              <p>繼承、家庭財產、損害賠償、保險與不動產。</p>
+            </div>
+            <div class="badge">Civil</div>
+          </div>
+          <div class="tool-groups">
+            <div>
+              <div class="tool-group-title">繼承</div>
+              <div class="tool-list">
+                <a href="https://inheritance.choulegal.com/calculator.html">遺產繼承計算器</a>
+                <a href="https://inheritance.choulegal.com/inheritance-timeline.html">繼承流程時間軸</a>
+                <a href="https://inheritance.choulegal.com/limited-inheritance.html">限定與拋棄繼承</a>
+                <a href="https://inheritance.choulegal.com/forced-share.html">特留分扣減</a>
+                <a href="https://inheritance.choulegal.com/estate-tax-detail.html">遺產稅試算</a>
+                <a href="https://inheritance.choulegal.com/stock-inheritance.html">股票繼承</a>
+              </div>
+            </div>
+            <div>
+              <div class="tool-group-title">家庭與財產</div>
+              <div class="tool-list">
+                <a href="https://inheritance.choulegal.com/property-split.html">剩餘財產分配</a>
+                <a href="https://inheritance.choulegal.com/child-support.html">子女扶養費</a>
+                <a href="https://inheritance.choulegal.com/alimony.html">贍養費試算</a>
+                <a href="https://inheritance.choulegal.com/divorce-agreement.html">離婚協議檢核</a>
+                <a href="https://inheritance.choulegal.com/divorce-damages.html">離婚損害賠償</a>
+              </div>
+            </div>
+            <div>
+              <div class="tool-group-title">損害、保險與不動產</div>
+              <div class="tool-list">
+                <a href="https://inheritance.choulegal.com/accident.html">車禍賠償試算</a>
+                <a href="https://inheritance.choulegal.com/caregiver.html">看護費試算</a>
+                <a href="https://inheritance.choulegal.com/settlement-calc.html">和解金試算</a>
+                <a href="https://inheritance.choulegal.com/real-estate.html">不動產繼承</a>
+                <a href="https://inheritance.choulegal.com/property-check.html">產權檢核</a>
+                <a href="https://inheritance.choulegal.com/insurance-estate-risk.html">保單遺產風險</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="category labor">
+          <div class="category-top">
+            <div>
+              <h2>勞動</h2>
+              <p>薪資、工時、離職資遣、職災與爭議處理。</p>
+            </div>
+            <div class="badge">Labor</div>
+          </div>
+          <div class="tool-groups">
+            <div>
+              <div class="tool-group-title">離職與資遣</div>
+              <div class="tool-list">
+                <a href="https://labor.choulegal.com/severance.html">資遣費試算</a>
+                <a href="https://labor.choulegal.com/notice-calc.html">預告工資</a>
+                <a href="https://labor.choulegal.com/wrongful-dismissal.html">不當解雇分析</a>
+                <a href="https://labor.choulegal.com/dismissal-checklist.html">解雇程序檢核</a>
+                <a href="https://labor.choulegal.com/termination-cost.html">終止成本試算</a>
+              </div>
+            </div>
+            <div>
+              <div class="tool-group-title">薪資與工時</div>
+              <div class="tool-list">
+                <a href="https://labor.choulegal.com/avg-wage.html">平均工資</a>
+                <a href="https://labor.choulegal.com/overtime.html">加班費試算</a>
+                <a href="https://labor.choulegal.com/overtime-detail.html">加班費明細</a>
+                <a href="https://labor.choulegal.com/annual-leave.html">特休天數</a>
+                <a href="https://labor.choulegal.com/work-hours.html">工時上限</a>
+                <a href="https://labor.choulegal.com/payslip-checker.html">薪資單體檢</a>
+              </div>
+            </div>
+            <div>
+              <div class="tool-group-title">爭議與合規</div>
+              <div class="tool-list">
+                <a href="https://labor.choulegal.com/dispute-guide.html">爭議流程指引</a>
+                <a href="https://labor.choulegal.com/work-injury.html">職災補償</a>
+                <a href="https://labor.choulegal.com/compliance-audit.html">合規自檢</a>
+                <a href="https://labor.choulegal.com/penalty-lookup.html">罰則查詢</a>
+                <a href="https://labor.choulegal.com/non-compete.html">競業禁止條款</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="category consumer">
+          <div class="category-top">
+            <div>
+              <h2>消費爭議</h2>
+              <p>退費、鑑賞期、廣告不實、契約爭議與申訴。</p>
+            </div>
+            <div class="badge">Consumer</div>
+          </div>
+          <div class="tool-list">
+            <a href="https://consumer.choulegal.com">消費爭議工具主站</a>
+            <span>七日鑑賞期</span>
+            <span>存證信函</span>
+            <span>申訴流程</span>
+            <span>跨境網購</span>
+            <span>懲罰賠償</span>
+          </div>
+        </article>
+
+        <article class="category rental">
+          <div class="category-top">
+            <div>
+              <h2>租屋權益</h2>
+              <p>押金、修繕、提前解約、租金與申訴路徑。</p>
+            </div>
+            <div class="badge">Rental</div>
+          </div>
+          <div class="tool-list">
+            <a href="https://rental.choulegal.com">租屋權益工具主站</a>
+            <span>押金返還</span>
+            <span>修繕求償</span>
+            <span>提前解約</span>
+            <span>房東收回房屋</span>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div>周全｜民眾版 © <span id="year">2026</span></div>
+    <div><a href="/">首頁</a> · <a href="/event-kits.html">事件工具包</a> · <a href="mailto:businessjoechou@gmail.com">聯絡</a></div>
+  </footer>
+</div>
+<script>
+  var year = document.getElementById('year');
+  if (year) year.textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

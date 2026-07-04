@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"__CF_TOKEN_PEOPLE__"}'></script>
+<script src="js/ga.js" defer></script>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>事件工具包詳情｜周全民眾版</title>
+<meta name="description" content="周全民眾版事件工具包詳情，整理法律事件的適用情境、風險訊號、期限、文件清單、相關工具與下一步。">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://people.choulegal.com/event-kit.html">
+<meta property="og:title" content="事件工具包詳情｜周全民眾版">
+<meta property="og:description" content="整理法律事件的適用情境、風險訊號、期限、文件清單、相關工具與下一步。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://people.choulegal.com/event-kit.html">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://people.choulegal.com/icon-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600&family=Noto+Sans+TC:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #08090d;
+    --panel: rgba(255,255,255,0.035);
+    --line: rgba(255,255,255,0.12);
+    --line-soft: rgba(255,255,255,0.075);
+    --text: rgba(255,255,255,0.94);
+    --muted: rgba(255,255,255,0.58);
+    --faint: rgba(255,255,255,0.38);
+    --accent: #f5c66d;
+    --accent-blue: #93c5fd;
+  }
+  body {
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at top left, rgba(245,158,11,0.15), transparent 32rem),
+      radial-gradient(circle at bottom right, rgba(147,197,253,0.12), transparent 34rem),
+      var(--bg);
+    color: var(--text);
+    font-family: "Noto Sans TC", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.76;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.72), transparent 74%);
+  }
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible { outline: 2px solid rgba(245,198,109,0.75); outline-offset: 3px; border-radius: 8px; }
+  .container { width: min(1040px, calc(100% - 40px)); margin: 0 auto; }
+  .nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 0; }
+  .brand { font-family: "Noto Serif TC", serif; font-size: 17px; font-weight: 500; letter-spacing: 0.03em; }
+  .nav-links { display: flex; align-items: center; gap: 22px; color: var(--muted); font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .nav-links a:hover { color: var(--text); }
+  .hero { padding: 66px 0 42px; }
+  .eyebrow { color: var(--accent); font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 18px; }
+  h1, h2, h3 { font-family: "Noto Serif TC", serif; font-weight: 500; line-height: 1.22; text-wrap: balance; }
+  h1 { font-size: clamp(38px, 6vw, 70px); max-width: 760px; margin-bottom: 20px; }
+  .summary { max-width: 720px; color: var(--muted); font-size: 16px; line-height: 1.95; text-wrap: pretty; }
+  .meta-line { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+  .pill {
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 999px;
+    padding: 5px 10px;
+    color: rgba(255,255,255,0.74);
+    font-size: 12px;
+  }
+  .layout { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr); gap: 16px; padding: 24px 0 64px; }
+  .panel {
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(255,255,255,0.052), rgba(255,255,255,0.018));
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .panel + .panel { margin-top: 16px; }
+  .panel h2 { font-size: 24px; margin-bottom: 16px; }
+  .guided-panel { grid-column: 1 / -1; }
+  .guided-intro { color: var(--muted); margin-bottom: 18px; text-wrap: pretty; }
+  .flow-step {
+    border-top: 1px solid var(--line-soft);
+    padding-top: 18px;
+    margin-top: 18px;
+  }
+  .flow-step:first-of-type {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+  }
+  .flow-step h3 { font-size: 19px; margin-bottom: 6px; }
+  .flow-step p { color: var(--muted); font-size: 13px; margin-bottom: 12px; text-wrap: pretty; }
+  .option-grid { display: grid; gap: 8px; }
+  .flow-option {
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.025);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: var(--text);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+  .flow-option:hover, .flow-option.active {
+    border-color: rgba(245,198,109,0.58);
+    background: rgba(245,198,109,0.09);
+  }
+  .flow-option strong {
+    display: block;
+    font-family: "Noto Serif TC", serif;
+    font-weight: 500;
+    margin-bottom: 3px;
+  }
+  .flow-option span { color: var(--muted); font-size: 12px; }
+  .flow-result {
+    border: 1px solid rgba(147,197,253,0.3);
+    background: rgba(147,197,253,0.075);
+    border-radius: 10px;
+    padding: 18px;
+    margin-top: 18px;
+  }
+  .flow-result h3 { font-size: 18px; margin-bottom: 10px; }
+  .flow-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+  .flow-tags span {
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 999px;
+    padding: 4px 9px;
+    color: rgba(255,255,255,0.76);
+    font-size: 12px;
+  }
+  .list { list-style: none; display: grid; gap: 10px; }
+  .list li {
+    position: relative;
+    padding-left: 18px;
+    color: rgba(255,255,255,0.76);
+    text-wrap: pretty;
+  }
+  .list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 5px;
+    height: 5px;
+    border-radius: 999px;
+    background: var(--accent);
+  }
+  .tool-links { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tool-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 999px;
+    padding: 5px 12px;
+    color: rgba(255,255,255,0.8);
+    font-size: 12px;
+  }
+  .tool-links a:hover { border-color: rgba(245,198,109,0.55); color: var(--text); }
+  .aside-card {
+    border: 1px solid var(--line-soft);
+    background: rgba(255,255,255,0.03);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .aside-title { color: var(--faint); font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 10px; }
+  .next-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 44px;
+    border-radius: 8px;
+    background: rgba(245,198,109,0.92);
+    color: #15120b;
+    font-weight: 600;
+    margin-top: 6px;
+  }
+  .empty { padding: 100px 0; }
+  .empty h1 { font-size: clamp(32px, 5vw, 56px); }
+  .foot { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; padding: 42px 0 56px; border-top: 1px solid var(--line-soft); color: var(--faint); font-size: 12px; }
+  .foot a:hover { color: var(--text); }
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: 1fr; }
+    .nav { align-items: flex-start; flex-direction: column; }
+    .nav-links { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="nav">
+    <a class="brand" href="/">周全｜民眾版</a>
+    <nav class="nav-links" aria-label="主選單">
+      <a href="/event-kits.html">事件工具包</a>
+      <a href="/tools.html">單一工具</a>
+      <a href="https://choulegal.com/privacy.html" target="_blank" rel="noopener">隱私權</a>
+    </nav>
+  </header>
+
+  <main id="app" aria-live="polite"></main>
+
+  <footer class="foot">
+    <div>周全｜民眾版 © <span id="year">2026</span></div>
+    <div><a href="/">首頁</a> · <a href="/event-kits.html">事件工具包</a> · <a href="/tools.html">單一工具列表</a></div>
+  </footer>
+</div>
+
+<script src="/js/event-kits-data.js"></script>
+<script>
+  var year = document.getElementById('year');
+  if (year) year.textContent = new Date().getFullYear();
+
+  function escapeHtml(value) {
+    return String(value || '').replace(/[&<>"']/g, function (char) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[char];
+    });
+  }
+
+  function renderList(items) {
+    return '<ul class="list">' + items.map(function (item) {
+      return '<li>' + escapeHtml(item) + '</li>';
+    }).join('') + '</ul>';
+  }
+
+  function renderTools(tools) {
+    if (!tools || !tools.length) return '<p class="summary">目前尚未綁定工具。</p>';
+    return '<div class="tool-links">' + tools.map(function (tool) {
+      return '<a href="' + escapeHtml(tool.href) + '">' + escapeHtml(tool.label) + '</a>';
+    }).join('') + '</div>';
+  }
+
+  function renderGuidedFlow(kit) {
+    if (!kit.guidedFlow || !kit.guidedFlow.steps || !kit.guidedFlow.steps.length) return '';
+    return [
+      '<article class="panel guided-panel">',
+      '<h2>引導式流程</h2>',
+      '<p class="guided-intro">' + escapeHtml(kit.guidedFlow.intro) + '</p>',
+      kit.guidedFlow.steps.map(function (step, stepIndex) {
+        return [
+          '<section class="flow-step" data-flow-step="' + escapeHtml(step.id) + '">',
+          '<h3>' + String(stepIndex + 1).padStart(2, '0') + '｜' + escapeHtml(step.title) + '</h3>',
+          '<p>' + escapeHtml(step.prompt) + '</p>',
+          '<div class="option-grid">',
+          step.options.map(function (option, optionIndex) {
+            return [
+              '<button class="flow-option" type="button" data-step="' + escapeHtml(step.id) + '" data-option="' + optionIndex + '">',
+              '<strong>' + escapeHtml(option.label) + '</strong>',
+              '<span>' + escapeHtml(option.note) + '</span>',
+              '</button>'
+            ].join('');
+          }).join(''),
+          '</div>',
+          '</section>'
+        ].join('');
+      }).join(''),
+      '<div class="flow-result" id="flowResult">',
+      '<h3>初步整理</h3>',
+      '<p class="summary">選擇上方選項後，這裡會整理風險標籤與建議使用的工具。</p>',
+      '</div>',
+      '</article>'
+    ].join('');
+  }
+
+  function renderKit(kit) {
+    document.title = kit.title + '｜周全民眾版';
+    var metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) metaDescription.setAttribute('content', kit.summary);
+    return [
+      '<section class="hero">',
+      '<div class="eyebrow">' + escapeHtml(kit.category) + '</div>',
+      '<h1>' + escapeHtml(kit.title) + '</h1>',
+      '<p class="summary">' + escapeHtml(kit.summary) + '</p>',
+      '<div class="meta-line">',
+      '<span class="pill">' + escapeHtml(kit.status) + '</span>',
+      kit.experts.map(function (expert) { return '<span class="pill">' + escapeHtml(expert) + '</span>'; }).join(''),
+      '</div>',
+      '</section>',
+      '<section class="layout">',
+      renderGuidedFlow(kit),
+      '<div>',
+      '<article class="panel"><h2>進入前要確認</h2>' + renderList(kit.firstQuestions) + '</article>',
+      '<article class="panel"><h2>風險訊號</h2>' + renderList(kit.riskSignals) + '</article>',
+      '<article class="panel"><h2>關鍵期限</h2>' + renderList(kit.deadlines) + '</article>',
+      '<article class="panel"><h2>常見文件</h2>' + renderList(kit.documents) + '</article>',
+      '</div>',
+      '<aside>',
+      '<div class="aside-card"><div class="aside-title">Related Tools</div>' + renderTools(kit.tools) + '</div>',
+      '<div class="aside-card"><div class="aside-title">Next Steps</div>' + renderList(kit.nextSteps) + '</div>',
+      '<div class="aside-card"><div class="aside-title">Directory</div><a class="next-link" href="/event-kits.html">回事件工具包</a></div>',
+      '</aside>',
+      '</section>'
+    ].join('');
+  }
+
+  function renderEmpty() {
+    return '<section class="empty"><div class="eyebrow">Not Found</div><h1>找不到這個事件工具包。</h1><p class="summary">請回到事件工具包列表重新選擇。</p><p><a class="next-link" style="max-width:260px" href="/event-kits.html">回事件工具包</a></p></section>';
+  }
+
+  var params = new URLSearchParams(window.location.search);
+  var kitId = params.get('id') || 'inheritance-after-death';
+  var kits = window.CHOULEGAL_EVENT_KITS || [];
+  var selectedKit = kits.find(function (kit) { return kit.id === kitId; });
+  document.getElementById('app').innerHTML = selectedKit ? renderKit(selectedKit) : renderEmpty();
+
+  function bindGuidedFlow(kit) {
+    if (!kit || !kit.guidedFlow) return;
+    var selections = {};
+    var buttons = Array.prototype.slice.call(document.querySelectorAll('.flow-option'));
+    buttons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        var stepId = button.getAttribute('data-step');
+        var optionIndex = Number(button.getAttribute('data-option'));
+        selections[stepId] = optionIndex;
+        buttons
+          .filter(function (candidate) { return candidate.getAttribute('data-step') === stepId; })
+          .forEach(function (candidate) { candidate.classList.remove('active'); });
+        button.classList.add('active');
+        renderFlowResult(kit, selections);
+      });
+    });
+  }
+
+  function renderFlowResult(kit, selections) {
+    var result = document.getElementById('flowResult');
+    if (!result) return;
+    var selectedOptions = kit.guidedFlow.steps
+      .map(function (step) {
+        var optionIndex = selections[step.id];
+        return typeof optionIndex === 'number' ? step.options[optionIndex] : null;
+      })
+      .filter(Boolean);
+    if (!selectedOptions.length) return;
+    var flags = selectedOptions.reduce(function (items, option) {
+      (option.flags || []).forEach(function (flag) {
+        if (!items.includes(flag)) items.push(flag);
+      });
+      return items;
+    }, []);
+    var toolKeys = kit.guidedFlow.recommendedTools || [];
+    var recommendedTools = (kit.tools || []).filter(function (tool) {
+      return toolKeys.some(function (key) { return tool.href.indexOf('/' + key + '.html') !== -1; });
+    });
+    result.innerHTML = [
+      '<h3>初步整理</h3>',
+      flags.length ? '<div class="flow-tags">' + flags.map(function (flag) { return '<span>' + escapeHtml(flag) + '</span>'; }).join('') + '</div>' : '',
+      '<ul class="list">',
+      selectedOptions.map(function (option) { return '<li>' + escapeHtml(option.note) + '</li>'; }).join(''),
+      '</ul>',
+      '<div style="margin-top:16px">',
+      '<div class="aside-title">Suggested Tools</div>',
+      renderTools(recommendedTools.length ? recommendedTools : kit.tools),
+      '</div>'
+    ].join('');
+  }
+
+  bindGuidedFlow(selectedKit);
+</script>
+</body>
+</html>
