@@ -86,10 +86,24 @@
   .panel h2 { font-size: 24px; margin-bottom: 16px; }
   .guided-panel { grid-column: 1 / -1; }
   .guided-intro { color: var(--muted); margin-bottom: 18px; text-wrap: pretty; }
+  .flow-progress {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    border: 1px solid rgba(245,198,109,0.28);
+    border-radius: 999px;
+    padding: 4px 11px;
+    color: rgba(245,198,109,0.92);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
   .flow-step {
     border-top: 1px solid var(--line-soft);
     padding-top: 18px;
     margin-top: 18px;
+    transition: opacity 180ms ease, filter 180ms ease;
   }
   .flow-step:first-of-type {
     border-top: none;
@@ -98,6 +112,7 @@
   }
   .flow-step h3 { font-size: 19px; margin-bottom: 6px; }
   .flow-step p { color: var(--muted); font-size: 13px; margin-bottom: 12px; text-wrap: pretty; }
+  .flow-step.locked { opacity: 0.42; filter: grayscale(0.3); }
   .option-grid { display: grid; gap: 8px; }
   .flow-option {
     border: 1px solid rgba(255,255,255,0.12);
@@ -112,6 +127,10 @@
   .flow-option:hover, .flow-option.active {
     border-color: rgba(245,198,109,0.58);
     background: rgba(245,198,109,0.09);
+  }
+  .flow-option:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
   }
   .flow-option strong {
     display: block;
@@ -128,6 +147,23 @@
     margin-top: 18px;
   }
   .flow-result h3 { font-size: 18px; margin-bottom: 10px; }
+  .flow-result-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
+  .flow-section {
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 14px;
+    background: rgba(0,0,0,0.12);
+  }
+  .flow-section h4 {
+    color: rgba(245,198,109,0.9);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .flow-section .list { gap: 8px; }
+  .flow-section .list li { font-size: 13px; line-height: 1.65; }
   .flow-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
   .flow-tags span {
     border: 1px solid rgba(255,255,255,0.16);
@@ -193,6 +229,7 @@
     .layout { grid-template-columns: 1fr; }
     .nav { align-items: flex-start; flex-direction: column; }
     .nav-links { flex-wrap: wrap; }
+    .flow-result-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -245,9 +282,10 @@
       '<article class="panel guided-panel">',
       '<h2>引導式流程</h2>',
       '<p class="guided-intro">' + escapeHtml(kit.guidedFlow.intro) + '</p>',
+      '<div class="flow-progress" id="flowProgress">Step 01 / ' + String(kit.guidedFlow.steps.length).padStart(2, '0') + '</div>',
       kit.guidedFlow.steps.map(function (step, stepIndex) {
         return [
-          '<section class="flow-step" data-flow-step="' + escapeHtml(step.id) + '">',
+          '<section class="flow-step" data-flow-step="' + escapeHtml(step.id) + '" data-step-index="' + stepIndex + '">',
           '<h3>' + String(stepIndex + 1).padStart(2, '0') + '｜' + escapeHtml(step.title) + '</h3>',
           '<p>' + escapeHtml(step.prompt) + '</p>',
           '<div class="option-grid">',
@@ -264,8 +302,8 @@
         ].join('');
       }).join(''),
       '<div class="flow-result" id="flowResult">',
-      '<h3>初步整理</h3>',
-      '<p class="summary">選擇上方選項後，這裡會整理風險標籤與建議使用的工具。</p>',
+      '<h3>解決路線</h3>',
+      '<p class="summary">從第一題開始選。完成每一步後，這裡會整理下一步行動、需要準備的資料與可搭配的工具。</p>',
       '</div>',
       '</article>'
     ].join('');
@@ -316,8 +354,31 @@
     if (!kit || !kit.guidedFlow) return;
     var selections = {};
     var buttons = Array.prototype.slice.call(document.querySelectorAll('.flow-option'));
+    var steps = Array.prototype.slice.call(document.querySelectorAll('.flow-step'));
+
+    function updateStepState() {
+      var firstOpenIndex = kit.guidedFlow.steps.findIndex(function (step) {
+        return typeof selections[step.id] !== 'number';
+      });
+      var activeIndex = firstOpenIndex === -1 ? kit.guidedFlow.steps.length - 1 : firstOpenIndex;
+      steps.forEach(function (stepEl, stepIndex) {
+        var locked = stepIndex > activeIndex;
+        stepEl.classList.toggle('locked', locked);
+        Array.prototype.slice.call(stepEl.querySelectorAll('.flow-option')).forEach(function (button) {
+          button.disabled = locked;
+        });
+      });
+      var progress = document.getElementById('flowProgress');
+      if (progress) {
+        progress.textContent = firstOpenIndex === -1
+          ? 'Complete'
+          : 'Step ' + String(activeIndex + 1).padStart(2, '0') + ' / ' + String(kit.guidedFlow.steps.length).padStart(2, '0');
+      }
+    }
+
     buttons.forEach(function (button) {
       button.addEventListener('click', function () {
+        if (button.disabled) return;
         var stepId = button.getAttribute('data-step');
         var optionIndex = Number(button.getAttribute('data-option'));
         selections[stepId] = optionIndex;
@@ -325,9 +386,11 @@
           .filter(function (candidate) { return candidate.getAttribute('data-step') === stepId; })
           .forEach(function (candidate) { candidate.classList.remove('active'); });
         button.classList.add('active');
+        updateStepState();
         renderFlowResult(kit, selections);
       });
     });
+    updateStepState();
   }
 
   function renderFlowResult(kit, selections) {
@@ -340,22 +403,47 @@
       })
       .filter(Boolean);
     if (!selectedOptions.length) return;
+    function collect(field) {
+      return selectedOptions.reduce(function (items, option) {
+        (option[field] || []).forEach(function (item) {
+          if (!items.includes(item)) items.push(item);
+        });
+        return items;
+      }, []);
+    }
     var flags = selectedOptions.reduce(function (items, option) {
       (option.flags || []).forEach(function (flag) {
         if (!items.includes(flag)) items.push(flag);
       });
       return items;
     }, []);
-    var toolKeys = kit.guidedFlow.recommendedTools || [];
+    var actions = collect('actions');
+    var documents = collect('documents');
+    var toolKeys = collect('toolKeys').concat(kit.guidedFlow.recommendedTools || []);
     var recommendedTools = (kit.tools || []).filter(function (tool) {
       return toolKeys.some(function (key) { return tool.href.indexOf('/' + key + '.html') !== -1; });
     });
+    var answeredCount = selectedOptions.length;
+    var totalCount = kit.guidedFlow.steps.length;
+    var routeSummary = kit.guidedFlow.steps
+      .map(function (step) {
+        var optionIndex = selections[step.id];
+        return typeof optionIndex === 'number' ? step.options[optionIndex].label : null;
+      })
+      .filter(Boolean)
+      .join('，');
+    var nextPrompt = answeredCount < totalCount
+      ? '下一步，請回答「' + kit.guidedFlow.steps[answeredCount].title + '」。'
+      : '已完成初步分流。可依下列順序整理資料，再使用工具估算或準備諮詢。';
     result.innerHTML = [
-      '<h3>初步整理</h3>',
+      '<h3>解決路線</h3>',
+      '<p class="summary">目前狀態：' + escapeHtml(routeSummary) + '。' + escapeHtml(nextPrompt) + '</p>',
       flags.length ? '<div class="flow-tags">' + flags.map(function (flag) { return '<span>' + escapeHtml(flag) + '</span>'; }).join('') + '</div>' : '',
-      '<ul class="list">',
-      selectedOptions.map(function (option) { return '<li>' + escapeHtml(option.note) + '</li>'; }).join(''),
-      '</ul>',
+      '<div class="flow-result-grid">',
+      '<section class="flow-section"><h4>現在先做</h4>' + renderList(actions.length ? actions : selectedOptions.map(function (option) { return option.note; })) + '</section>',
+      '<section class="flow-section"><h4>同時準備</h4>' + renderList(documents.length ? documents : kit.documents.slice(0, 4)) + '</section>',
+      '<section class="flow-section"><h4>不要忽略</h4>' + renderList(selectedOptions.map(function (option) { return option.note; })) + '</section>',
+      '</div>',
       '<div style="margin-top:16px">',
       '<div class="aside-title">Suggested Tools</div>',
       renderTools(recommendedTools.length ? recommendedTools : kit.tools),
