@@ -899,7 +899,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "rental-deposit-repair",
-    status: "候選",
+    status: "引導式",
     category: "租屋與不動產",
     title: "押金、修繕與退租糾紛",
     summary: "處理押金返還、房屋修繕、提前解約、房東扣款與房客自救流程。",
