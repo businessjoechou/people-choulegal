@@ -576,7 +576,7 @@ window.CHOULEGAL_EVENT_KITS = [
         {
           id: "stage",
           title: "事故目前進到哪個階段？",
-          prompt: "先判斷使用者是剛發生事故、正在治療，還是已經開始談和解。",
+          prompt: "先選現在的狀態。不同階段要保留的資料不一樣。",
           options: [
             {
               label: "剛發生事故",

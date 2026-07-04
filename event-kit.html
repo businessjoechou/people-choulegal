@@ -112,7 +112,7 @@
   }
   .flow-step h3 { font-size: 19px; margin-bottom: 6px; }
   .flow-step p { color: var(--muted); font-size: 13px; margin-bottom: 12px; text-wrap: pretty; }
-  .flow-step.locked { opacity: 0.42; filter: grayscale(0.3); }
+  .flow-step.locked { display: none; }
   .option-grid { display: grid; gap: 8px; }
   .flow-option {
     border: 1px solid rgba(255,255,255,0.12);
@@ -321,13 +321,14 @@
     document.title = kit.title + '｜周全民眾版';
     var metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) metaDescription.setAttribute('content', kit.summary);
+    var statusLabel = kit.guidedFlow ? '引導式' : '詳情頁';
     return [
       '<section class="hero">',
       '<div class="eyebrow">' + escapeHtml(kit.category) + '</div>',
       '<h1>' + escapeHtml(kit.title) + '</h1>',
       '<p class="summary">' + escapeHtml(kit.summary) + '</p>',
       '<div class="meta-line">',
-      '<span class="pill">' + escapeHtml(kit.status) + '</span>',
+      '<span class="pill">' + escapeHtml(statusLabel) + '</span>',
       kit.experts.map(function (expert) { return '<span class="pill">' + escapeHtml(expert) + '</span>'; }).join(''),
       '</div>',
       '</section>',

@@ -103,6 +103,7 @@
     display: flex;
     flex-direction: column;
   }
+  a.kit:hover { border-color: rgba(245,198,109,0.45); transform: translateY(-1px); }
   .kit.primary { grid-column: span 2; }
   .kit-status { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 22px; color: var(--faint); font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; }
   .kit-status strong { color: var(--accent); font-weight: 500; }
@@ -123,6 +124,18 @@
     font-size: 12px;
   }
   .tool-list a:hover { border-color: rgba(245,198,109,0.55); color: var(--text); }
+  .start-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    border-radius: 8px;
+    background: rgba(245,198,109,0.92);
+    color: #15120b;
+    font-weight: 600;
+    margin-top: auto;
+    padding: 8px 14px;
+  }
   .steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
   .step {
     border: 1px solid var(--line-soft);
@@ -230,17 +243,17 @@
 
   <main>
     <section class="hero">
-      <div class="eyebrow">Event Kits</div>
+      <div class="eyebrow">事件工具包</div>
       <h1>從具體事件開始，而不是從工具名稱開始。</h1>
       <p>事件工具包會依使用者遇到的情境，整理可用工具、關鍵期限、常見文件與下一步。既有計算器仍保留，但在這裡會被放進完整流程中使用。</p>
       <div class="switcher" aria-label="使用方式選擇">
         <a class="switch-card active" href="/event-kits.html">
-          <div class="switch-kicker">Mode 01</div>
+          <div class="switch-kicker">方式一</div>
           <div class="switch-title">事件工具包</div>
           <div class="switch-text">適合不知道該用哪個工具，只知道自己遇到某件法律事件的人。</div>
         </a>
         <a class="switch-card" href="/tools.html">
-          <div class="switch-kicker">Mode 02</div>
+          <div class="switch-kicker">方式二</div>
           <div class="switch-title">單一工具列表</div>
           <div class="switch-text">適合已經知道要試算什麼，想直接打開特定工具的人。</div>
         </a>
@@ -250,104 +263,80 @@
     <section class="section" id="kits">
       <div class="section-head">
         <div>
-          <div class="eyebrow">Current Kits</div>
-          <h2>先整合高壓、低頻、文件繁複的事件。</h2>
+          <div class="eyebrow">先從這裡開始</div>
+          <h2>選你正在遇到的事，直接進入引導。</h2>
         </div>
-        <p class="section-desc">第一階段不重做所有工具，而是把既有工具接到事件流程中。這能保留原本 SEO 與工具頁，同時讓民眾版有更完整的使用路徑。</p>
+        <p class="section-desc">不用先知道工具名稱。從事件進去，回答幾個問題後，再取得下一步、文件清單與適合使用的工具。</p>
       </div>
 
       <div class="kit-grid">
-        <article class="kit primary">
-          <div class="kit-status"><span>Inheritance</span><strong>優先整合</strong></div>
+        <a class="kit primary" href="/event-kit.html?id=inheritance-after-death">
+          <div class="kit-status"><span>家庭與繼承</span><strong>引導式</strong></div>
           <h3>親人過世後的繼承處理</h3>
-          <p class="kit-summary">整理死亡登記、拋棄或限定繼承、遺產稅、繼承分配、不動產與保險等事項。這是最適合先做成完整流程的事件，因為期限、文件與專業協作需求都很明確。</p>
+          <p class="kit-summary">適合剛遇到喪親、還不確定要先辦死亡登記、查債務、拋棄繼承，或處理遺產稅的人。</p>
           <div class="kit-meta">
-            <div class="meta-row"><div class="meta-label">Output</div><div>期限表、文件清單、風險摘要、相關試算與可攜式 PDF 報告。</div></div>
-            <div class="meta-row"><div class="meta-label">Experts</div><div>律師、代書、會計師、地政士。</div></div>
-            <div class="meta-row"><div class="meta-label">Signals</div><div>是否逾期、是否有債務、不動產、保險、遺囑、特留分或家族爭議。</div></div>
+            <div class="meta-row"><div class="meta-label">會整理</div><div>期限、債務風險、遺產種類與家人是否有爭議。</div></div>
+            <div class="meta-row"><div class="meta-label">會得到</div><div>先做三件事、要準備的資料、適合搭配的工具。</div></div>
           </div>
-          <div class="tool-list" aria-label="繼承相關工具">
-            <a href="https://inheritance.choulegal.com/inheritance-timeline.html">繼承流程時間軸</a>
-            <a href="https://inheritance.choulegal.com/calculator.html">遺產繼承計算器</a>
-            <a href="https://inheritance.choulegal.com/limited-inheritance.html">限定與拋棄繼承</a>
-            <a href="https://inheritance.choulegal.com/forced-share.html">特留分扣減</a>
-            <a href="https://inheritance.choulegal.com/estate-tax-detail.html">遺產稅試算</a>
-            <a href="https://inheritance.choulegal.com/real-estate.html">不動產繼承</a>
-            <a href="https://inheritance.choulegal.com/insurance-policyholder-death.html">要保人身故</a>
-          </div>
-        </article>
+          <div class="start-link">開始繼承引導</div>
+        </a>
 
-        <article class="kit">
-          <div class="kit-status"><span>Labor</span><strong>下一批</strong></div>
+        <a class="kit" href="/event-kit.html?id=dismissal-or-severance">
+          <div class="kit-status"><span>勞動與職場</span><strong>引導式</strong></div>
           <h3>被資遣或遭解雇</h3>
-          <p class="kit-summary">協助使用者判斷解雇理由、年資、資遣費、預告工資、調解路徑與應保存文件。</p>
+          <p class="kit-summary">適合收到資遣通知、被口頭叫離職，或公司要求你自己寫離職的人。</p>
           <div class="kit-meta">
-            <div class="meta-row"><div class="meta-label">Output</div><div>請求金額、證據清單、調解前準備。</div></div>
-            <div class="meta-row"><div class="meta-label">Experts</div><div>勞動法律師、勞工局、工會。</div></div>
+            <div class="meta-row"><div class="meta-label">會整理</div><div>解雇理由、資遣費、預告工資與調解資料。</div></div>
           </div>
-          <div class="tool-list">
-            <a href="https://labor.choulegal.com/wrongful-dismissal.html">不當解雇分析</a>
-            <a href="https://labor.choulegal.com/severance.html">資遣費試算</a>
-            <a href="https://labor.choulegal.com/notice-calc.html">預告工資</a>
-            <a href="https://labor.choulegal.com/dispute-guide.html">勞資爭議流程</a>
-          </div>
-        </article>
+          <div class="start-link">開始離職引導</div>
+        </a>
 
-        <article class="kit">
-          <div class="kit-status"><span>Traffic</span><strong>下一批</strong></div>
+        <a class="kit" href="/event-kit.html?id=traffic-accident-compensation">
+          <div class="kit-status"><span>車禍與損害賠償</span><strong>引導式</strong></div>
           <h3>車禍後的賠償協商</h3>
-          <p class="kit-summary">把醫療費、薪資損失、看護費、慰撫金、和解區間與證據整理放入同一條流程。</p>
+          <p class="kit-summary">適合剛發生事故、正在治療，或保險公司已經開始談和解的人。</p>
           <div class="kit-meta">
-            <div class="meta-row"><div class="meta-label">Output</div><div>求償項目表、和解底線、文件清單。</div></div>
-            <div class="meta-row"><div class="meta-label">Experts</div><div>律師、保險理賠人員。</div></div>
+            <div class="meta-row"><div class="meta-label">會整理</div><div>傷勢、肇責、和解風險與要先留下的證據。</div></div>
           </div>
-          <div class="tool-list">
-            <a href="https://inheritance.choulegal.com/accident.html">車禍賠償試算</a>
-            <a href="https://inheritance.choulegal.com/caregiver.html">看護費試算</a>
-            <a href="https://inheritance.choulegal.com/settlement-calc.html">和解金試算</a>
-          </div>
-        </article>
+          <div class="start-link">開始車禍引導</div>
+        </a>
 
-        <article class="kit">
-          <div class="kit-status"><span>Family</span><strong>候選</strong></div>
-          <h3>離婚與家庭財產</h3>
-          <p class="kit-summary">整合剩餘財產分配、子女扶養費、贍養費、離婚協議檢核與損害賠償。</p>
-          <div class="tool-list">
-            <a href="https://inheritance.choulegal.com/property-split.html">剩餘財產分配</a>
-            <a href="https://inheritance.choulegal.com/child-support.html">子女扶養費</a>
-            <a href="https://inheritance.choulegal.com/alimony.html">贍養費試算</a>
-            <a href="https://inheritance.choulegal.com/divorce-agreement.html">離婚協議檢核</a>
+        <a class="kit" href="/event-kit.html?id=divorce-property-and-children">
+          <div class="kit-status"><span>婚姻與親子</span><strong>引導式</strong></div>
+          <h3>離婚、財產與子女安排</h3>
+          <p class="kit-summary">適合正在談離婚協議、財產分配、子女扶養費或安全風險的人。</p>
+          <div class="kit-meta">
+            <div class="meta-row"><div class="meta-label">會整理</div><div>協議、財產、子女安排與是否需要先處理安全問題。</div></div>
           </div>
-        </article>
+          <div class="start-link">開始離婚引導</div>
+        </a>
 
-        <article class="kit">
-          <div class="kit-status"><span>Consumer</span><strong>候選</strong></div>
-          <h3>消費爭議與退費</h3>
-          <p class="kit-summary">適合與消保團體合作，將七日鑑賞期、退費、存證信函與申訴流程串成完整自助流程。</p>
-          <div class="tool-list">
-            <a href="https://consumer.choulegal.com">消費爭議工具</a>
-            <span>存證信函</span>
-            <span>申訴流程</span>
+        <a class="kit" href="/event-kit.html?id=online-shopping-refund">
+          <div class="kit-status"><span>消費與契約</span><strong>引導式</strong></div>
+          <h3>網購退貨、退費與申訴</h3>
+          <p class="kit-summary">適合商家拒絕退貨、退款拖延，或你不確定七日鑑賞期能不能用的人。</p>
+          <div class="kit-meta">
+            <div class="meta-row"><div class="meta-label">會整理</div><div>期限、商品類型、通知紀錄與付款方式。</div></div>
           </div>
-        </article>
+          <div class="start-link">開始退費引導</div>
+        </a>
 
-        <article class="kit">
-          <div class="kit-status"><span>Rental</span><strong>候選</strong></div>
-          <h3>租屋糾紛</h3>
-          <p class="kit-summary">整理押金、修繕、提前解約、房東收回房屋與申訴路徑。適合做成房客角度的自助包。</p>
-          <div class="tool-list">
-            <a href="https://rental.choulegal.com">租屋權益工具</a>
-            <span>押金返還</span>
-            <span>修繕求償</span>
+        <a class="kit" href="/event-kit.html?id=rental-deposit-repair">
+          <div class="kit-status"><span>租屋與不動產</span><strong>引導式</strong></div>
+          <h3>押金、修繕與退租糾紛</h3>
+          <p class="kit-summary">適合房東不退押金、修繕拖延、提前解約或退租點交有爭議的人。</p>
+          <div class="kit-meta">
+            <div class="meta-row"><div class="meta-label">會整理</div><div>租約、押金、房況照片、通知紀錄與調解路線。</div></div>
           </div>
-        </article>
+          <div class="start-link">開始租屋引導</div>
+        </a>
       </div>
     </section>
 
     <section class="section">
       <div class="section-head">
         <div>
-          <div class="eyebrow">All Event Kits</div>
+          <div class="eyebrow">全部事件包</div>
           <h2>完整事件地圖</h2>
         </div>
         <p class="section-desc">這一區由資料檔自動產生。後續新增事件包時，只需要補資料，不需要改整頁版面。</p>
@@ -358,7 +347,7 @@
     <section class="section">
       <div class="section-head">
         <div>
-          <div class="eyebrow">Kit Structure</div>
+          <div class="eyebrow">使用方式</div>
           <h2>每個事件工具包維持同一種骨架。</h2>
         </div>
       </div>
@@ -381,13 +370,13 @@
         <div class="step">
           <div class="step-num">04</div>
           <h3>下一步輸出</h3>
-          <p>產生摘要、文件清單、可列印報告與專業協助判斷。</p>
+          <p>整理短清單、文件清單、建議工具與是否需要專業協助。</p>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <div class="note">本頁為第一階段整合入口，不取代既有工具頁。原本的單一工具仍可直接使用，後續再逐步把高價值事件做成完整互動流程。</div>
+      <div class="note">如果你已經知道要試算什麼，也可以直接使用單一工具列表。若還不確定，建議先從事件工具包開始。</div>
     </section>
   </main>
 
@@ -416,16 +405,17 @@
   }
 
   function renderCompactKit(kit) {
+    var statusLabel = kit.guidedFlow ? '引導式' : '詳情頁';
     var expertTags = (kit.experts || []).slice(0, 3).map(function (expert) {
       return '<span>' + escapeHtml(expert) + '</span>';
     }).join('');
     return [
       '<a class="compact-kit" href="/event-kit.html?id=' + encodeURIComponent(kit.id) + '">',
-      '<div class="kit-status"><span>' + escapeHtml(kit.status) + '</span><strong>' + escapeHtml(kit.category) + '</strong></div>',
+      '<div class="kit-status"><span>' + escapeHtml(statusLabel) + '</span><strong>' + escapeHtml(kit.category) + '</strong></div>',
       '<h4>' + escapeHtml(kit.title) + '</h4>',
       '<p>' + escapeHtml(kit.summary) + '</p>',
       '<div class="compact-meta">' + expertTags + '</div>',
-      '<div class="compact-action">Open kit</div>',
+      '<div class="compact-action">' + (kit.guidedFlow ? '開始引導' : '查看詳情') + '</div>',
       '</a>'
     ].join('');
   }
@@ -438,7 +428,7 @@
     mount.innerHTML = Object.keys(groups).map(function (category) {
       return [
         '<section class="category-band">',
-        '<div class="category-title"><h3>' + escapeHtml(category) + '</h3><span>' + groups[category].length + ' kits</span></div>',
+        '<div class="category-title"><h3>' + escapeHtml(category) + '</h3><span>' + groups[category].length + ' 個事件包</span></div>',
         '<div class="compact-grid">',
         groups[category].map(renderCompactKit).join(''),
         '</div>',
