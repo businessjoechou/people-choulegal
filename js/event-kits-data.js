@@ -21,7 +21,7 @@ window.CHOULEGAL_EVENT_KITS = [
     experts: ["律師", "代書", "會計師", "地政士"],
     nextSteps: ["先確認期限", "整理財產與債務資料", "判斷是否需要拋棄或限定繼承", "再處理稅務與過戶"],
     guidedFlow: {
-      intro: "先從期限和債務判斷。系統會把繼承初期最容易漏掉的事，收成一份短清單。",
+      intro: "先從期限和債務判斷。頁面會把繼承初期最容易漏掉的事，整理成一份短清單。",
       steps: [
         {
           id: "date",
@@ -153,7 +153,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "renounce-or-limited-inheritance",
-    status: "詳情頁",
+    status: "重點整理",
     category: "家庭與繼承",
     title: "要不要拋棄或限定繼承",
     summary: "針對遺產可能小於債務、債務不明或繼承人不想承擔風險的情境。",
@@ -170,7 +170,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "will-and-forced-share-dispute",
-    status: "詳情頁",
+    status: "重點整理",
     category: "家庭與繼承",
     title: "遺囑與特留分爭議",
     summary: "處理遺囑效力、特留分侵害、生前贈與與繼承人分配爭議。",
@@ -338,7 +338,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "child-support-adjustment",
-    status: "詳情頁",
+    status: "重點整理",
     category: "婚姻與親子",
     title: "子女扶養費與探視安排",
     summary: "處理扶養費金額、支出分擔、收入變動與探視安排爭議。",
@@ -357,7 +357,7 @@ window.CHOULEGAL_EVENT_KITS = [
     status: "引導式",
     category: "勞動與職場",
     title: "被資遣或遭解雇",
-    summary: "協助使用者判斷解雇理由、年資、資遣費、預告工資、調解路徑與應保存文件。",
+    summary: "協助你判斷解雇理由、年資、資遣費、預告工資、調解路徑與應保存文件。",
     firstQuestions: ["公司給的解雇理由是什麼？", "到職與離職日期為何？", "是否有書面通知？", "是否已領到資遣費與非自願離職證明？"],
     riskSignals: ["未給書面理由", "未給資遣費或預告工資", "解雇理由與事實不符", "雇主要求簽不合理切結"],
     deadlines: ["勞資爭議調解或訴訟期限依請求類型而定，收到通知後應盡快處理"],
@@ -503,7 +503,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "unpaid-wages-overtime",
-    status: "詳情頁",
+    status: "重點整理",
     category: "勞動與職場",
     title: "薪資、加班費或特休未給",
     summary: "處理加班費、平均工資、薪資單異常、特休折現與基本工資爭議。",
@@ -523,7 +523,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "work-injury",
-    status: "詳情頁",
+    status: "重點整理",
     category: "勞動與職場",
     title: "職災、醫療與失能補償",
     summary: "整理職災認定、醫療費、原領工資、失能或死亡補償與雇主責任。",
@@ -539,7 +539,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "non-compete-or-confidentiality",
-    status: "詳情頁",
+    status: "重點整理",
     category: "勞動與職場",
     title: "競業禁止與保密條款",
     summary: "檢核離職後競業禁止、補償、營業秘密與保密義務風險。",
@@ -571,7 +571,7 @@ window.CHOULEGAL_EVENT_KITS = [
     experts: ["律師", "保險理賠人員"],
     nextSteps: ["先整理事故與醫療證據", "估算損害項目", "避免過早簽和解", "再判斷談判策略"],
     guidedFlow: {
-      intro: "先看事故走到哪個階段。系統會整理現在該做的事、要留的證據與可用的試算工具。",
+      intro: "先看事故走到哪個階段。頁面會整理現在該做的事、要留的證據與可用的試算工具。",
       steps: [
         {
           id: "stage",
@@ -703,7 +703,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "general-damages-or-settlement",
-    status: "詳情頁",
+    status: "重點整理",
     category: "車禍與損害賠償",
     title: "一般損害賠償與和解",
     summary: "適用借貸、侵權、財物損害、人身損害與其他民事賠償協商。",
@@ -883,7 +883,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "medical-beauty-or-health-dispute",
-    status: "候選",
+    status: "規劃中",
     category: "消費與契約",
     title: "醫美、美容與健康服務爭議",
     summary: "整理美容或醫美服務退費、療程爭議、效果不符與醫療爭議分流。",
@@ -913,7 +913,7 @@ window.CHOULEGAL_EVENT_KITS = [
     experts: ["租賃專業律師", "地方政府租賃爭議資源"],
     nextSteps: ["保存房況與通知紀錄", "要求扣款明細", "確認租約約定", "必要時申請調解"],
     guidedFlow: {
-      intro: "先分辨是押金、修繕還是退租爭議。系統會幫你抓出要通知、要拍照、要保存的資料。",
+      intro: "先分辨是押金、修繕還是退租爭議。頁面會整理要通知、要拍照、要保存的資料。",
       steps: [
         {
           id: "issue",
@@ -1045,7 +1045,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "property-purchase-or-title-risk",
-    status: "詳情頁",
+    status: "重點整理",
     category: "租屋與不動產",
     title: "不動產產權與交易風險",
     summary: "適用買賣、繼承取得、抵押設定、限制登記與產權檢核。",
@@ -1063,7 +1063,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "debt-collection-or-payment-order",
-    status: "候選",
+    status: "規劃中",
     category: "債務與金錢",
     title: "被追債、支付命令與強制執行",
     summary: "處理債務確認、時效、利息、支付命令異議與執行風險。",
@@ -1081,7 +1081,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "loan-or-private-borrowing",
-    status: "候選",
+    status: "規劃中",
     category: "債務與金錢",
     title: "私人借款與欠款未還",
     summary: "協助整理借款證據、利息計算、時效、催告與和解選項。",
@@ -1099,7 +1099,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "insurance-beneficiary-tax",
-    status: "詳情頁",
+    status: "重點整理",
     category: "保險與稅務",
     title: "保險受益人、遺產與稅務風險",
     summary: "處理保險金是否納入遺產、要保人身故、受益人順位、保價金與稅務風險。",
@@ -1118,7 +1118,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "gift-tax-and-estate-planning",
-    status: "候選",
+    status: "規劃中",
     category: "保險與稅務",
     title: "贈與、遺產稅與財產移轉",
     summary: "整理贈與稅、分年贈與、夫妻互贈、遺產稅與未來繼承風險。",
@@ -1136,7 +1136,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "government-complaint-or-mediation",
-    status: "候選",
+    status: "規劃中",
     category: "行政與申訴",
     title: "申訴、調解與機關程序",
     summary: "協助民眾分辨該找勞工局、消保官、調解委員會、法院或其他機關。",
@@ -1153,7 +1153,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "freelancer-contract-payment",
-    status: "候選",
+    status: "規劃中",
     category: "企業與工作者基本法務",
     title: "自由工作者收款與契約爭議",
     summary: "處理接案、承攬、服務契約、尾款未付、驗收與著作權歸屬。",
@@ -1170,7 +1170,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "small-business-employment-compliance",
-    status: "候選",
+    status: "規劃中",
     category: "企業與工作者基本法務",
     title: "小店與新創的人事合規",
     summary: "適用雇主、店家與小型企業檢查薪資、工時、勞健保、資遣與競業風險。",
