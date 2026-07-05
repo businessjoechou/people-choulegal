@@ -518,7 +518,7 @@
       ? '接著回答「' + kit.guidedFlow.steps[answeredCount].title + '」。'
       : '初步分流完成。先把資料整理好，再使用工具估算或準備諮詢。';
     var visibleActions = firstItems(prioritizedItems('actions', selectedOptions.map(function (option) { return option.note; })), 3);
-    var visibleDocuments = firstItems(prioritizedItems('documents', kit.documents), 4);
+    var visibleDocuments = firstItems(prioritizedItems('documents', kit.documents), 6);
     var visibleFlags = firstItems(flags, 4);
     var visibleTools = firstItems(recommendedTools.length ? recommendedTools : kit.tools, 3);
     result.innerHTML = [
