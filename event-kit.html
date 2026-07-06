@@ -7,287 +7,19 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>事件工具包詳情｜周全民眾版</title>
-<meta name="description" content="周全民眾版事件工具包詳情，整理法律事件的適用情境、風險訊號、期限、文件清單、相關工具與下一步。">
+<meta name="description" content="周全民眾版事件工具包詳情，整理法律事件的適用情境、風險訊號、期限提醒、文件清單、相關工具與下一步。">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://people.choulegal.com/event-kit.html">
 <meta property="og:title" content="事件工具包詳情｜周全民眾版">
-<meta property="og:description" content="整理法律事件的適用情境、風險訊號、期限、文件清單、相關工具與下一步。">
+<meta property="og:description" content="整理法律事件的適用情境、風險訊號、期限提醒、文件清單、相關工具與下一步。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://people.choulegal.com/event-kit.html">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://people.choulegal.com/icon-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600&family=Noto+Sans+TC:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #08090d;
-    --panel: rgba(255,255,255,0.035);
-    --line: rgba(255,255,255,0.12);
-    --line-soft: rgba(255,255,255,0.075);
-    --text: rgba(255,255,255,0.94);
-    --muted: rgba(255,255,255,0.58);
-    --faint: rgba(255,255,255,0.38);
-    --accent: #f5c66d;
-    --accent-blue: #93c5fd;
-  }
-  body {
-    min-height: 100vh;
-    background:
-      radial-gradient(circle at top left, rgba(245,158,11,0.15), transparent 32rem),
-      radial-gradient(circle at bottom right, rgba(147,197,253,0.12), transparent 34rem),
-      var(--bg);
-    color: var(--text);
-    font-family: "Noto Sans TC", system-ui, sans-serif;
-    font-size: 15px;
-    line-height: 1.76;
-    -webkit-font-smoothing: antialiased;
-  }
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
-    background-size: 72px 72px;
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.72), transparent 74%);
-  }
-  a { color: inherit; text-decoration: none; }
-  a:focus-visible { outline: 2px solid rgba(245,198,109,0.75); outline-offset: 3px; border-radius: 8px; }
-  .container { width: min(1040px, calc(100% - 40px)); margin: 0 auto; }
-  .nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 0; }
-  .brand { font-family: "Noto Serif TC", serif; font-size: 17px; font-weight: 500; letter-spacing: 0.03em; }
-  .nav-links { display: flex; align-items: center; gap: 22px; color: var(--muted); font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; }
-  .nav-links a:hover { color: var(--text); }
-  .hero { padding: 66px 0 42px; }
-  .eyebrow { color: var(--accent); font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 18px; }
-  h1, h2, h3 { font-family: "Noto Serif TC", serif; font-weight: 500; line-height: 1.22; text-wrap: balance; }
-  h1 { font-size: clamp(38px, 6vw, 70px); max-width: 760px; margin-bottom: 20px; }
-  .summary { max-width: 720px; color: var(--muted); font-size: 16px; line-height: 1.95; text-wrap: pretty; }
-  .meta-line { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
-  .pill {
-    border: 1px solid rgba(255,255,255,0.14);
-    border-radius: 999px;
-    padding: 5px 10px;
-    color: rgba(255,255,255,0.74);
-    font-size: 12px;
-  }
-  .layout { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr); gap: 16px; padding: 24px 0 64px; }
-  .panel {
-    border: 1px solid var(--line);
-    background: linear-gradient(180deg, rgba(255,255,255,0.052), rgba(255,255,255,0.018));
-    border-radius: 10px;
-    padding: 24px;
-  }
-  .panel + .panel { margin-top: 16px; }
-  .panel h2 { font-size: 24px; margin-bottom: 16px; }
-  .guided-panel { grid-column: 1 / -1; }
-  .guide-header {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 18px;
-    align-items: start;
-    margin-bottom: 18px;
-  }
-  .guide-label {
-    border: 1px solid rgba(245,198,109,0.28);
-    border-radius: 999px;
-    padding: 5px 10px;
-    color: rgba(245,198,109,0.92);
-    font-family: "JetBrains Mono", monospace;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-  .guide-promise {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
-    margin: 18px 0 6px;
-  }
-  .promise-card {
-    border: 1px solid var(--line-soft);
-    border-radius: 8px;
-    background: rgba(255,255,255,0.024);
-    padding: 14px;
-  }
-  .promise-card strong {
-    display: block;
-    color: rgba(245,198,109,0.92);
-    font-family: "Noto Serif TC", serif;
-    font-weight: 500;
-    margin-bottom: 4px;
-  }
-  .promise-card span {
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 1.7;
-  }
-  .guided-intro { color: var(--muted); margin-bottom: 18px; text-wrap: pretty; }
-  .flow-progress {
-    display: inline-flex;
-    align-items: center;
-    min-height: 30px;
-    border: 1px solid rgba(245,198,109,0.28);
-    border-radius: 999px;
-    padding: 4px 11px;
-    color: rgba(245,198,109,0.92);
-    font-family: "JetBrains Mono", monospace;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-  .flow-step {
-    border-top: 1px solid var(--line-soft);
-    padding-top: 18px;
-    margin-top: 18px;
-    transition: opacity 180ms ease, filter 180ms ease;
-  }
-  .flow-step:first-of-type {
-    border-top: none;
-    padding-top: 0;
-    margin-top: 0;
-  }
-  .flow-step h3 { font-size: 19px; margin-bottom: 6px; }
-  .flow-step p { color: var(--muted); font-size: 13px; margin-bottom: 12px; text-wrap: pretty; }
-  .flow-step.locked { display: none; }
-  .option-grid { display: grid; gap: 8px; }
-  .flow-option {
-    border: 1px solid rgba(255,255,255,0.12);
-    background: rgba(255,255,255,0.025);
-    border-radius: 8px;
-    padding: 12px 14px;
-    color: var(--text);
-    font: inherit;
-    text-align: left;
-    cursor: pointer;
-  }
-  .flow-option:hover, .flow-option.active {
-    border-color: rgba(245,198,109,0.58);
-    background: rgba(245,198,109,0.09);
-  }
-  .flow-option:disabled {
-    cursor: not-allowed;
-    opacity: 0.55;
-  }
-  .flow-option strong {
-    display: block;
-    font-family: "Noto Serif TC", serif;
-    font-weight: 500;
-    margin-bottom: 3px;
-  }
-  .flow-option span { color: var(--muted); font-size: 12px; }
-  .flow-result {
-    border: 1px solid rgba(147,197,253,0.3);
-    background: rgba(147,197,253,0.075);
-    border-radius: 10px;
-    padding: 18px;
-    margin-top: 18px;
-  }
-  .flow-result h3 { font-size: 18px; margin-bottom: 10px; }
-  .flow-result-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.82fr); gap: 12px; margin-top: 14px; }
-  .flow-section {
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 8px;
-    padding: 14px;
-    background: rgba(0,0,0,0.12);
-  }
-  .flow-section h4 {
-    color: rgba(245,198,109,0.9);
-    font-family: "JetBrains Mono", monospace;
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-  }
-  .flow-section .list { gap: 8px; }
-  .flow-section .list li { font-size: 13px; line-height: 1.65; }
-  .flow-note {
-    border-left: 2px solid rgba(245,198,109,0.5);
-    color: rgba(255,255,255,0.78);
-    margin-top: 12px;
-    padding-left: 12px;
-    font-size: 13px;
-    line-height: 1.75;
-  }
-  .flow-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
-  .flow-tags span {
-    border: 1px solid rgba(255,255,255,0.16);
-    border-radius: 999px;
-    padding: 4px 9px;
-    color: rgba(255,255,255,0.76);
-    font-size: 12px;
-  }
-  .list { list-style: none; display: grid; gap: 10px; }
-  .list li {
-    position: relative;
-    padding-left: 18px;
-    color: rgba(255,255,255,0.76);
-    text-wrap: pretty;
-  }
-  .list li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 12px;
-    width: 5px;
-    height: 5px;
-    border-radius: 999px;
-    background: var(--accent);
-  }
-  .tool-links { display: flex; flex-wrap: wrap; gap: 8px; }
-  .tool-links a {
-    display: inline-flex;
-    align-items: center;
-    min-height: 32px;
-    border: 1px solid rgba(255,255,255,0.14);
-    border-radius: 999px;
-    padding: 5px 12px;
-    color: rgba(255,255,255,0.8);
-    font-size: 12px;
-  }
-  .tool-links a:hover { border-color: rgba(245,198,109,0.55); color: var(--text); }
-  .aside-card {
-    border: 1px solid var(--line-soft);
-    background: rgba(255,255,255,0.03);
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 16px;
-  }
-  .aside-title { color: var(--faint); font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 10px; }
-  .context-panel h2 { margin-bottom: 10px; }
-  .context-text { color: var(--muted); margin-bottom: 16px; text-wrap: pretty; }
-  .supplement-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-  .next-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    min-height: 44px;
-    border-radius: 8px;
-    background: rgba(245,198,109,0.92);
-    color: #15120b;
-    font-weight: 600;
-    margin-top: 6px;
-  }
-  .empty { padding: 100px 0; }
-  .empty h1 { font-size: clamp(32px, 5vw, 56px); }
-  .foot { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; padding: 42px 0 56px; border-top: 1px solid var(--line-soft); color: var(--faint); font-size: 12px; }
-  .foot a:hover { color: var(--text); }
-  @media (max-width: 860px) {
-    .layout { grid-template-columns: 1fr; }
-    .guide-header, .supplement-grid { grid-template-columns: 1fr; }
-    .guide-promise { grid-template-columns: 1fr; }
-    .nav { align-items: flex-start; flex-direction: column; }
-    .nav-links { flex-wrap: wrap; }
-    .flow-result-grid { grid-template-columns: 1fr; }
-  }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/public-pages.css">
 <link rel="stylesheet" href="/css/executive-polish.css">
 </head>
 <body>
@@ -321,7 +53,9 @@
   }
 
   function renderList(items) {
-    return '<ul class="list">' + items.map(function (item) {
+    var safeItems = Array.isArray(items) ? items : [];
+    if (!safeItems.length) return '<p class="summary">目前尚未整理資料。</p>';
+    return '<ul class="list">' + safeItems.map(function (item) {
       return '<li>' + escapeHtml(item) + '</li>';
     }).join('') + '</ul>';
   }
@@ -344,13 +78,13 @@
       '<div class="guide-header">',
       '<div>',
       '<h2>把你的狀況整理成一張處理清單</h2>',
-      '<p class="guided-intro">' + escapeHtml(kit.guidedFlow.intro || '依序回答目前狀況，頁面會把下一步、文件與可用工具整理成短清單。') + '</p>',
+      '<p class="guided-intro">' + escapeHtml(kit.guidedFlow.intro || '依序回答目前狀況，頁面會把下一步、文件與可搭配使用的工具整理成短清單。') + '</p>',
       '</div>',
       '<div class="guide-label">約 3 分鐘</div>',
       '</div>',
       '<div class="guide-promise">',
       '<div class="promise-card"><strong>現在卡在哪裡</strong><span>先用幾個選項定位目前階段。</span></div>',
-      '<div class="promise-card"><strong>接下來先做什麼</strong><span>整理三件可以立即處理的事。</span></div>',
+      '<div class="promise-card"><strong>接下來先做什麼</strong><span>整理三件可以先處理的事。</span></div>',
       '<div class="promise-card"><strong>資料要留什麼</strong><span>列出後續常會用到的文件與紀錄。</span></div>',
       '</div>',
       '<div class="flow-progress" id="flowProgress">第 01 題 / 共 ' + String(kit.guidedFlow.steps.length).padStart(2, '0') + ' 題</div>',
@@ -374,7 +108,7 @@
       }).join(''),
       '<div class="flow-result" id="flowResult">',
       '<h3>你的處理清單</h3>',
-      '<p class="summary">從第一題開始選。完成後，這裡會整理可以先做的事、要準備的資料與適合使用的工具。</p>',
+      '<p class="summary">從第一題開始選。完成後，這裡會整理可以先做的事、要準備的資料與可搭配使用的工具。</p>',
       '</div>',
       '</article>'
     ].join('');
@@ -395,7 +129,7 @@
       '<p class="summary">' + escapeHtml(kit.summary) + ' ' + escapeHtml(heroSuffix) + '</p>',
       '<div class="meta-line">',
       '<span class="pill">' + escapeHtml(statusLabel) + '</span>',
-      kit.experts.map(function (expert) { return '<span class="pill">' + escapeHtml(expert) + '</span>'; }).join(''),
+      (kit.experts || []).map(function (expert) { return '<span class="pill">' + escapeHtml(expert) + '</span>'; }).join(''),
       '</div>',
       '</section>',
       '<section class="layout">',
