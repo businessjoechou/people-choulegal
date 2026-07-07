@@ -6,11 +6,11 @@
 <meta charset="UTF-8">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>事件工具包詳情｜周全民眾版</title>
-<meta name="description" content="周全民眾版事件工具包詳情，整理法律事件的適用情境、風險訊號、期限提醒、文件清單、相關工具與下一步。">
+<title>事件包詳情｜周全民眾版</title>
+<meta name="description" content="周全民眾版事件包詳情，整理法律事件的適用情境、風險訊號、期限提醒、文件清單、相關工具與下一步。">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://people.choulegal.com/event-kit.html">
-<meta property="og:title" content="事件工具包詳情｜周全民眾版">
+<meta property="og:title" content="事件包詳情｜周全民眾版">
 <meta property="og:description" content="整理法律事件的適用情境、風險訊號、期限提醒、文件清單、相關工具與下一步。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://people.choulegal.com/event-kit.html">
@@ -27,8 +27,9 @@
   <header class="nav">
     <a class="brand" href="/">周全｜民眾版</a>
     <nav class="nav-links" aria-label="主選單">
-      <a href="/event-kits.html">事件工具包</a>
-      <a href="/tools.html">單一工具</a>
+      <a href="/">四大方向</a>
+      <a href="/event-kits.html">事件包</a>
+      <a href="/tools.html">工具總覽</a>
       <a href="https://choulegal.com/privacy.html" target="_blank" rel="noopener">隱私權</a>
     </nav>
   </header>
@@ -37,7 +38,7 @@
 
   <footer class="foot">
     <div>周全｜民眾版 © <span id="year">2026</span></div>
-    <div><a href="/">首頁</a> · <a href="/event-kits.html">事件工具包</a> · <a href="/tools.html">單一工具列表</a></div>
+    <div><a href="/">四大方向</a> · <a href="/event-kits.html">事件包</a> · <a href="/tools.html">工具總覽</a></div>
   </footer>
 </div>
 
@@ -142,14 +143,14 @@
       '<div class="aside-card"><div class="aside-title">先放在手邊</div>' + renderList(takeItems(kit.documents, 5)) + '</div>',
       '<div class="aside-card"><div class="aside-title">期限提醒</div>' + renderList(takeItems(kit.deadlines, 3)) + '</div>',
       '<div class="aside-card"><div class="aside-title">相關工具</div>' + renderTools(kit.tools) + '</div>',
-      '<div class="aside-card"><div class="aside-title">事件列表</div><a class="next-link" href="/event-kits.html">回事件工具包</a></div>',
+      '<div class="aside-card"><div class="aside-title">事件列表</div><a class="next-link" href="/event-kits.html">回事件包</a></div>',
       '</aside>',
       '</section>'
     ].join('');
   }
 
   function renderEmpty() {
-    return '<section class="empty"><div class="eyebrow">Not Found</div><h1>找不到這個事件工具包。</h1><p class="summary">請回到事件工具包列表重新選擇。</p><p><a class="next-link" style="max-width:260px" href="/event-kits.html">回事件工具包</a></p></section>';
+    return '<section class="empty"><div class="eyebrow">Not Found</div><h1>找不到這個事件包。</h1><p class="summary">請回到事件包列表重新選擇。</p><p><a class="next-link" style="max-width:260px" href="/event-kits.html">回事件包</a></p></section>';
   }
 
   var params = new URLSearchParams(window.location.search);

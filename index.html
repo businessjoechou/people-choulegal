@@ -1,663 +1,128 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"__CF_TOKEN_PEOPLE__"}'></script>
+<script src="js/ga.js" defer></script>
 <meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>周全民眾版｜法律事件包與權益工具</title>
-<meta name="description" content="遇到車禍、繼承、資遣、離婚、退費或租屋糾紛，先用周全民眾版整理期限、證據、文件與可使用的免費法律工具。">
+<title>周全民眾版｜四大法律方向入口</title>
+<meta name="description" content="周全民眾版入口。先選民法財產、勞動、消費或租屋四大方向，再依需求進入事件包或工具總覽。">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://people.choulegal.com/">
-<meta property="og:title" content="周全民眾版｜法律事件包與權益工具">
-<meta property="og:description" content="先整理期限、證據、文件與下一步，需要金額或日期時再進入免費試算工具。">
+<meta property="og:title" content="周全民眾版｜四大法律方向入口">
+<meta property="og:description" content="先選四大方向，再進入該方向的事件包或工具總覽。">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://people.choulegal.com/">
 <meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://people.choulegal.com/icon-512.png">
 <meta name="twitter:card" content="summary">
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<style>
-  :root {
-    --paper: #f7f7f1;
-    --paper-strong: #ffffff;
-    --ink: #18211f;
-    --muted: #65716d;
-    --line: #d9ded5;
-    --line-strong: #b9c2bb;
-    --teal: #176b63;
-    --clay: #a6422b;
-    --gold: #b6821f;
-    --plum: #6e4b72;
-    --green: #58734d;
-    --shadow: 0 18px 48px rgba(24, 33, 31, 0.11);
-    --radius: 8px;
-    --sans: 'Noto Sans TC', system-ui, sans-serif;
-    --serif: 'Noto Serif TC', serif;
-    --mono: 'DM Mono', ui-monospace, monospace;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    background:
-      linear-gradient(90deg, rgba(24,33,31,0.035) 1px, transparent 1px),
-      linear-gradient(rgba(24,33,31,0.025) 1px, transparent 1px),
-      var(--paper);
-    background-size: 34px 34px, 34px 34px, auto;
-    color: var(--ink);
-    font-family: var(--sans);
-    font-size: 15px;
-    line-height: 1.7;
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
-
-  a { color: inherit; text-decoration: none; }
-  *:focus-visible { outline: 3px solid rgba(23, 107, 99, 0.38); outline-offset: 3px; border-radius: 4px; }
-
-  .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 18px;
-    padding: 18px clamp(18px, 4vw, 42px);
-    background: rgba(247, 247, 241, 0.86);
-    border-bottom: 1px solid var(--line);
-    backdrop-filter: blur(16px);
-  }
-
-  .brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    min-width: 0;
-  }
-
-  .brand-mark {
-    width: 34px;
-    height: 34px;
-    border: 1px solid var(--ink);
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    font-family: var(--serif);
-    font-weight: 700;
-    color: var(--paper);
-    background: var(--ink);
-    flex: 0 0 auto;
-  }
-
-  .brand-text {
-    display: grid;
-    gap: 0;
-  }
-
-  .brand-parent {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
-
-  .brand-child {
-    font-family: var(--serif);
-    font-size: 17px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-  }
-
-  .site-header nav {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
-
-  .site-header nav a,
-  .nav-pill {
-    border: 1px solid transparent;
-    border-radius: 999px;
-    padding: 8px 12px;
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 1;
-  }
-
-  .site-header nav a:hover,
-  .nav-pill:hover {
-    color: var(--ink);
-    border-color: var(--line-strong);
-    background: rgba(255, 255, 255, 0.58);
-  }
-
-  .nav-primary {
-    color: #fff !important;
-    background: var(--teal);
-    border-color: var(--teal) !important;
-  }
-
-  main { overflow: hidden; }
-
-  .hero {
-    position: relative;
-    min-height: min(760px, calc(100vh - 72px));
-    display: grid;
-    align-items: end;
-    padding: clamp(56px, 8vw, 96px) clamp(18px, 4vw, 42px) 34px;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(120deg, rgba(23,107,99,0.14), transparent 36%),
-      linear-gradient(295deg, rgba(166,66,43,0.12), transparent 42%);
-    pointer-events: none;
-  }
-
-  .hero-inner {
-    position: relative;
-    width: min(1180px, 100%);
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
-    gap: clamp(28px, 5vw, 72px);
-    align-items: end;
-  }
-
-  .eyebrow {
-    font-family: var(--mono);
-    color: var(--clay);
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    font-size: 11px;
-    margin-bottom: 18px;
-  }
-
-  h1 {
-    font-family: var(--serif);
-    font-size: clamp(42px, 7.5vw, 92px);
-    line-height: 1.02;
-    letter-spacing: 0;
-    font-weight: 700;
-    max-width: 900px;
-  }
-
-  h1 span { color: var(--teal); }
-
-  .lead {
-    max-width: 650px;
-    margin-top: 22px;
-    color: #44514d;
-    font-size: clamp(16px, 1.5vw, 19px);
-    line-height: 1.9;
-  }
-
-  .hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 30px;
-  }
-
-  .button {
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    border-radius: 999px;
-    padding: 11px 18px;
-    font-weight: 700;
-    border: 1px solid var(--line-strong);
-    background: var(--paper-strong);
-    transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
-  }
-
-  .button:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
-    border-color: var(--teal);
-  }
-
-  .button.primary {
-    background: var(--ink);
-    border-color: var(--ink);
-    color: #fff;
-  }
-
-  .docket {
-    align-self: stretch;
-    display: grid;
-    gap: 12px;
-    padding: 18px;
-    background: rgba(255, 255, 255, 0.72);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-  }
-
-  .docket-title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    font-family: var(--mono);
-    color: var(--muted);
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .triage-row {
-    display: grid;
-    grid-template-columns: 92px 1fr;
-    gap: 14px;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .triage-row:last-child { border-bottom: 0; }
-  .triage-tag {
-    color: var(--teal);
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .triage-row strong {
-    display: block;
-    font-family: var(--serif);
-    font-size: 17px;
-    line-height: 1.35;
-    margin-bottom: 3px;
-  }
-  .triage-row p { color: var(--muted); font-size: 13px; line-height: 1.55; }
-
-  .band {
-    padding: clamp(54px, 7vw, 92px) clamp(18px, 4vw, 42px);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .band.alt { background: rgba(255, 255, 255, 0.45); }
-
-  .section-inner {
-    width: min(1180px, 100%);
-    margin: 0 auto;
-  }
-
-  .section-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
-    gap: 24px;
-    margin-bottom: 24px;
-  }
-
-  h2 {
-    font-family: var(--serif);
-    font-size: clamp(28px, 4vw, 48px);
-    line-height: 1.14;
-    letter-spacing: 0;
-  }
-
-  .section-note {
-    max-width: 430px;
-    color: var(--muted);
-    line-height: 1.8;
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 14px;
-  }
-
-  .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-
-  .card {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    min-height: 210px;
-    padding: 20px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: rgba(255, 255, 255, 0.72);
-    transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
-  }
-
-  .card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow);
-    border-color: var(--line-strong);
-  }
-
-  .card.kit { border-top: 5px solid var(--teal); }
-  .card.calc { border-top: 5px solid var(--clay); }
-  .card.rights { border-top: 5px solid var(--plum); }
-  .card.doc { border-top: 5px solid var(--gold); }
-  .card.labor { border-top-color: var(--green); }
-
-  .card-topline {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-
-  .card h3 {
-    font-family: var(--serif);
-    font-size: 21px;
-    line-height: 1.35;
-    letter-spacing: 0;
-  }
-
-  .card p {
-    color: var(--muted);
-    font-size: 14px;
-    line-height: 1.72;
-  }
-
-  .card-footer {
-    margin-top: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    padding-top: 12px;
-    border-top: 1px solid var(--line);
-    color: var(--teal);
-    font-weight: 700;
-    font-size: 13px;
-  }
-
-  .rail {
-    display: grid;
-    grid-template-columns: 0.95fr 1.05fr;
-    gap: 18px;
-    align-items: start;
-  }
-
-  .route-list,
-  .tool-list {
-    display: grid;
-    gap: 10px;
-  }
-
-  .route-item,
-  .tool-item {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 18px;
-    align-items: center;
-    min-height: 72px;
-    padding: 16px 18px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: rgba(255, 255, 255, 0.74);
-  }
-
-  .route-item:hover,
-  .tool-item:hover {
-    border-color: var(--teal);
-    box-shadow: 0 10px 26px rgba(24, 33, 31, 0.08);
-  }
-
-  .route-item strong,
-  .tool-item strong {
-    display: block;
-    font-family: var(--serif);
-    font-size: 18px;
-    line-height: 1.35;
-    margin-bottom: 3px;
-  }
-
-  .route-item span,
-  .tool-item span {
-    color: var(--muted);
-    font-size: 13px;
-  }
-
-  .type-label {
-    color: var(--clay);
-    font-family: var(--mono);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    white-space: nowrap;
-  }
-
-  .split-note {
-    border-left: 4px solid var(--teal);
-    padding: 18px 20px;
-    background: rgba(23, 107, 99, 0.08);
-    border-radius: 0 var(--radius) var(--radius) 0;
-  }
-
-  .split-note strong {
-    display: block;
-    font-family: var(--serif);
-    font-size: 22px;
-    margin-bottom: 8px;
-  }
-
-  .split-note p { color: #44514d; }
-
-  .footer {
-    padding: 36px clamp(18px, 4vw, 42px);
-    color: var(--muted);
-    font-size: 13px;
-  }
-
-  .footer-inner {
-    width: min(1180px, 100%);
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    gap: 18px;
-    flex-wrap: wrap;
-  }
-
-  .footer a { color: var(--teal); font-weight: 700; }
-
-  @media (max-width: 920px) {
-    .hero { min-height: auto; }
-    .hero-inner,
-    .rail { grid-template-columns: 1fr; }
-    .grid,
-    .grid.two,
-    .grid.four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .docket { margin-top: 10px; }
-  }
-
-  @media (max-width: 640px) {
-    .site-header { align-items: flex-start; flex-direction: column; }
-    .site-header nav { justify-content: flex-start; }
-    .hero { padding-top: 44px; }
-    h1 { font-size: 38px; line-height: 1.08; }
-    .grid,
-    .grid.two,
-    .grid.four { grid-template-columns: 1fr; }
-    .section-head { display: block; }
-    .section-note { margin-top: 10px; }
-    .triage-row { grid-template-columns: 1fr; gap: 6px; }
-    .route-item,
-    .tool-item { grid-template-columns: 1fr; gap: 8px; }
-    .type-label { white-space: normal; }
-  }
-</style>
-<script src="js/ga.js" defer></script>
+<link rel="stylesheet" href="/css/public-pages.css">
 <link rel="stylesheet" href="/css/executive-polish.css">
 </head>
 <body>
+<div class="container">
+  <header class="nav">
+    <a class="brand" href="/">周全｜民眾版</a>
+    <nav class="nav-links" aria-label="主選單">
+      <a href="#directions">四大方向</a>
+      <a href="/tools.html">工具總覽</a>
+      <a href="https://choulegal.com/privacy.html" target="_blank" rel="noopener">隱私權</a>
+    </nav>
+  </header>
 
-<header class="site-header">
-  <a class="brand" href="/">
-    <span class="brand-mark">周</span>
-    <span class="brand-text">
-      <span class="brand-parent">周全 · CHOULEGAL</span>
-      <span class="brand-child">周全民眾版</span>
-    </span>
-  </a>
-  <nav>
-    <a class="nav-primary" href="#events">事件包</a>
-    <a class="" href="#stations">按問題找工具</a>
-    <a class="" href="#tool-policy">什麼時候試算</a>
-  </nav>
-</header>
-<main>
-  <section class="hero">
-    <div class="hero-inner">
-      <div>
-        <div class="eyebrow">Public Legal Desk</div>
-        <h1>先知道下一步，<span>再進工具試算</span></h1>
-        <p class="lead">選你正在處理的事，先看期限、證據、文件和常見風險。真的需要算金額、日期或比例時，再進入對應工具。</p>
-        <div class="hero-actions">
-          <a class="button primary" href="#events">找事件包 <span>→</span></a>
-          <a class="button" href="#stations">按問題找工具</a>
+  <main>
+    <section class="hero home-hero">
+      <div class="eyebrow">Public Legal Desk</div>
+      <h1>先選問題方向，再決定要看事件包或工具。</h1>
+      <p>民眾版先分成四個方向，民法財產、勞動、消費、租屋。進入方向頁後，你可以從具體事件開始整理，也可以直接打開該方向的工具總覽。</p>
+    </section>
+
+    <section class="section" id="directions">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">四大方向</div>
+          <h2>你現在遇到哪一類問題？</h2>
+        </div>
+        <p class="section-desc">這裡只做第一層分流。事件包與工具總覽會放在各方向的介紹頁，避免首頁把所有入口混在一起。</p>
+      </div>
+
+      <div class="direction-grid">
+        <a class="direction-card civil" href="/civil.html">
+          <div class="card-topline"><span>Direction 01</span><span>民法財產</span></div>
+          <h3>繼承、離婚、損害賠償、保險與不動產</h3>
+          <p>適合親人過世、遺產分配、特留分、離婚財產、車禍賠償、保單與不動產處理。</p>
+          <div class="card-footer"><span>進入民法財產</span><span>→</span></div>
+        </a>
+
+        <a class="direction-card labor" href="/labor.html">
+          <div class="card-topline"><span>Direction 02</span><span>勞動</span></div>
+          <h3>資遣、工資、休假、職災與勞資爭議</h3>
+          <p>適合被資遣、加班費、特休、薪資單、職災、勞保與勞資調解前的資料整理。</p>
+          <div class="card-footer"><span>進入勞動</span><span>→</span></div>
+        </a>
+
+        <a class="direction-card consumer" href="/consumer.html">
+          <div class="card-topline"><span>Direction 03</span><span>消費</span></div>
+          <h3>退費、瑕疵、契約、廣告不實與申訴</h3>
+          <p>適合網購退貨、服務解約、補習或健身契約、信用卡爭議、存證信函與消費申訴流程。</p>
+          <div class="card-footer"><span>進入消費</span><span>→</span></div>
+        </a>
+
+        <a class="direction-card rental" href="/rental.html">
+          <div class="card-topline"><span>Direction 04</span><span>租屋</span></div>
+          <h3>押金、修繕、提前解約、漲租與點交</h3>
+          <p>適合押金不退、房東不修、提前退租、超收電費、房東擅入與搬離前後的文件整理。</p>
+          <div class="card-footer"><span>進入租屋</span><span>→</span></div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">進入方向後</div>
+          <h2>同一方向內，事件包和工具總覽並行。</h2>
+        </div>
+        <p class="section-desc">事件包適合從「我遇到一件事」開始。工具總覽適合已經知道要試算、檢核或產生哪一份文件。</p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>先選方向</h3>
+          <p>首頁只判斷你的問題屬於民法財產、勞動、消費或租屋。</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>看方向介紹</h3>
+          <p>每個方向頁會說明常見情境、資料類型與使用路線。</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>選事件包</h3>
+          <p>還不確定下一步時，從事件包整理期限、證據和文件。</p>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <h3>選工具總覽</h3>
+          <p>已經知道要算什麼時，直接進入該方向完整工具主站。</p>
         </div>
       </div>
-      <div class="docket" aria-label="民眾版使用路徑">
-        <div class="docket-title"><span>How to use</span><span>2026</span></div>
-        <div class="triage-row"><span class="triage-tag">01 事件</span><div><strong>先確認你正在處理哪件事</strong><p>資遣、車禍、繼承、退租、退費，都有不同的第一步。</p></div></div>
-        <div class="triage-row"><span class="triage-tag">02 資料</span><div><strong>先看期限、證據與文件</strong><p>受益人順序、求助管道、申訴流程和契約效力，會整理成說明卡或流程指南。</p></div></div>
-        <div class="triage-row"><span class="triage-tag">03 工具</span><div><strong>需要算的時候才進工具</strong><p>資遣費、加班費、特留分、遺產稅、押金與裁判費才進入計算頁。</p></div></div>
-      </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <section id="events" class="band">
-    <div class="section-inner">
-      <div class="section-head">
-        <h2>先從事件開始</h2>
-        <p class="section-note">事件包會先整理處理順序：哪些事情有期限、哪些證據要保留、哪些項目需要試算。</p>
-      </div>
-      <div class="grid">
-      <a class="card kit" href="event-kit.html?id=traffic-accident-compensation">
-        <div class="card-topline"><span>事件包</span><span>車禍</span></div>
-        <h3>車禍後，先處理傷勢、證據與保險</h3>
-        <p>先判斷傷亡、保險、肇責和和解風險，再視需要查看賠償、看護費與和解工具。</p>
-        <div class="card-footer"><span>開始</span><span>→</span></div>
-      </a>
-      <a class="card kit" href="event-kit.html?id=inheritance-after-death">
-        <div class="card-topline"><span>事件包</span><span>繼承</span></div>
-        <h3>親人過世後，先確認期限與債務</h3>
-        <p>整理死亡登記、拋棄或限定繼承、遺產稅、分割、保險與必要文件。</p>
-        <div class="card-footer"><span>開始</span><span>→</span></div>
-      </a>
-      <a class="card kit labor" href="event-kit.html?id=dismissal-or-severance">
-        <div class="card-topline"><span>事件包</span><span>勞動</span></div>
-        <h3>被資遣或突然遭解雇</h3>
-        <p>先看理由、預告工資、資遣費、非自願離職證明和調解資料，避免錯過可主張項目。</p>
-        <div class="card-footer"><span>開始</span><span>→</span></div>
-      </a>
-      <a class="card kit" href="event-kit.html?id=divorce-property-and-children">
-        <div class="card-topline"><span>事件包</span><span>家事</span></div>
-        <h3>離婚、財產與子女安排</h3>
-        <p>把財產、扶養費、協議文字、外遇或暴力風險拆開處理，再決定是否進入法院。</p>
-        <div class="card-footer"><span>開始</span><span>→</span></div>
-      </a>
-      <a class="card kit" href="event-kit.html?id=online-shopping-refund">
-        <div class="card-topline"><span>事件包</span><span>消費</span></div>
-        <h3>退費、瑕疵與消保申訴</h3>
-        <p>從七日鑑賞期、瑕疵救濟、存證信函到 1950 與消保官，先確認可行路徑。</p>
-        <div class="card-footer"><span>開始</span><span>→</span></div>
-      </a>
-      <a class="card kit" href="event-kit.html?id=rental-deposit-repair">
-        <div class="card-topline"><span>事件包</span><span>租屋</span></div>
-        <h3>押金、修繕與退租糾紛</h3>
-        <p>先處理點交、照片、扣款明細和修繕通知，必要時再走調處或小額程序。</p>
-        <div class="card-footer"><span>開始</span><span>→</span></div>
-      </a></div>
-    </div>
-  </section>
-
-  <section id="stations" class="band alt">
-    <div class="section-inner">
-      <div class="section-head">
-        <h2>按問題找工具</h2>
-        <p class="section-note">已經知道自己要查哪類問題，可以直接進站；還不確定時，建議先從上方事件包開始。</p>
-      </div>
-      <div class="grid four">
-      <a class="card kit" href="https://inheritance.choulegal.com/">
-        <div class="card-topline"><span>InheritancePro</span><span>民法財產</span></div>
-        <h3>繼承、離婚、不動產與保險</h3>
-        <p>適合親人過世、遺產分配、特留分、離婚財產、保單與不動產處理。</p>
-        <div class="card-footer"><span>進入民法財產</span><span>→</span></div>
-      </a>
-      <a class="card kit labor" href="https://labor.choulegal.com/">
-        <div class="card-topline"><span>LaborPro</span><span>勞基法</span></div>
-        <h3>資遣、工資、休假與職災</h3>
-        <p>適合被資遣、加班費、特休、薪資單、職災、勞保與勞資爭議。</p>
-        <div class="card-footer"><span>進入勞基法權益</span><span>→</span></div>
-      </a>
-      <a class="card rights" href="https://consumer.choulegal.com/">
-        <div class="card-topline"><span>ConsumerPro</span><span>消費</span></div>
-        <h3>退費、瑕疵、契約與申訴</h3>
-        <p>適合網購、醫美、補習、標錯價、盜刷、廣告不實與定型化契約。</p>
-        <div class="card-footer"><span>進入消費爭議</span><span>→</span></div>
-      </a>
-      <a class="card doc" href="https://rental.choulegal.com/">
-        <div class="card-topline"><span>RentalPro</span><span>租屋</span></div>
-        <h3>押金、修繕、漲租與房東行為</h3>
-        <p>適合押金不退、房東不修、提前解約、超收電費、斷水電或擅入。</p>
-        <div class="card-footer"><span>進入租屋權益</span><span>→</span></div>
-      </a></div>
-    </div>
-  </section>
-
-  <section id="tool-policy" class="band">
-    <div class="section-inner rail">
-      <div class="split-note">
-        <strong>什麼時候進工具</strong>
-        <p>需要金額、日期或比例時，再使用計算工具。只是想知道求助管道、申訴流程或該準備哪些文件，先看流程指南與文件清單會比較快。</p>
-      </div>
-      <div class="route-list">
-        
-      <a class="tool-item" href="https://labor.choulegal.com/severance.html">
-        <span>
-          <strong>資遣費、加班費、特休、職災補償</strong>
-          <span>有公式、有日期、有金額，保留為計算工具。</span>
-        </span>
-        <span class="type-label">CALCULATOR</span>
-      </a>
-        
-      <a class="tool-item" href="https://rental.choulegal.com/help-channels.html">
-        <span>
-          <strong>租屋求助管道、消保申訴流程</strong>
-          <span>重點是分流與下一步，改成權益查詢或流程指南。</span>
-        </span>
-        <span class="type-label">RIGHTS</span>
-      </a>
-        
-      <a class="tool-item" href="https://consumer.choulegal.com/consumer-letter.html">
-        <span>
-          <strong>存證信函、點交清單、離婚協議檢核</strong>
-          <span>目標是產出文字或清單，歸到文件與檢核。</span>
-        </span>
-        <span class="type-label">DOCUMENT</span>
-      </a>
-      </div>
-    </div>
-  </section>
-</main>
-<footer class="footer"><div class="footer-inner"><span>周全法律科技 ChouLegal · 民眾版</span><span><a href="https://choulegal.com/">回周全首頁</a> · <a href="privacy.html">隱私權</a></span></div></footer>
+  <footer class="foot">
+    <div>周全｜民眾版 © <span id="year">2026</span></div>
+    <div><a href="/tools.html">工具總覽</a> · <a href="https://choulegal.com/">周全首頁</a> · <a href="mailto:businessjoechou@gmail.com">聯絡</a></div>
+  </footer>
+</div>
+<script>
+  var year = document.getElementById('year');
+  if (year) year.textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
