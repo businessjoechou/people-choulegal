@@ -85,8 +85,8 @@
       '<div class="guide-label">約 3 分鐘</div>',
       '</div>',
       '<div class="guide-promise">',
-      '<div class="promise-card"><strong>現在卡在哪裡</strong><span>先用幾個選項定位目前階段。</span></div>',
-      '<div class="promise-card"><strong>接下來先做什麼</strong><span>整理三件可以先處理的事。</span></div>',
+      '<div class="promise-card"><strong>現在卡在哪裡</strong><span>用幾個選項定位目前階段。</span></div>',
+      '<div class="promise-card"><strong>接下來怎麼做</strong><span>整理三件優先處理的事項。</span></div>',
       '<div class="promise-card"><strong>資料要留什麼</strong><span>列出後續常會用到的文件與紀錄。</span></div>',
       '</div>',
       '<div class="flow-progress" id="flowProgress">第 01 題 / 共 ' + String(kit.guidedFlow.steps.length).padStart(2, '0') + ' 題</div>',
@@ -110,7 +110,7 @@
       }).join(''),
       '<div class="flow-result" id="flowResult">',
       '<h3>你的處理清單</h3>',
-      '<p class="summary">從第一題開始選。完成後，這裡會整理可以先做的事、要準備的資料與可搭配使用的工具。</p>',
+      '<p class="summary">從第一題開始選。完成後，這裡會整理優先處理步驟、要準備的資料與可搭配使用的工具。</p>',
       '</div>',
       '</article>'
     ].join('');
@@ -123,7 +123,7 @@
     var statusLabel = kit.guidedFlow ? '可逐步作答' : '重點整理';
     var heroSuffix = kit.guidedFlow
       ? '回答下方問題後，頁面會整理一份初步處理清單。'
-      : '下方先整理適用情境、風險訊號、文件與相關工具。';
+      : '下方整理適用情境、風險訊號、文件與相關工具。';
     return [
       '<section class="hero">',
       '<div class="eyebrow">' + escapeHtml(kit.category) + '</div>',
@@ -137,11 +137,11 @@
       '<section class="layout">',
       renderGuidedFlow(kit),
       '<div class="supplement-grid">',
-      '<article class="panel context-panel"><h2>適合使用這頁的狀況</h2><p class="context-text">如果下列問題接近你的處境，可以先依這頁整理處理順序。</p>' + renderList(takeItems(kit.firstQuestions, 4)) + '</article>',
-      '<article class="panel context-panel"><h2>處理時要留意</h2><p class="context-text">遇到這些狀況時，先保留紀錄，避免只靠口頭約定處理。</p>' + renderList(takeItems(kit.riskSignals, 4)) + '</article>',
+      '<article class="panel context-panel"><h2>適合使用這頁的狀況</h2><p class="context-text">如果下列問題接近你的處境，可依本頁指引整理處理順序。</p>' + renderList(takeItems(kit.firstQuestions, 4)) + '</article>',
+      '<article class="panel context-panel"><h2>處理時要留意</h2><p class="context-text">遇到這些狀況時，請妥善保留相關紀錄，避免僅以口頭約定處理。</p>' + renderList(takeItems(kit.riskSignals, 4)) + '</article>',
       '</div>',
       '<aside>',
-      '<div class="aside-card"><div class="aside-title">先放在手邊</div>' + renderList(takeItems(kit.documents, 5)) + '</div>',
+      '<div class="aside-card"><div class="aside-title">必備文件</div>' + renderList(takeItems(kit.documents, 5)) + '</div>',
       '<div class="aside-card"><div class="aside-title">期限提醒</div>' + renderList(takeItems(kit.deadlines, 3)) + '</div>',
       '<div class="aside-card"><div class="aside-title">相關工具</div>' + renderTools(kit.tools) + '</div>',
       '<div class="aside-card"><div class="aside-title">事件列表</div><a class="next-link" href="/event-kits.html">回事件包</a></div>',
@@ -253,7 +253,7 @@
     }
     var nextPrompt = answeredCount < totalCount
       ? '接著回答「' + kit.guidedFlow.steps[answeredCount].title + '」。'
-      : '初步分流完成。先把資料整理好，再使用工具估算或準備諮詢。';
+      : '初步分流完成。將資料整理妥當後，可使用工具估算或準備尋求諮詢。';
     var visibleActions = firstItems(prioritizedItems('actions', selectedOptions.map(function (option) { return option.note; })), 3);
     var visibleDocuments = firstItems(prioritizedItems('documents', kit.documents), 6);
     var visibleFlags = firstItems(flags, 4);
@@ -263,10 +263,10 @@
       '<p class="summary">' + escapeHtml(currentOption.note) + ' ' + escapeHtml(nextPrompt) + '</p>',
       visibleFlags.length ? '<div class="flow-tags">' + visibleFlags.map(function (flag) { return '<span>' + escapeHtml(flag) + '</span>'; }).join('') + '</div>' : '',
       '<div class="flow-result-grid">',
-      '<section class="flow-section"><h4>先做這三件事</h4>' + renderList(visibleActions) + '</section>',
-      '<section class="flow-section"><h4>準備這些資料</h4>' + renderList(visibleDocuments) + '</section>',
+      '<section class="flow-section"><h4>優先進行的三個步驟</h4>' + renderList(visibleActions) + '</section>',
+      '<section class="flow-section"><h4>應備資料</h4>' + renderList(visibleDocuments) + '</section>',
       '</div>',
-      '<p class="flow-note">如果期限快到、有人催促簽署文件，或金額與責任還沒有確認，先保留紀錄，再決定是否使用工具估算或諮詢專業人士。</p>',
+      '<p class="flow-note">若申辦期限將至、有人催促簽署文件，或金額與責任歸屬尚未釐清，請先妥善保留相關紀錄，再決定是否使用工具估算或諮詢專業人士。</p>',
       '<div style="margin-top:16px">',
       '<div class="aside-title">建議工具</div>',
       renderTools(visibleTools),
