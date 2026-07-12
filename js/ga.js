@@ -1,5 +1,5 @@
 /**
- * 周全民眾版總入口 — Google Analytics GA4 共用載入器
+ * ChouLegal 權益試算與查詢總入口 — Google Analytics GA4 共用載入器
  * stream 屬於「ChouLegal – Marketing」property（與 choulegal.com、ai.choulegal.com 共用）
  */
 (function () {
