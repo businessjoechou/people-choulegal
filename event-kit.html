@@ -31,6 +31,7 @@
       <a href="/">四大方向</a>
       <a href="/event-kits.html">事件包</a>
       <a href="/tools.html">工具總覽</a>
+      <a href="/lawyers.html">律師媒合</a>
       <a href="https://choulegal.com/privacy.html" target="_blank" rel="noopener">隱私權</a>
     </nav>
   </header>
@@ -39,7 +40,7 @@
 
   <footer class="foot">
     <div>ChouLegal｜權益試算 © <span id="year">2026</span></div>
-    <div><a href="/">四大方向</a> · <a href="/event-kits.html">事件包</a> · <a href="/tools.html">工具總覽</a></div>
+    <div><a href="/">四大方向</a> · <a href="/event-kits.html">事件包</a> · <a href="/tools.html">工具總覽</a> · <a href="/lawyers.html">律師媒合</a></div>
   </footer>
 </div>
 
@@ -144,6 +145,7 @@
       '<div class="aside-card"><div class="aside-title">必備文件</div>' + renderList(takeItems(kit.documents, 5)) + '</div>',
       '<div class="aside-card"><div class="aside-title">期限提醒</div>' + renderList(takeItems(kit.deadlines, 3)) + '</div>',
       '<div class="aside-card"><div class="aside-title">相關工具</div>' + renderTools(kit.tools) + '</div>',
+      '<div class="aside-card lawyer-card"><div class="aside-title">需要個案協助時</div><h2>帶著事件包找律師</h2><p>本頁可協助你整理事件類型、期限、文件與工具結果。若需要法律意見、談判、文件審閱或訴訟代理，請改由執業律師判斷。</p><a class="next-link" href="/lawyers.html?event=' + encodeURIComponent(kit.id) + '">進入律師媒合</a></div>',
       '<div class="aside-card"><div class="aside-title">事件列表</div><a class="next-link" href="/event-kits.html">回事件包</a></div>',
       '</aside>',
       '</section>'
