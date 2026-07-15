@@ -41,6 +41,11 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://people.choulegal.com/teacher-rights.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.84</priority>
+  </url>
+  <url>
     <loc>https://people.choulegal.com/lawyers.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.84</priority>

@@ -1,9 +1,9 @@
 /**
  * ChouLegal 權益試算與查詢總入口 — Google Analytics GA4 共用載入器
- * stream 屬於「ChouLegal – Marketing」property（與 choulegal.com、ai.choulegal.com 共用）
+ * stream 屬於「ChouLegal Network」property（與 choulegal.com、ai.choulegal.com 共用）
  */
 (function () {
-  var id = 'G-9GHY6YF255';
+  var id = 'G-RT23BD12BD';
   var s = document.createElement('script');
   s.async = true;
   s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;

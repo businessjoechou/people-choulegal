@@ -216,7 +216,9 @@
 
   function renderAllKits() {
     var mount = document.getElementById('allKitGrid');
-    var kits = window.CHOULEGAL_EVENT_KITS || [];
+    var kits = (window.CHOULEGAL_EVENT_KITS || []).filter(function (kit) {
+      return kit.status !== '規劃中';
+    });
     if (!mount || !kits.length) return;
     var groups = groupKitsByCategory(kits);
     mount.innerHTML = Object.keys(groups).map(function (category) {

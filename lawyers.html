@@ -42,16 +42,126 @@
       <h1>把事件整理好，再交給律師判斷。</h1>
       <p>ChouLegal 不在工具頁提供個案法律意見。平台負責把事件類型、期限、文件、試算結果與下一步整理成可閱讀的摘要；需要諮詢、談判、文件審閱或訴訟代理時，再由使用者自行選擇是否聯繫合作律師。</p>
       <div class="switcher" aria-label="媒合入口">
-        <a class="switch-card active" href="mailto:businessjoechou@gmail.com?subject=ChouLegal%20%E4%BD%BF%E7%94%A8%E8%80%85%E5%BE%8B%E5%B8%AB%E5%AA%92%E5%90%88">
+        <a class="switch-card active" href="#matching-form">
           <div class="switch-kicker">For Users</div>
           <div class="switch-title">我要找律師</div>
           <div class="switch-text">適合已完成事件包、試算或文件整理，需要個案協助的人。</div>
         </a>
-        <a class="switch-card" href="mailto:businessjoechou@gmail.com?subject=ChouLegal%20%E5%BE%8B%E5%B8%AB%E5%90%88%E4%BD%9C%E8%88%87%E5%BB%A3%E5%91%8A%E7%89%88%E4%BD%8D">
+        <a class="switch-card" href="#lawyer-partner">
           <div class="switch-kicker">For Lawyers</div>
           <div class="switch-title">律師合作洽詢</div>
           <div class="switch-text">適合希望承接特定事件類型、地區或專長曝光的律師。</div>
         </a>
+      </div>
+    </section>
+
+    <section class="section" id="matching-form">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Matching Request</div>
+          <h2>填一份案件需求摘要。</h2>
+        </div>
+        <p class="section-desc">送出後會開啟一封已整理好的 Email 草稿，內容包含事件類型、所在地、需求與可提供資料。正式法律意見、報價與是否接受委任，仍由律師個別確認。</p>
+      </div>
+
+      <div class="match-intake">
+        <form class="match-form" id="lawyerMatchForm">
+          <div class="form-row full">
+            <label for="eventSource">事件包來源</label>
+            <input id="eventSource" name="eventSource" type="text" value="未指定，可直接填寫下方欄位">
+          </div>
+
+          <div class="form-row">
+            <label for="caseType">事件類型</label>
+            <select id="caseType" name="caseType" required>
+              <option value="">請選擇</option>
+              <option value="家庭與繼承">家庭與繼承</option>
+              <option value="婚姻與親子">婚姻與親子</option>
+              <option value="勞動與職場">勞動與職場</option>
+              <option value="消費爭議">消費爭議</option>
+              <option value="住宅租屋">住宅租屋</option>
+              <option value="車禍與損害賠償">車禍與損害賠償</option>
+              <option value="不動產與契約">不動產與契約</option>
+              <option value="其他">其他</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label for="region">所在地或法院地</label>
+            <input id="region" name="region" type="text" placeholder="例：台北、新北、台中；或不確定">
+          </div>
+
+          <div class="form-row">
+            <label for="needType">需要的協助</label>
+            <select id="needType" name="needType" required>
+              <option value="">請選擇</option>
+              <option value="初步諮詢">初步諮詢</option>
+              <option value="消基會諮詢／申訴協助">消基會諮詢／申訴協助</option>
+              <option value="文件審閱">文件審閱</option>
+              <option value="律師函或存證信函">律師函或存證信函</option>
+              <option value="談判或調解">談判或調解</option>
+              <option value="訴訟或非訟代理">訴訟或非訟代理</option>
+              <option value="尚不確定">尚不確定</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label for="urgency">時間狀態</label>
+            <select id="urgency" name="urgency">
+              <option value="一般，不急">一般，不急</option>
+              <option value="一週內需要回覆">一週內需要回覆</option>
+              <option value="三日內需要回覆">三日內需要回覆</option>
+              <option value="有期限或開庭日期">有期限或開庭日期</option>
+              <option value="期限不確定">期限不確定</option>
+            </select>
+          </div>
+
+          <div class="form-row full">
+            <label>目前已整理的資料</label>
+            <div class="check-grid">
+              <label><input type="checkbox" name="prepared" value="事件包摘要"> 事件包摘要</label>
+              <label><input type="checkbox" name="prepared" value="試算結果"> 試算結果</label>
+              <label><input type="checkbox" name="prepared" value="契約或文件"> 契約或文件</label>
+              <label><input type="checkbox" name="prepared" value="對話紀錄"> 對話紀錄</label>
+              <label><input type="checkbox" name="prepared" value="付款或交易紀錄"> 付款或交易紀錄</label>
+              <label><input type="checkbox" name="prepared" value="法院或機關文件"> 法院或機關文件</label>
+            </div>
+          </div>
+
+          <div class="form-row full">
+            <label for="summary">案件簡述</label>
+            <textarea id="summary" name="summary" rows="5" placeholder="簡短寫下發生時間、對方身分、目前卡住的問題，以及你希望律師協助判斷的事。"></textarea>
+          </div>
+
+          <div class="form-row">
+            <label for="contactName">稱呼</label>
+            <input id="contactName" name="contactName" type="text" placeholder="例：王小姐">
+          </div>
+
+          <div class="form-row">
+            <label for="contactMethod">聯絡方式</label>
+            <input id="contactMethod" name="contactMethod" type="text" placeholder="Email、電話或 LINE ID">
+          </div>
+
+          <div class="form-actions">
+            <button class="next-link" type="submit">產生媒合需求信</button>
+            <button class="secondary-action" type="button" id="copyMatchSummary">複製摘要</button>
+          </div>
+          <p class="form-status" id="matchFormStatus" role="status" aria-live="polite"></p>
+        </form>
+
+        <aside class="match-preview" aria-label="媒合需求摘要預覽">
+          <div class="aside-title">Request Summary</div>
+          <h3>媒合需求摘要</h3>
+          <dl>
+            <div><dt>事件</dt><dd id="previewCaseType">尚未選擇</dd></div>
+            <div><dt>地區</dt><dd id="previewRegion">尚未填寫</dd></div>
+            <div><dt>需求</dt><dd id="previewNeedType">尚未選擇</dd></div>
+            <div><dt>時間</dt><dd id="previewUrgency">一般，不急</dd></div>
+            <div><dt>資料</dt><dd id="previewPrepared">尚未勾選</dd></div>
+          </dl>
+          <p>這份摘要會放進 Email 草稿。請不要在第一封信放入身分證字號、帳號、完整病歷或其他高度敏感個資。</p>
+        </aside>
       </div>
     </section>
 
@@ -88,7 +198,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="lawyer-partner">
       <div class="section-head">
         <div>
           <div class="eyebrow">Ad Inventory</div>
@@ -138,9 +248,188 @@
     <div><a href="/">四大方向</a> · <a href="/event-kits.html">事件包</a> · <a href="/tools.html">工具總覽</a></div>
   </footer>
 </div>
+<script src="/js/event-kits-data.js"></script>
 <script>
   var year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
+
+  var form = document.getElementById('lawyerMatchForm');
+  var eventSource = document.getElementById('eventSource');
+  var caseType = document.getElementById('caseType');
+  var region = document.getElementById('region');
+  var needType = document.getElementById('needType');
+  var urgency = document.getElementById('urgency');
+  var summary = document.getElementById('summary');
+  var contactName = document.getElementById('contactName');
+  var contactMethod = document.getElementById('contactMethod');
+  var statusEl = document.getElementById('matchFormStatus');
+  var copyButton = document.getElementById('copyMatchSummary');
+  var incomingPayload = null;
+
+  function valueOrEmpty(field) {
+    return field && field.value ? field.value.trim() : '';
+  }
+
+  function selectedPrepared() {
+    return Array.prototype.slice.call(document.querySelectorAll('input[name="prepared"]:checked'))
+      .map(function (item) { return item.value; });
+  }
+
+  function setPreview(id, value, fallback) {
+    var target = document.getElementById(id);
+    if (target) target.textContent = value || fallback;
+  }
+
+  function updatePreview() {
+    setPreview('previewCaseType', valueOrEmpty(caseType), '尚未選擇');
+    setPreview('previewRegion', valueOrEmpty(region), '尚未填寫');
+    setPreview('previewNeedType', valueOrEmpty(needType), '尚未選擇');
+    setPreview('previewUrgency', valueOrEmpty(urgency), '一般，不急');
+    var prepared = selectedPrepared();
+    setPreview('previewPrepared', prepared.join('、'), '尚未勾選');
+  }
+
+  function buildRequestText() {
+    var prepared = selectedPrepared();
+    return [
+      'ChouLegal 律師媒合需求',
+      '',
+      '事件包來源：' + (valueOrEmpty(eventSource) || '未指定'),
+      '事件類型：' + (valueOrEmpty(caseType) || '未選擇'),
+      '所在地或法院地：' + (valueOrEmpty(region) || '未填寫'),
+      '需要的協助：' + (valueOrEmpty(needType) || '未選擇'),
+      '時間狀態：' + (valueOrEmpty(urgency) || '未填寫'),
+      '目前已整理的資料：' + (prepared.length ? prepared.join('、') : '未勾選'),
+      '',
+      '案件簡述：',
+      valueOrEmpty(summary) || '未填寫',
+      '',
+      '稱呼：' + (valueOrEmpty(contactName) || '未填寫'),
+      '聯絡方式：' + (valueOrEmpty(contactMethod) || '未填寫'),
+      '',
+      '我了解 ChouLegal 僅協助整理需求與媒合入口，不提供個案法律意見；是否接受委任、服務內容與費用，需由我與律師自行確認。'
+    ].join('\n');
+  }
+
+  function selectIfOptionExists(selectEl, value) {
+    if (!selectEl || !value) return;
+    var options = Array.prototype.slice.call(selectEl.options);
+    var matched = options.find(function (option) { return option.value === value; });
+    if (matched) selectEl.value = matched.value;
+  }
+
+  function checkPrepared(values) {
+    if (!Array.isArray(values)) return;
+    var checkboxes = Array.prototype.slice.call(document.querySelectorAll('input[name="prepared"]'));
+    values.forEach(function (value) {
+      var matched = checkboxes.find(function (item) { return item.value === value; });
+      if (matched) matched.checked = true;
+    });
+  }
+
+  function rowsToText(title, rows) {
+    if (!Array.isArray(rows) || rows.length === 0) return '';
+    return [title].concat(rows.map(function (row) {
+      return '- ' + (row.label || '項目') + '：' + (row.value || '未填寫');
+    })).join('\n');
+  }
+
+  function applyPayloadParam() {
+    var params = new URLSearchParams(window.location.search);
+    var payloadText = params.get('payload');
+    if (!payloadText) return;
+
+    try {
+      incomingPayload = JSON.parse(payloadText);
+    } catch (error) {
+      try {
+        incomingPayload = JSON.parse(decodeURIComponent(payloadText));
+      } catch (decodeError) {
+        if (statusEl) statusEl.textContent = '帶入的試算資料無法讀取，請手動填寫媒合表單。';
+        return;
+      }
+    }
+
+    if (!incomingPayload || typeof incomingPayload !== 'object') return;
+    if (incomingPayload.eventSource) eventSource.value = incomingPayload.eventSource;
+    selectIfOptionExists(caseType, incomingPayload.caseType);
+    selectIfOptionExists(needType, incomingPayload.needType);
+    selectIfOptionExists(urgency, incomingPayload.urgency);
+    checkPrepared(incomingPayload.prepared);
+    checkPrepared(['試算結果']);
+
+    var parts = [
+      rowsToText('使用者輸入資料', incomingPayload.inputs),
+      rowsToText('試算結果', incomingPayload.results),
+      rowsToText('備註與法源提示', (incomingPayload.notes || []).map(function (note) {
+        return { label: '備註', value: note };
+      })),
+    ].filter(Boolean);
+
+    if (parts.length) {
+      summary.value = parts.join('\n\n');
+    }
+
+    if (statusEl) statusEl.textContent = '已帶入民眾版試算資料，可補上聯絡方式後一鍵產生媒合需求信。';
+  }
+
+  function applyEventParam() {
+    var params = new URLSearchParams(window.location.search);
+    var eventId = params.get('event');
+    if (!eventId) return;
+    var kits = window.CHOULEGAL_EVENT_KITS || [];
+    var kit = kits.find(function (item) { return item.id === eventId; });
+    if (!kit) {
+      eventSource.value = eventId;
+      return;
+    }
+    eventSource.value = kit.title;
+    if (kit.category) {
+      var options = Array.prototype.slice.call(caseType.options);
+      var matched = options.find(function (option) {
+        return option.value && (
+          option.value === kit.category ||
+          kit.category.indexOf(option.value) !== -1 ||
+          option.value.indexOf(kit.category) !== -1
+        );
+      });
+      if (matched) caseType.value = matched.value;
+    }
+    var eventCheckbox = Array.prototype.slice.call(document.querySelectorAll('input[name="prepared"]'))
+      .find(function (item) { return item.value === '事件包摘要'; });
+    if (eventCheckbox) eventCheckbox.checked = true;
+  }
+
+  if (form) {
+    applyEventParam();
+    applyPayloadParam();
+    updatePreview();
+    form.addEventListener('input', updatePreview);
+    form.addEventListener('change', updatePreview);
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      var subject = 'ChouLegal 律師媒合需求｜' + (valueOrEmpty(caseType) || '未分類');
+      var body = buildRequestText();
+      window.location.href = 'mailto:businessjoechou@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      if (statusEl) statusEl.textContent = '已產生 Email 草稿。若瀏覽器沒有開啟郵件 App，可按「複製摘要」貼到你常用的信箱。';
+    });
+  }
+
+  if (copyButton) {
+    copyButton.addEventListener('click', function () {
+      var text = buildRequestText();
+      if (!navigator.clipboard) {
+        if (statusEl) statusEl.textContent = '此瀏覽器不支援直接複製，請改用產生媒合需求信。';
+        return;
+      }
+      navigator.clipboard.writeText(text).then(function () {
+        if (statusEl) statusEl.textContent = '已複製媒合摘要。';
+      }).catch(function () {
+        if (statusEl) statusEl.textContent = '複製失敗，請改用產生媒合需求信。';
+      });
+    });
+  }
 </script>
 </body>
 </html>

@@ -160,7 +160,7 @@
   var kitId = params.get('id') || 'inheritance-after-death';
   var kits = window.CHOULEGAL_EVENT_KITS || [];
   var selectedKit = kits.find(function (kit) { return kit.id === kitId; });
-  document.getElementById('app').innerHTML = selectedKit ? renderKit(selectedKit) : renderEmpty();
+  document.getElementById('app').innerHTML = selectedKit && selectedKit.status !== '規劃中' ? renderKit(selectedKit) : renderEmpty();
 
   function bindGuidedFlow(kit) {
     if (!kit || !kit.guidedFlow) return;
