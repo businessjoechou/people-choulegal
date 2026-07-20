@@ -149,8 +149,8 @@ button {
 .eyebrow {
   color: var(--clay);
   font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
+  font-size: 12px;
+  letter-spacing: 0;
   text-transform: uppercase;
   margin-bottom: 18px;
 }
@@ -242,9 +242,9 @@ h2 {
 .aside-title,
 .tool-group-title,
 .badge {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
+	  font-family: var(--mono);
+	  font-size: 12px;
+	  letter-spacing: 0;
   text-transform: uppercase;
 }
 
@@ -820,8 +820,8 @@ h2 {
 .match-preview dt {
   color: var(--faint);
   font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
+  font-size: 12px;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 
@@ -1171,8 +1171,8 @@ h2 {
   margin-bottom: 12px;
   color: var(--clay);
   font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
+  font-size: 12px;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 
@@ -1299,8 +1299,8 @@ h2 {
   margin-bottom: 8px;
   color: var(--clay);
   font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
+  font-size: 12px;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 
