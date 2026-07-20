@@ -35,11 +35,7 @@ html {
 
 body {
   min-height: 100vh;
-  background:
-    linear-gradient(90deg, rgba(24, 33, 31, 0.035) 1px, transparent 1px),
-    linear-gradient(rgba(24, 33, 31, 0.025) 1px, transparent 1px),
-    var(--paper);
-  background-size: 34px 34px, 34px 34px, auto;
+  background: var(--paper);
   color: var(--ink);
   font-family: var(--sans);
   font-size: 15px;
@@ -81,7 +77,6 @@ button {
   padding: 18px;
   background: rgba(247, 247, 241, 0.88);
   border-bottom: 1px solid var(--line);
-  backdrop-filter: blur(16px);
 }
 
 .brand {
@@ -173,12 +168,12 @@ h4 {
 
 h1 {
   max-width: 860px;
-  font-size: clamp(38px, 6.4vw, 78px);
+  font-size: 64px;
   margin-bottom: 22px;
 }
 
 h2 {
-  font-size: clamp(28px, 4vw, 46px);
+  font-size: 42px;
 }
 
 .hero p,
@@ -1312,7 +1307,7 @@ h2 {
 .result-brief strong {
   display: block;
   font-family: var(--serif);
-  font-size: clamp(24px, 3vw, 36px);
+  font-size: 32px;
   line-height: 1.2;
   margin-bottom: 10px;
 }
@@ -1380,7 +1375,7 @@ h2 {
 }
 
 .empty h1 {
-  font-size: clamp(32px, 5vw, 56px);
+  font-size: 42px;
 }
 
 .foot {

@@ -883,7 +883,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "medical-beauty-or-health-dispute",
-    status: "規劃中",
+    status: "資料整理中",
     category: "消費與契約",
     title: "醫美、美容與健康服務爭議",
     summary: "整理美容或醫美服務退費、療程爭議、效果不符與醫療爭議分流。",
@@ -1063,7 +1063,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "debt-collection-or-payment-order",
-    status: "規劃中",
+    status: "重點整理",
     category: "債務與金錢",
     title: "被追債、支付命令與強制執行",
     summary: "處理債務確認、時效、利息、支付命令異議與執行風險。",
@@ -1081,7 +1081,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "loan-or-private-borrowing",
-    status: "規劃中",
+    status: "資料整理中",
     category: "債務與金錢",
     title: "私人借款與欠款未還",
     summary: "協助整理借款證據、利息計算、時效、催告與和解選項。",
@@ -1118,7 +1118,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "gift-tax-and-estate-planning",
-    status: "規劃中",
+    status: "資料整理中",
     category: "保險與稅務",
     title: "贈與、遺產稅與財產移轉",
     summary: "整理贈與稅、分年贈與、夫妻互贈、遺產稅與未來繼承風險。",
@@ -1136,7 +1136,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "government-complaint-or-mediation",
-    status: "規劃中",
+    status: "重點整理",
     category: "行政與申訴",
     title: "申訴、調解與機關程序",
     summary: "協助民眾分辨該找勞工局、消保官、調解委員會、法院或其他機關。",
@@ -1153,7 +1153,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "freelancer-contract-payment",
-    status: "規劃中",
+    status: "資料整理中",
     category: "企業與工作者基本法務",
     title: "自由工作者收款與契約爭議",
     summary: "處理接案、承攬、服務契約、尾款未付、驗收與著作權歸屬。",
@@ -1170,7 +1170,7 @@ window.CHOULEGAL_EVENT_KITS = [
   },
   {
     id: "small-business-employment-compliance",
-    status: "規劃中",
+    status: "資料整理中",
     category: "企業與工作者基本法務",
     title: "小店與新創的人事合規",
     summary: "適用雇主、店家與小型企業檢查薪資、工時、勞健保、資遣與競業風險。",
