@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>我該從哪個法律入口開始？｜ChouLegal</title>
+  <meta name="description" content="不用先知道法律分類，從正在發生的事件找出可能需要查看的一個或多個 ChouLegal 免費法律資訊入口。">
+  <link rel="canonical" href="https://people.choulegal.com/domain-router.html">
+  <link rel="stylesheet" href="css/choulegal-home.css">
+  <style>
+    .route-main{width:min(calc(100% - 32px),960px);margin:auto;padding:48px 0 96px}.route-main h1{font:900 clamp(38px,7vw,68px)/1.1 "Noto Serif TC",serif}.route-card{margin-top:24px;padding:clamp(20px,4vw,34px);border:1px solid #c7b89d;background:#fff}.route-options{display:grid;gap:10px}.route-options label{display:grid;grid-template-columns:24px 1fr;gap:10px;padding:14px;border:1px solid #d5c9b7}.route-options input{width:20px;height:20px}.route-main button{margin-top:18px;padding:14px 20px;border:0;background:#17243a;color:#fff;font:700 16px sans-serif}.results{display:grid;gap:12px;margin-top:24px}.result{padding:20px;border-left:5px solid #8b2020;background:#f5efe5}.result a{font-weight:700}.boundary{margin-top:24px;line-height:1.75;color:#5f6872}
+  </style>
+</head>
+<body><main class="route-main" id="main">
+  <a href="./">← 回六大法律權益入口</a>
+  <p class="section-index">跨站分流 / 事件起點</p>
+  <h1>不用先猜法域，先說發生了什麼</h1>
+  <p>同一件事可能同時涉及不同領域。勾選最接近的事件，我們只幫你整理「先看哪些入口」，不判斷權利成立、犯罪成立或案件結果。</p>
+  <form class="route-card" id="route-form">
+    <fieldset><legend><strong>目前有哪些情況？（可複選）</strong></legend><div class="route-options">
+      <label><input type="checkbox" value="rental"><span>房東、租約、押金、修繕、租金或斷水斷電</span></label>
+      <label><input type="checkbox" value="criminal"><span>威脅、傷害、詐騙、侵入住居、報案、傳票或刑事告訴</span></label>
+      <label><input type="checkbox" value="labor"><span>薪資、加班、解僱、職災、勞保或雇主爭議</span></label>
+      <label><input type="checkbox" value="consumer"><span>購物、訂閱、退款、廣告、服務瑕疵或個資外洩</span></label>
+      <label><input type="checkbox" value="inheritance"><span>繼承、家庭、財產分配、損害賠償或事故</span></label>
+      <label><input type="checkbox" value="public"><span>公務員、教師的考績、懲處、申訴或工作權益</span></label>
+    </div></fieldset>
+    <button type="submit">整理我可以先看的入口</button>
+  </form>
+  <section class="results" id="results" aria-live="polite"></section>
+  <p class="boundary">本工具是資訊分流，不是法律判斷。若同時勾選多項，請分別保存各事件的時間、文件與對話；有人身危險、正在遭拘束或期限即將屆至時，應直接聯絡警方、承辦機關、法扶或律師。</p>
+</main>
+<script>
+const routes={rental:["租屋權益","https://rental.choulegal.com/","先整理租約、押金、點交、通知與水電紀錄。"],criminal:["刑事權益","https://criminal.choulegal.com/","先確認程序身分，保存報案、傳票、筆錄、影像與對話。"],labor:["勞動權益","https://labor.choulegal.com/","先整理勞動契約、薪資、出勤、通知與投保資料。"],consumer:["消費爭議","https://consumer.choulegal.com/","先保存訂單、廣告、契約、付款與客服往來。"],inheritance:["民事與財產","https://inheritance.choulegal.com/","先整理人物關係、財產、契約、時間與損害資料。"],public:["公職教師","https://people.choulegal.com/public-servant.html","先保存處分、送達日期、考績、會議與申訴文件。"]};
+document.querySelector("#route-form").addEventListener("submit",e=>{e.preventDefault();const selected=[...e.currentTarget.querySelectorAll("input:checked")].map(i=>i.value);document.querySelector("#results").innerHTML=selected.length?selected.map(k=>{const r=routes[k];return `<article class="result"><h2>${r[0]}</h2><p>${r[2]}</p><a href="${r[1]}">前往${r[0]}平台 →</a></article>`}).join(""):`<article class="result"><h2>還無法分流</h2><p>請至少勾選一個最接近的事件；也可以直接使用下方免費求助入口，請真人協助釐清。</p><a href="https://www.laf.org.tw/">前往法律扶助基金會 ↗</a></article>`});
+</script></body></html>
